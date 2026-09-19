@@ -759,16 +759,28 @@ def process_outbox_events(
                 event.status = "completed"
                 event.processed_at = datetime.now(timezone.utc)
                 processed_count += 1
-
             except Exception as e:
+                db.rollback()
+                logger.error("Failed to process event", extra={"event_id": str(event.id), "error": str(e)})
                 event.status = "failed"
-                event.error_message = str(e) + "\n" + traceback.format_exc()
-                event.processed_at = datetime.now(timezone.utc)
+                event.error_message = str(e)
+            
+            db.commit()
 
-        db.commit()
         return {"status": "success", "processed_events_count": processed_count}
 
     except Exception as e:
         db.rollback()
         logger.error("Worker process failed", extra={"error": str(e)}, exc_info=True)
         raise HTTPException(status_code=500, detail="Worker process failed")
+
+@app.post("/v1/admin/run_scripts")
+def run_scripts(auth: dict = Depends(verify_cron_job)):
+    import os, sys
+    # Add project root to path
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from scripts.purge_data import purge
+    from scripts.import_openfoodfacts import import_data
+    purge()
+    import_data()
+    return {"status": "success"}

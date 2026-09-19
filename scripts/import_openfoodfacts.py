@@ -153,24 +153,33 @@ def import_data():
                 )
                 session.add(nutrition)
                 
-                # Objective scoring metric logic
-                score = 100
-                if nutriments.get("sugars_100g", 0) > 10: score -= 20
-                if nutriments.get("saturated-fat_100g", 0) > 5: score -= 15
-                if nutriments.get("sodium_100g", 0) > 1: score -= 15
-                score = max(0, score)
+                # Objective scoring metric logic per PRD
+                nutrition_score = 60
+                if nutriments.get("sugars_100g", 0) > 10: nutrition_score -= 10
+                if nutriments.get("saturated-fat_100g", 0) > 5: nutrition_score -= 10
+                if nutriments.get("sodium_100g", 0) > 1: nutrition_score -= 10
+                nutrition_score = max(0, nutrition_score)
+
+                ingredient_score = 25  # Baseline for MVP
+                context_score = 15     # Baseline for MVP
                 
-                if score >= 90: band = "A"
-                elif score >= 70: band = "B"
-                elif score >= 50: band = "C"
-                else: band = "D"
+                score = nutrition_score + ingredient_score + context_score
+                
+                if score >= 80: band = "Favorable"
+                elif score >= 60: band = "Mostly favorable"
+                elif score >= 40: band = "Mixed"
+                elif score >= 20: band = "Less favorable"
+                else: band = "Least favorable"
                 
                 rating = Rating(
                     label_version_id=label.id,
                     methodology_version_id=methodology.id,
                     total_score=score,
+                    nutrition_score=nutrition_score,
+                    ingredient_score=ingredient_score,
+                    context_score=context_score,
                     band=band,
-                    confidence_grade="Medium",
+                    confidence_grade="C",  # Provisional, per PRD for automated imports
                     explanation={"summary": "Automated scoring based on 100g nutritional profile from Open Food Facts."},
                     calculated_at=now
                 )
