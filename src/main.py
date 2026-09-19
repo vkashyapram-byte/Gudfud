@@ -28,7 +28,7 @@ def trigger_seed(db: Session = Depends(get_db)):
     from sqlalchemy import text
     
     # 1. Purge all tables to remove non-Indian data (in correct foreign key order)
-    db.execute(text("TRUNCATE TABLE label_ingredients, label_sources, ingredient_evidence, ingredient_regulatory_statuses, reviews, nutrition_facts, ratings, label_versions, product_variants, products, categories, brands, sources, methodologies, ingredients, markets RESTART IDENTITY CASCADE;"))
+    db.execute(text("TRUNCATE TABLE label_ingredient, ingredient_evidence, nutrition_facts, rating, label_version, product_variant, product, category, brand, ingredient, market RESTART IDENTITY CASCADE;"))
     db.commit()
 
     # 2. Add scripts path and run import
