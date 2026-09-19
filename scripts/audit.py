@@ -96,8 +96,13 @@ def check_live_api_ping():
 
     endpoint = f"{api_url.rstrip('/')}/v1/catalogue"
     try:
+        import ssl
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        
         req = urllib.request.Request(endpoint, headers={'User-Agent': 'AuditScript/1.0'})
-        with urllib.request.urlopen(req, timeout=10) as response:
+        with urllib.request.urlopen(req, timeout=10, context=ctx) as response:
             if response.status != 200:
                 print(f"FAIL: HTTP GET returned status {response.status}.")
                 return False
@@ -115,6 +120,17 @@ def check_live_api_ping():
 
 def main():
     print("--- GUD FUD SYSTEM AUDIT ---")
+    
+    # Load .env into os.environ
+    if os.path.exists('.env'):
+        with open('.env', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, val = line.split('=', 1)
+                    if key.strip() not in os.environ:
+                        os.environ[key.strip()] = val.strip()
+
     checks = [
         check_git_state(),
         check_database_state(),
