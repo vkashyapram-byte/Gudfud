@@ -10,5 +10,11 @@
       "src": "/(.*)",
       "dest": "/src/main.py"
     }
+  ],
+  "crons": [
+    {
+      "path": "/v1/admin/worker/process",
+      "schedule": "0 0 * * *"
+    }
   ]
 }
