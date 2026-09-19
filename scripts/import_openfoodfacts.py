@@ -49,8 +49,12 @@ def fetch_openfoodfacts_products():
         # Fetch highly popular products matching staple terms to ensure high-quality verifiable data
         url = f"https://world.openfoodfacts.org/api/v2/search?search_terms={urllib.parse.quote(term)}&fields=code,brands,product_name,ingredients_text,nutriments,categories_tags&page_size=4&sort_by=popularity"
         req = urllib.request.Request(url, headers={'User-Agent': 'GudFud-Data-Importer/1.0'})
+        import ssl
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
         try:
-            with urllib.request.urlopen(req) as response:
+            with urllib.request.urlopen(req, context=ctx) as response:
                 data = json.loads(response.read().decode('utf-8'))
                 products.extend(data.get('products', []))
         except Exception as e:

@@ -3,7 +3,7 @@ from datetime import datetime, date
 from typing import Optional
 from sqlalchemy import ForeignKey, String, Integer, DateTime, Numeric, Index, text, UniqueConstraint, Boolean, Date, BigInteger
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy.types import Uuid as UUID, JSON as JSONB
 
 class Base(DeclarativeBase):
     pass
