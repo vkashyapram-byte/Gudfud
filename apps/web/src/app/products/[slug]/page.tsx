@@ -138,13 +138,9 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
                 {product.ingredients.map((ing, idx) => (
                   <li key={idx} className="flex justify-between items-center text-sm border-b border-brand-border border-dashed pb-2 last:border-0 last:pb-0">
                     <span className="uppercase flex-1">{ing.label_text}</span>
-                    {ing.slug ? (
-                      <Link href={`/ingredients/${ing.slug}`} className="text-xs uppercase bg-brand-surface border border-brand-border px-2 py-1 hover:bg-brand-neutral hover:text-brand-surface transition-none ml-4 flex-shrink-0">
-                        Analysis
-                      </Link>
-                    ) : (
-                      <span className="text-xs uppercase text-brand-neutral/40 ml-4 flex-shrink-0">Unmapped</span>
-                    )}
+                    <span className="text-xs uppercase text-brand-neutral/40 ml-4 flex-shrink-0 font-mono">
+                      {String(ing.position).padStart(2, '0')}
+                    </span>
                   </li>
                 ))}
               </ul>

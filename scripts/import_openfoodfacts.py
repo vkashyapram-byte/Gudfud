@@ -169,7 +169,7 @@ def import_data():
                 cat_slug = slugify(cat_name) or f"cat-{uuid.uuid4().hex[:8]}"
                 
                 product_name = item.get("product_name", "").strip() or "Unnamed Product"
-                product_slug = slugify(f"{brand_name} {product_name} {gtin}")
+                product_slug = slugify(f"{brand_name} {product_name}")
                 
                 ingredients = item.get("ingredients_text", "Ingredients not provided by manufacturer.")
                 nutriments = item.get("nutriments", {})
@@ -179,11 +179,15 @@ def import_data():
                 brand, _ = get_or_create(session, Brand, defaults={"name": brand_name}, slug=brand_slug)
                 category, _ = get_or_create(session, Category, defaults={"name": cat_name}, slug=cat_slug)
                 
-                product, _ = get_or_create(
+                product, created = get_or_create(
                     session, Product,
                     defaults={"brand_id": brand.id, "category_id": category.id, "canonical_name": product_name},
                     slug=product_slug
                 )
+                
+                if not created:
+                    print(f"Skipping {gtin} - Product {product_slug} already exists.")
+                    continue
                 
                 variant = ProductVariant(
                     product_id=product.id,
