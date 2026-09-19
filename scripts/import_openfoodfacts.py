@@ -17,12 +17,21 @@ from src.models import (
     LabelVersion, Rating, MethodologyVersion, NutritionFacts
 )
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
+raw_url = os.getenv("DATABASE_URL")
+if not raw_url:
     raise ValueError("DATABASE_URL environment variable is required")
 
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+if raw_url.startswith("postgres://"):
+    raw_url = raw_url.replace("postgres://", "postgresql://", 1)
+
+parsed = urllib.parse.urlparse(raw_url)
+if parsed.query:
+    qs = urllib.parse.parse_qsl(parsed.query)
+    qs = [(k, v) for k, v in qs if k != 'pgbouncer']
+    parsed = parsed._replace(query=urllib.parse.urlencode(qs))
+    DATABASE_URL = urllib.parse.urlunparse(parsed)
+else:
+    DATABASE_URL = raw_url
 
 engine = create_engine(DATABASE_URL)
 
