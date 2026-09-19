@@ -233,15 +233,34 @@ def import_data():
                     raw_ings = [i.strip() for i in ingredients_text.replace("(", ",").replace(")", ",").replace(".", "").split(",")]
                     parsed_ings = [(i, None) for i in raw_ings if i and len(i) >= 2 and not i.endswith('%')]
 
-                position = 1
+                seen_mapped = set()
+                seen_texts = set()
+                unique_ings = []
+                
                 for raw_ing_text, percent in parsed_ings:
+                    lower_ing = raw_ing_text.lower().strip()
+                    
                     mapped_ing_id = None
-                    lower_ing = raw_ing_text.lower()
                     for keyword, can_ing in canonical_map.items():
                         if keyword in lower_ing:
                             mapped_ing_id = can_ing.id
                             break
                             
+                    # Deduplicate: if we already saw this canonical ingredient, skip it
+                    if mapped_ing_id and mapped_ing_id in seen_mapped:
+                        continue
+                        
+                    # Deduplicate: if we already saw this exact text, skip it
+                    if lower_ing in seen_texts:
+                        continue
+                        
+                    if mapped_ing_id:
+                        seen_mapped.add(mapped_ing_id)
+                    seen_texts.add(lower_ing)
+                    unique_ings.append((raw_ing_text, percent, mapped_ing_id))
+
+                position = 1
+                for raw_ing_text, percent, mapped_ing_id in unique_ings:
                     li = LabelIngredient(
                         label_version_id=label.id,
                         ingredient_id=mapped_ing_id,
