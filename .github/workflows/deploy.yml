@@ -1,0 +1,69 @@
+name: Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_and_deploy:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgrespassword
+          POSTGRES_DB: gudfud
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install alembic
+
+      - name: Run Database Migrations
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/gudfud
+        run: |
+          alembic upgrade head
+
+      - name: Install Frontend Dependencies & Playwright
+        working-directory: ./apps/web
+        run: |
+          npm ci
+          npx playwright install --with-deps
+
+      - name: Run Playwright Tests
+        working-directory: ./apps/web
+        env:
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+        run: |
+          npx playwright test
+
+      - name: Trigger Deployments
+        if: success()
+        run: |
+          echo "Tests passed! Deploying to production..."
+          echo "Vercel Deploy Command: vercel deploy --prod --yes --token \$VERCEL_TOKEN"
+          echo "Render Deploy Command: curl -X POST \$RENDER_DEPLOY_HOOK_URL"

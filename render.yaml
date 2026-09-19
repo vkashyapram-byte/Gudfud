@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: gudfud-api
+    env: docker
+    dockerfilePath: ./src/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gudfud-db
+          property: connectionString
+      - key: ADMIN_JWT_SECRET
+        generateValue: true
+
+  - type: worker
+    name: gudfud-worker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.worker
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gudfud-db
+          property: connectionString
+
+databases:
+  - name: gudfud-db
+    databaseName: gudfud
+    user: gudfud_user
