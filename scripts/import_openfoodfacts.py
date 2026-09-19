@@ -131,6 +131,10 @@ def import_data():
     
     with Session(engine) as session:
         try:
+            session.execute(text("TRUNCATE TABLE product CASCADE;"))
+            session.commit()
+            print("Purged old products.")
+            
             now = datetime.now(timezone.utc)
             
             canonical_map = seed_canonical_ingredients(session)
@@ -201,7 +205,7 @@ def import_data():
                 label = LabelVersion(
                     variant_id=variant.id,
                     version_no=1,
-                    ingredients_raw=ingredients,
+                    ingredients_raw=ingredients_text,
                     label_image_id=image_url,
                     captured_at=now,
                     review_status="published"  # Strict auto-publish parameter
