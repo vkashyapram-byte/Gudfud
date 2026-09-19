@@ -49,7 +49,7 @@ def get_catalogue(
         .join(models.LabelVersion, models.LabelVersion.variant_id == models.ProductVariant.id)
         .join(models.Rating, models.Rating.label_version_id == models.LabelVersion.id)
         .where(
-            models.Product.status == "published",
+            models.Product.status == "active",
             models.LabelVersion.review_status == "published"
         )
     )
@@ -102,7 +102,7 @@ def search_catalogue(
         models.Brand.name.label("subtitle"),
         func.similarity(models.Product.canonical_name, q).label("sim_score")
     ).join(models.Brand, models.Product.brand_id == models.Brand.id).where(
-        models.Product.status == "published",
+        models.Product.status == "active",
         func.similarity(models.Product.canonical_name, q) > 0.1
     )
 
@@ -113,7 +113,7 @@ def search_catalogue(
         literal("Brand").label("subtitle"),
         func.similarity(models.Brand.name, q).label("sim_score")
     ).where(
-        models.Brand.status == "published",
+        models.Brand.status == "active",
         func.similarity(models.Brand.name, q) > 0.1
     )
 
@@ -124,7 +124,7 @@ def search_catalogue(
         models.ProductVariant.gtin.label("subtitle"),
         literal(1.0).label("sim_score")
     ).join(models.ProductVariant, models.ProductVariant.product_id == models.Product.id).where(
-        models.Product.status == "published",
+        models.Product.status == "active",
         models.ProductVariant.gtin == q
     )
 
@@ -174,7 +174,7 @@ def get_product_analysis(
         .join(models.Rating, models.Rating.label_version_id == models.LabelVersion.id)
         .filter(
             models.Product.slug == slug,
-            models.Product.status == "published",
+            models.Product.status == "active",
             models.LabelVersion.review_status == "published"
         )
         .first()
@@ -230,7 +230,7 @@ def get_ingredient_analysis(slug: str, db: Session = Depends(get_db)):
     # 1. Retrieve canonical ingredient or resolve from an alias
     ingredient = db.query(models.Ingredient).filter(
         models.Ingredient.slug == slug,
-        models.Ingredient.status == "published"
+        models.Ingredient.status == "active"
     ).first()
 
     if not ingredient:
@@ -240,7 +240,7 @@ def get_ingredient_analysis(slug: str, db: Session = Depends(get_db)):
         if alias:
             ingredient = db.query(models.Ingredient).filter(
                 models.Ingredient.id == alias.ingredient_id,
-                models.Ingredient.status == "published"
+                models.Ingredient.status == "active"
             ).first()
 
     if not ingredient:
@@ -314,7 +314,7 @@ def get_ingredient_analysis(slug: str, db: Session = Depends(get_db)):
         models.Rating, models.Rating.label_version_id == models.LabelVersion.id
     ).filter(
         models.LabelIngredient.ingredient_id == ingredient.id,
-        models.Product.status == "published",
+        models.Product.status == "active",
         models.LabelVersion.review_status == "published"
     ).distinct().all()
 
@@ -348,7 +348,7 @@ def compare_product_variants(
         models.Brand, models.Product.brand_id == models.Brand.id
     ).filter(
         models.Product.slug == product_slug,
-        models.Product.status == "published"
+        models.Product.status == "active"
     ).first()
 
     if not product:
@@ -612,7 +612,7 @@ def get_product_by_barcode(gtin: str, db: Session = Depends(get_db)):
         .join(models.LabelVersion, models.LabelVersion.variant_id == models.ProductVariant.id)
         .filter(
             models.ProductVariant.gtin == gtin,
-            models.Product.status == "published",
+            models.Product.status == "active",
             models.LabelVersion.review_status == "published"
         ).first()
     )
