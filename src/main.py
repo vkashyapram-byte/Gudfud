@@ -73,7 +73,7 @@ def get_catalogue(
     )
 
     if market:
-        query = query.where(models.Market.country_code == market)
+        query = query.where(models.Market.country_code == market.upper())
 
     # Calculate total matching records
     total_query = select(func.count()).select_from(query.subquery())
@@ -152,6 +152,7 @@ def search_catalogue(
     )
 
     if market:
+        market = market.upper()
         market_subquery = select(models.ProductVariant.product_id).join(models.Market, models.ProductVariant.market_id == models.Market.id).where(models.Market.country_code == market)
         product_query = product_query.where(models.Product.id.in_(market_subquery))
         gtin_query = gtin_query.join(models.Market, models.ProductVariant.market_id == models.Market.id).where(models.Market.country_code == market)
