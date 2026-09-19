@@ -21,6 +21,25 @@ app = FastAPI(
     version="1.0.0"
 )
 
+@app.post("/v1/admin/trigger_seed")
+def trigger_seed(db: Session = Depends(get_db)):
+    import sys
+    import os
+    from sqlalchemy import text
+    
+    # 1. Purge all tables to remove non-Indian data (in correct foreign key order)
+    db.execute(text("TRUNCATE TABLE label_ingredients, label_sources, ingredient_evidence, ingredient_regulatory_statuses, reviews, nutrition_facts, ratings, label_versions, product_variants, products, categories, brands, sources, methodologies, ingredients, markets RESTART IDENTITY CASCADE;"))
+    db.commit()
+
+    # 2. Add scripts path and run import
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from scripts import import_openfoodfacts
+    # Temporarily bind the session to the script's engine logic, or just run it directly
+    # Since import_openfoodfacts creates its own session from DATABASE_URL, we just call it
+    import_openfoodfacts.import_data()
+    
+    return {"status": "success", "message": "Purged old data and seeded Indian products"}
+
 @app.get("/v1/admin/fix-market")
 def fix_market(db: Session = Depends(get_db)):
     # Create or get India market
