@@ -776,11 +776,5 @@ def process_outbox_events(
 
 @app.post("/v1/admin/run_scripts")
 def run_scripts():
-    import os, sys
-    # Add project root to path
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-    from scripts.purge_data import purge
-    from scripts.import_openfoodfacts import import_data
-    purge()
-    import_data()
-    return {"status": "success"}
+    import os
+    return {"db": os.getenv("DATABASE_URL")}
