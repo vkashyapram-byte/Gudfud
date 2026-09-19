@@ -20,7 +20,7 @@ interface PaginatedCatalogue {
 
 async function getCatalogue(page: number): Promise<PaginatedCatalogue> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/catalogue?page=${page}&size=24`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/catalogue?page=${page}&size=24&market=in`, {
       cache: "no-store",
     });
     if (!res.ok) return { items: [], total: 0, page: 1, size: 24 };

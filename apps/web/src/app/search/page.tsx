@@ -17,7 +17,7 @@ async function getSearchResults(query: string): Promise<SearchResponse | null> {
   if (!query || query.length < 2) return null;
   
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/search?q=${encodeURIComponent(query)}`, { cache: "no-store" });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/search?q=${encodeURIComponent(query)}&market=in`, { cache: "no-store" });
     if (!res.ok) return null;
     return res.json();
   } catch (error) {

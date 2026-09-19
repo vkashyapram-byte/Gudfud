@@ -10,7 +10,7 @@ from uuid import UUID
 
 from . import models, schemas
 from .database import get_db
-from .auth import verify_admin_role
+from .auth import verify_admin_role, verify_cron_job
 from .logger import setup_logger
 
 logger = setup_logger()
@@ -25,6 +25,7 @@ app = FastAPI(
 def get_catalogue(
     page: int = Query(1, ge=1, description="Page number"),
     size: int = Query(24, ge=1, le=100, description="Items per page"),
+    market: str = Query(None, description="Market code to filter by"),
     db: Session = Depends(get_db)
 ):
     offset = (page - 1) * size
@@ -56,6 +57,9 @@ def get_catalogue(
             models.LabelVersion.review_status == "published"
         )
     )
+
+    if market:
+        query = query.where(models.Market.country_code == market)
 
     # Calculate total matching records
     total_query = select(func.count()).select_from(query.subquery())
@@ -97,6 +101,7 @@ def get_catalogue(
 def search_catalogue(
     q: str = Query(..., min_length=2, description="Search query string"),
     limit: int = Query(10, ge=1, le=50, description="Max results"),
+    market: str = Query(None, description="Market code to filter by"),
     db: Session = Depends(get_db)
 ):
     product_query = select(
@@ -131,6 +136,11 @@ def search_catalogue(
         models.Product.status == "active",
         models.ProductVariant.gtin == q
     )
+
+    if market:
+        market_subquery = select(models.ProductVariant.product_id).join(models.Market, models.ProductVariant.market_id == models.Market.id).where(models.Market.country_code == market)
+        product_query = product_query.where(models.Product.id.in_(market_subquery))
+        gtin_query = gtin_query.join(models.Market, models.ProductVariant.market_id == models.Market.id).where(models.Market.country_code == market)
 
     combined = union_all(product_query, brand_query, gtin_query).alias("combined")
     final_query = select(combined).order_by(desc(combined.c.sim_score)).limit(limit)
@@ -702,7 +712,7 @@ def bulk_import_drafts(
 
 @app.post("/v1/admin/worker/process")
 def process_outbox_events(
-    admin: dict = Depends(verify_admin_role),
+    auth: dict = Depends(verify_cron_job),
     db: Session = Depends(get_db)
 ):
     """

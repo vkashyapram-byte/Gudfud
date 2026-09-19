@@ -21,9 +21,9 @@ interface PaginatedCatalogue {
 }
 
 async function fetchRecentProducts(): Promise<ProductCard[]> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
   try {
-    const res = await fetch(`${apiUrl}/v1/catalogue?page=1&size=12`, {
+    const res = await fetch(`${apiUrl}/v1/catalogue?page=1&size=12&market=in`, {
       cache: "no-store",
     });
     if (!res.ok) return [];

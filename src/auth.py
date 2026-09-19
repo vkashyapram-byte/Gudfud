@@ -23,3 +23,13 @@ def verify_admin_role(credentials: HTTPAuthorizationCredentials = Security(secur
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+def verify_cron_job(credentials: HTTPAuthorizationCredentials = Security(security)):
+    token = credentials.credentials
+    cron_secret = os.getenv("CRON_SECRET")
+    
+    if cron_secret and token == cron_secret:
+        return {"role": "cron"}
+        
+    # If it's not the valid cron secret, try decoding it as an admin JWT
+    return verify_admin_role(credentials)
