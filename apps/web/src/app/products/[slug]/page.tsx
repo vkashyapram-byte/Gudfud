@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getApiUrl } from "@/lib/api";
 
 interface IngredientMapping {
   label_text: string;
@@ -29,11 +30,21 @@ interface ProductAnalysis {
   ingredients: IngredientMapping[];
   image_url: string | null;
   last_reviewed_at: string | null;
+  methodology_version?: string;
+  flags?: { type: string; label: string }[];
+  gtin?: string | null;
+  component_scores?: {
+    nutrition_score: number | null;
+    ingredient_score: number | null;
+    context_score: number | null;
+  };
+  sources?: { source_id: string; title: string; url: string; accessed_at: string }[];
 }
 
 async function getProduct(slug: string): Promise<ProductAnalysis | null> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/products/${slug}`, { cache: "no-store" });
+    const baseUrl = getApiUrl();
+    const res = await fetch(`${baseUrl}/v1/products/${slug}`, { cache: "no-store" });
     if (!res.ok) return null;
     return res.json();
   } catch (error) {
@@ -63,20 +74,54 @@ export default async function ProductPage({ params }: { params: { slug: string }
             </div>
           )}
           
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold tracking-tight mb-2 uppercase">{product.canonical_name}</h1>
-            <h2 className="text-xl text-brand-neutral/80 uppercase tracking-widest mb-4">{product.brand_name}</h2>
-            <div className="flex gap-4 text-sm uppercase bg-white border border-brand-border p-3 inline-flex font-bold">
-              <span className="text-brand-neutral">Rating: {product.rating_band || "UNRATED"}</span>
-              <span className="border-l border-brand-border pl-4">{product.rating_total ? `${product.rating_total}/100` : "N/A"}</span>
-              <span className="border-l border-brand-border pl-4">Market: {product.market_code}</span>
+          <div className="flex-1 w-full">
+            <div className="flex justify-between items-start">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight mb-2 uppercase">{product.canonical_name}</h1>
+                <h2 className="text-xl text-brand-neutral/80 uppercase tracking-widest mb-4">{product.brand_name}</h2>
+              </div>
+              <div className="text-right text-xs text-brand-neutral/60 uppercase">
+                <div>Market: <span className="font-bold">{product.market_code}</span></div>
+                {product.gtin && <div>GTIN: {product.gtin}</div>}
+              </div>
             </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap gap-4 text-sm uppercase bg-white border border-brand-border p-3 font-bold">
+                <span className="text-brand-neutral">Overall: {product.rating_band || "UNRATED"}</span>
+                <span className="border-l border-brand-border pl-4">{product.rating_total !== null ? `${product.rating_total}/100` : "N/A"}</span>
+                <span className="border-l border-brand-border pl-4 text-brand-neutral/60">Confidence: {product.confidence_grade}</span>
+              </div>
+              
+              {product.component_scores && (
+                <div className="flex flex-wrap gap-4 text-xs uppercase bg-brand-neutral/5 border border-brand-border p-2">
+                  <span>Nutrition: {product.component_scores.nutrition_score !== null ? product.component_scores.nutrition_score : "N/A"}</span>
+                  <span className="border-l border-brand-border pl-4">Ingredient: {product.component_scores.ingredient_score !== null ? product.component_scores.ingredient_score : "N/A"}</span>
+                  <span className="border-l border-brand-border pl-4">Context: {product.component_scores.context_score !== null ? product.component_scores.context_score : "N/A"}</span>
+                </div>
+              )}
+            </div>
+
+            {product.flags && product.flags.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {product.flags.map((flag, idx) => (
+                  <span key={idx} className="text-xs uppercase font-bold border border-red-800 bg-red-100 text-red-900 px-2 py-1">
+                    {flag.label}
+                  </span>
+                ))}
+              </div>
+            )}
             
             {product.explanation?.summary && (
               <p className="mt-6 text-sm leading-relaxed border border-brand-border p-4 bg-white">
                 {product.explanation.summary}
               </p>
             )}
+
+            <div className="mt-4 flex justify-between items-center text-xs uppercase text-brand-neutral/50">
+              {product.methodology_version && <span>Method: {product.methodology_version}</span>}
+              {product.last_reviewed_at && <span>Reviewed: {new Date(product.last_reviewed_at).toLocaleDateString()}</span>}
+            </div>
           </div>
         </div>
       </header>
@@ -91,13 +136,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
               <ul className="space-y-3">
                 {product.ingredients.map((ing, idx) => (
                   <li key={idx} className="flex justify-between items-center text-sm border-b border-brand-border border-dashed pb-2 last:border-0 last:pb-0">
-                    <span className="uppercase">{ing.label_text}</span>
+                    <span className="uppercase flex-1">{ing.label_text}</span>
                     {ing.slug ? (
-                      <Link href={`/ingredients/${ing.slug}`} className="text-xs uppercase bg-brand-surface border border-brand-border px-2 py-1 hover:bg-brand-neutral hover:text-brand-surface transition-none">
+                      <Link href={`/ingredients/${ing.slug}`} className="text-xs uppercase bg-brand-surface border border-brand-border px-2 py-1 hover:bg-brand-neutral hover:text-brand-surface transition-none ml-4 flex-shrink-0">
                         Analysis
                       </Link>
                     ) : (
-                      <span className="text-xs uppercase text-brand-neutral/40">Unmapped</span>
+                      <span className="text-xs uppercase text-brand-neutral/40 ml-4 flex-shrink-0">Unmapped</span>
                     )}
                   </li>
                 ))}

@@ -189,19 +189,25 @@ def get_product_analysis(
             models.Product.canonical_name,
             models.Brand.name.label("brand_name"),
             models.Market.country_code.label("market_code"),
+            models.ProductVariant.gtin.label("gtin"),
             models.Rating.total_score.label("rating_total"),
             models.Rating.band.label("rating_band"),
+            models.Rating.nutrition_score,
+            models.Rating.ingredient_score,
+            models.Rating.context_score,
             models.Rating.confidence_grade,
             models.Rating.explanation,
             models.Rating.published_at.label("last_reviewed_at"),
             models.LabelVersion.label_image_id.label("image_url"),
-            models.LabelVersion.id.label("label_version_id")
+            models.LabelVersion.id.label("label_version_id"),
+            models.MethodologyVersion.name.label("methodology_version")
         )
         .join(models.Brand, models.Product.brand_id == models.Brand.id)
         .join(models.ProductVariant, models.ProductVariant.product_id == models.Product.id)
         .join(models.Market, models.ProductVariant.market_id == models.Market.id)
         .join(models.LabelVersion, models.LabelVersion.variant_id == models.ProductVariant.id)
         .join(models.Rating, models.Rating.label_version_id == models.LabelVersion.id)
+        .outerjoin(models.MethodologyVersion, models.Rating.methodology_version_id == models.MethodologyVersion.id)
         .filter(
             models.Product.slug == slug,
             models.Product.status == "active",
@@ -241,17 +247,30 @@ def get_product_analysis(
         } for ing in ingredients_query
     ]
 
+    component_scores = None
+    if any(s is not None for s in [result.nutrition_score, result.ingredient_score, result.context_score]):
+        component_scores = {
+            "nutrition_score": result.nutrition_score,
+            "ingredient_score": result.ingredient_score,
+            "context_score": result.context_score
+        }
+
     return schemas.ProductAnalysis(
         slug=result.slug,
         canonical_name=result.canonical_name,
         brand_name=result.brand_name,
         market_code=result.market_code,
+        gtin=result.gtin,
         rating_total=result.rating_total,
         rating_band=result.rating_band,
+        component_scores=component_scores,
         confidence_grade=result.confidence_grade,
+        methodology_version=result.methodology_version,
         explanation=result.explanation,
         nutrition=nutrition,
         ingredients=mapped_ingredients,
+        flags=[],
+        sources=[],
         image_url=result.image_url,
         last_reviewed_at=result.last_reviewed_at
     )

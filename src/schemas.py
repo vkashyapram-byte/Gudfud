@@ -64,17 +64,29 @@ class IngredientMapping(BaseModel):
     
     model_config = ConfigDict(from_attributes=True)
 
+class ComponentScores(BaseModel):
+    nutrition_score: Optional[int] = None
+    ingredient_score: Optional[int] = None
+    context_score: Optional[int] = None
+    
+    model_config = ConfigDict(from_attributes=True)
+
 class ProductAnalysis(BaseModel):
     slug: str
     canonical_name: str
     brand_name: str
     market_code: str
+    gtin: Optional[str] = None
     rating_total: Optional[int] = None
     rating_band: Optional[str] = None
+    component_scores: Optional[ComponentScores] = None
     confidence_grade: str
+    methodology_version: Optional[str] = None
     explanation: Dict[str, Any]
     nutrition: Optional[NutritionFactsBase] = None
     ingredients: List[IngredientMapping] = []
+    flags: List[Dict[str, str]] = []
+    sources: List[Dict[str, str]] = []
     image_url: Optional[str] = None
     last_reviewed_at: Optional[datetime] = None
     

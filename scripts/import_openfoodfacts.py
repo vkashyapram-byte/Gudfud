@@ -62,6 +62,60 @@ def fetch_openfoodfacts_products():
             
     return products[:20]  # Return up to 20 Indian products
 
+def seed_canonical_ingredients(session):
+    from src.models import Ingredient, Source, IngredientEvidence
+    
+    sugar, _ = get_or_create(session, Ingredient, defaults={
+        "canonical_name": "Sugar",
+        "ingredient_type": "sweetener",
+        "public_summary": "A simple carbohydrate used for sweetening. High consumption is linked to metabolic health risks."
+    }, slug="sugar")
+    
+    wheat_flour, _ = get_or_create(session, Ingredient, defaults={
+        "canonical_name": "Refined Wheat Flour (Maida)",
+        "ingredient_type": "flour",
+        "public_summary": "A highly refined grain stripped of bran and germ, resulting in lower fiber content."
+    }, slug="refined-wheat-flour")
+    
+    palm_oil, _ = get_or_create(session, Ingredient, defaults={
+        "canonical_name": "Palm Oil",
+        "ingredient_type": "oil",
+        "public_summary": "An edible vegetable oil high in saturated fats."
+    }, slug="palm-oil")
+    
+    who_sugar_src, _ = get_or_create(session, Source, defaults={
+        "title": "WHO Guideline: Sugar intake for adults and children",
+        "publisher": "World Health Organization",
+        "source_type": "guideline",
+        "url": "https://www.who.int/publications/i/item/9789241549028",
+        "accessed_at": datetime.now(timezone.utc)
+    }, canonical_url="https://www.who.int/publications/i/item/9789241549028")
+
+    get_or_create(session, IngredientEvidence, defaults={
+        "effect_type": "metabolic risk",
+        "evidence_grade": "Strong",
+        "summary": "High intake of free sugars is associated with weight gain and dental caries.",
+        "review_status": "approved"
+    }, ingredient_id=sugar.id)
+
+    get_or_create(session, IngredientEvidence, defaults={
+        "effect_type": "cardiovascular risk",
+        "evidence_grade": "Moderate",
+        "summary": "High saturated fat content in palm oil may impact LDL cholesterol levels.",
+        "review_status": "approved"
+    }, ingredient_id=palm_oil.id)
+    
+    session.flush()
+    return {
+        "sugar": sugar,
+        "refined wheat flour": wheat_flour,
+        "wheat flour": wheat_flour,
+        "maida": wheat_flour,
+        "palm oil": palm_oil,
+        "edible vegetable oil": palm_oil,
+        "edible vegetable fat": palm_oil
+    }
+
 def import_data():
     print("Fetching verifiable real-world products from Open Food Facts...")
     products_data = fetch_openfoodfacts_products()
@@ -69,6 +123,8 @@ def import_data():
     with Session(engine) as session:
         try:
             now = datetime.now(timezone.utc)
+            
+            canonical_map = seed_canonical_ingredients(session)
             
             market_in, _ = get_or_create(session, Market, defaults={"name": "India"}, country_code="IN")
             methodology, _ = get_or_create(
@@ -138,6 +194,29 @@ def import_data():
                 )
                 session.add(label)
                 session.flush()
+
+                from src.models import LabelIngredient
+                if ingredients and ingredients != "Ingredients not provided by manufacturer.":
+                    raw_ings = [i.strip() for i in ingredients.replace("(", ",").replace(")", ",").replace(".", "").split(",")]
+                    position = 1
+                    for raw_ing in raw_ings:
+                        if not raw_ing or len(raw_ing) < 2: continue
+                        
+                        mapped_ing_id = None
+                        lower_ing = raw_ing.lower()
+                        for keyword, can_ing in canonical_map.items():
+                            if keyword in lower_ing:
+                                mapped_ing_id = can_ing.id
+                                break
+                                
+                        li = LabelIngredient(
+                            label_version_id=label.id,
+                            ingredient_id=mapped_ing_id,
+                            label_text=raw_ing[:255],
+                            position=position
+                        )
+                        session.add(li)
+                        position += 1
 
                 nutrition = NutritionFacts(
                     label_version_id=label.id,
