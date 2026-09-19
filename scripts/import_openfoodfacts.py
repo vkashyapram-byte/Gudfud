@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 # Ensure src is in the python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 from src.models import (
     Brand, Category, Market, Product, ProductVariant, 
