@@ -1,9 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-brand-neutral: #171717;
+  --color-brand-surface: #fafafa;
+  --color-brand-border: #e5e5e5;
+  
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-2xl: 4px;
+  --radius-3xl: 4px;
+  --radius-full: 4px;
+}
 
 @layer base {
   body {
-    @apply bg-brand-surface text-brand-neutral antialiased;
+    background-color: var(--color-brand-surface);
+    color: var(--color-brand-neutral);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
