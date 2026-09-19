@@ -42,12 +42,12 @@ def slugify(text: str) -> str:
     return re.sub(r'[^a-z0-9]+', '-', text).strip('-')
 
 def fetch_openfoodfacts_products():
-    search_terms = ["greek yogurt", "rolled oats", "whole wheat bread"]
+    search_terms = ["maggi", "haldiram", "britannia", "parle", "amul", "kurkure", "lays", "aashirvaad", "mtr", "sunfeast"]
     products = []
     
     for term in search_terms:
-        # Fetch highly popular products matching staple terms to ensure high-quality verifiable data
-        url = f"https://world.openfoodfacts.org/api/v2/search?search_terms={urllib.parse.quote(term)}&fields=code,brands,product_name,ingredients_text,nutriments,categories_tags&page_size=4&sort_by=popularity"
+        # Fetch highly popular products matching staple Indian terms to ensure high-quality verifiable data
+        url = f"https://world.openfoodfacts.org/api/v2/search?search_terms={urllib.parse.quote(term)}&countries_tags=en:india&fields=code,brands,product_name,ingredients_text,nutriments,categories_tags,image_url&page_size=3&sort_by=popularity"
         req = urllib.request.Request(url, headers={'User-Agent': 'GudFud-Data-Importer/1.0'})
         import ssl
         ctx = ssl.create_default_context()
@@ -60,7 +60,7 @@ def fetch_openfoodfacts_products():
         except Exception as e:
             print(f"Warning: Failed to fetch '{term}' - {e}")
             
-    return products[:10]  # Return exactly 10
+    return products[:20]  # Return up to 20 Indian products
 
 def import_data():
     print("Fetching verifiable real-world products from Open Food Facts...")
@@ -109,6 +109,8 @@ def import_data():
                 ingredients = item.get("ingredients_text", "Ingredients not provided by manufacturer.")
                 nutriments = item.get("nutriments", {})
 
+                image_url = item.get("image_url")
+                
                 brand, _ = get_or_create(session, Brand, defaults={"name": brand_name}, slug=brand_slug)
                 category, _ = get_or_create(session, Category, defaults={"name": cat_name}, slug=cat_slug)
                 
@@ -130,6 +132,7 @@ def import_data():
                     variant_id=variant.id,
                     version_no=1,
                     ingredients_raw=ingredients,
+                    label_image_id=image_url,
                     captured_at=now,
                     review_status="published"  # Strict auto-publish parameter
                 )

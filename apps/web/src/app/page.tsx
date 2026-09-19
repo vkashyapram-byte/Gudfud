@@ -9,6 +9,7 @@ interface ProductCard {
   rating_band: string | null;
   confidence_grade: string | null;
   market_code: string;
+  image_url: string | null;
   last_reviewed_at: string | null;
 }
 
@@ -104,6 +105,15 @@ export default async function HomePage() {
                     {product.market_code}
                   </div>
                 </div>
+                {product.image_url ? (
+                  <div className="w-full h-48 mb-4 border border-brand-border bg-white overflow-hidden">
+                    <img src={product.image_url} alt={product.canonical_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  </div>
+                ) : (
+                  <div className="w-full h-48 mb-4 border border-brand-border bg-brand-neutral/5 flex items-center justify-center">
+                    <span className="text-brand-neutral/30 uppercase tracking-widest text-xs font-bold">No Image</span>
+                  </div>
+                )}
                 <div className="flex-grow">
                   <h3 className="font-bold text-lg leading-tight uppercase group-hover:underline">
                     {product.canonical_name}

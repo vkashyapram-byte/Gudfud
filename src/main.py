@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
+from typing import List, Optional, Dict, Any, Union
 from sqlalchemy import select, func, literal, desc, union_all
 import string
 import random
+import traceback
 from datetime import timezone, datetime
 from uuid import UUID
 
@@ -39,6 +41,7 @@ def get_catalogue(
             models.Rating.band.label("rating_band"),
             models.Rating.confidence_grade,
             models.Market.country_code.label("market_code"),
+            models.LabelVersion.label_image_id.label("image_url"),
             models.Rating.published_at.label("last_reviewed_at")
         )
         .select_from(models.Product)
@@ -79,6 +82,7 @@ def get_catalogue(
             "rating_band": row.rating_band,
             "confidence_grade": row.confidence_grade,
             "market_code": row.market_code,
+            "image_url": row.image_url,
             "last_reviewed_at": row.last_reviewed_at
         })
 
@@ -165,6 +169,7 @@ def get_product_analysis(
             models.Rating.confidence_grade,
             models.Rating.explanation,
             models.Rating.published_at.label("last_reviewed_at"),
+            models.LabelVersion.label_image_id.label("image_url"),
             models.LabelVersion.id.label("label_version_id")
         )
         .join(models.Brand, models.Product.brand_id == models.Brand.id)
@@ -211,19 +216,20 @@ def get_product_analysis(
         } for ing in ingredients_query
     ]
 
-    return {
-        "slug": result.slug,
-        "canonical_name": result.canonical_name,
-        "brand_name": result.brand_name,
-        "market_code": result.market_code,
-        "rating_total": result.rating_total,
-        "rating_band": result.rating_band,
-        "confidence_grade": result.confidence_grade,
-        "explanation": result.explanation,
-        "nutrition": nutrition,
-        "ingredients": mapped_ingredients,
-        "last_reviewed_at": result.last_reviewed_at
-    }
+    return schemas.ProductAnalysis(
+        slug=result.slug,
+        canonical_name=result.canonical_name,
+        brand_name=result.brand_name,
+        market_code=result.market_code,
+        rating_total=result.rating_total,
+        rating_band=result.rating_band,
+        confidence_grade=result.confidence_grade,
+        explanation=result.explanation,
+        nutrition=nutrition,
+        ingredients=mapped_ingredients,
+        image_url=result.image_url,
+        last_reviewed_at=result.last_reviewed_at
+    )
 
 @app.get("/v1/ingredients/{slug}", response_model=schemas.IngredientAnalysis)
 def get_ingredient_analysis(slug: str, db: Session = Depends(get_db)):
@@ -693,3 +699,51 @@ def bulk_import_drafts(
         db.rollback()
         logger.error("Bulk import failed", extra={"error": str(e)}, exc_info=True)
         raise HTTPException(status_code=500, detail="Bulk import transaction failed")
+
+@app.post("/v1/admin/worker/process")
+def process_outbox_events(
+    admin: dict = Depends(verify_admin_role),
+    db: Session = Depends(get_db)
+):
+    """
+    HTTP-triggered worker endpoint for Serverless CRON.
+    Processes pending outbox events (e.g. label published events).
+    """
+    try:
+        # Fetch up to 50 pending events, locking them for update to prevent concurrent worker clashes
+        pending_events = db.query(models.OutboxEvent).with_for_update(skip_locked=True).filter(
+            models.OutboxEvent.status == "pending"
+        ).order_by(models.OutboxEvent.created_at).limit(50).all()
+
+        if not pending_events:
+            return {"status": "success", "processed_events_count": 0, "message": "No pending events"}
+
+        for event in pending_events:
+            event.status = "processing"
+        db.commit()
+
+        processed_count = 0
+        for event in pending_events:
+            try:
+                if event.event_type == "label_published":
+                    # Placeholder for the actual search re-indexing logic
+                    label_id = event.payload.get("label_version_id")
+                    logger.info(f"Re-indexing search for published label: {label_id}")
+                    # e.g., trigger pg_trgm materialized view refresh or external search sync
+
+                event.status = "completed"
+                event.processed_at = datetime.now(timezone.utc)
+                processed_count += 1
+
+            except Exception as e:
+                event.status = "failed"
+                event.error_message = str(e) + "\n" + traceback.format_exc()
+                event.processed_at = datetime.now(timezone.utc)
+
+        db.commit()
+        return {"status": "success", "processed_events_count": processed_count}
+
+    except Exception as e:
+        db.rollback()
+        logger.error("Worker process failed", extra={"error": str(e)}, exc_info=True)
+        raise HTTPException(status_code=500, detail="Worker process failed")

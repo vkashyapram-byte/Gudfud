@@ -23,6 +23,7 @@ class ProductCard(BaseModel):
     rating_band: Optional[str] = None
     confidence_grade: Optional[str] = None
     market_code: str
+    image_url: Optional[str] = None
     last_reviewed_at: Optional[datetime] = None
     
     model_config = ConfigDict(from_attributes=True)
@@ -74,6 +75,7 @@ class ProductAnalysis(BaseModel):
     explanation: Dict[str, Any]
     nutrition: Optional[NutritionFactsBase] = None
     ingredients: List[IngredientMapping] = []
+    image_url: Optional[str] = None
     last_reviewed_at: Optional[datetime] = None
     
     model_config = ConfigDict(from_attributes=True)
