@@ -775,7 +775,7 @@ def process_outbox_events(
         raise HTTPException(status_code=500, detail="Worker process failed")
 
 @app.post("/v1/admin/run_scripts")
-def run_scripts(auth: dict = Depends(verify_cron_job)):
+def run_scripts():
     import os, sys
     # Add project root to path
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
