@@ -21,6 +21,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
+@app.get("/")
+def read_root():
+    return {
+        "status": "ok", 
+        "message": "Gud Fud API is running. Please visit the frontend application to use the service.",
+        "frontend_url": "https://gudfud-web.vercel.app"
+    }
+
 @app.post("/v1/admin/trigger_seed")
 def trigger_seed(db: Session = Depends(get_db)):
     import sys
