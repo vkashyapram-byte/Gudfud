@@ -254,6 +254,7 @@ class LabelIngredient(Base):
     ingredient_id: Mapped[Optional[uuid.UUID]] = mapped_column(ForeignKey("ingredient.id"))
     label_text: Mapped[str] = mapped_column(String, nullable=False)
     position: Mapped[int] = mapped_column(Integer, nullable=False)
+    declared_percent: Mapped[Optional[float]] = mapped_column(Numeric, nullable=True)
 
 class IngredientAlias(Base):
     __tablename__ = "ingredient_alias"

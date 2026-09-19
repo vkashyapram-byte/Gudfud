@@ -56,7 +56,7 @@ def fetch_openfoodfacts_products():
     
     for term in search_terms:
         # Fetch highly popular products matching staple Indian terms to ensure high-quality verifiable data
-        url = f"https://world.openfoodfacts.org/api/v2/search?search_terms={urllib.parse.quote(term)}&countries_tags=en:india&fields=code,brands,product_name,ingredients_text,nutriments,categories_tags,image_url&page_size=3&sort_by=popularity"
+        url = f"https://world.openfoodfacts.org/api/v2/search?search_terms={urllib.parse.quote(term)}&countries_tags=en:india&fields=code,brands,product_name,ingredients_text,ingredients,nutriments,categories_tags,image_url&page_size=3&sort_by=popularity"
         req = urllib.request.Request(url, headers={'User-Agent': 'GudFud-Data-Importer/1.0'})
         import ssl
         ctx = ssl.create_default_context()
@@ -171,7 +171,8 @@ def import_data():
                 product_name = item.get("product_name", "").strip() or "Unnamed Product"
                 product_slug = slugify(f"{brand_name} {product_name}")
                 
-                ingredients = item.get("ingredients_text", "Ingredients not provided by manufacturer.")
+                ingredients_text = item.get("ingredients_text", "Ingredients not provided by manufacturer.")
+                structured_ingredients = item.get("ingredients", [])
                 nutriments = item.get("nutriments", {})
 
                 image_url = item.get("image_url")
@@ -209,27 +210,43 @@ def import_data():
                 session.flush()
 
                 from src.models import LabelIngredient
-                if ingredients and ingredients != "Ingredients not provided by manufacturer.":
-                    raw_ings = [i.strip() for i in ingredients.replace("(", ",").replace(")", ",").replace(".", "").split(",")]
-                    position = 1
-                    for raw_ing in raw_ings:
-                        if not raw_ing or len(raw_ing) < 2: continue
-                        
-                        mapped_ing_id = None
-                        lower_ing = raw_ing.lower()
-                        for keyword, can_ing in canonical_map.items():
-                            if keyword in lower_ing:
-                                mapped_ing_id = can_ing.id
-                                break
-                                
-                        li = LabelIngredient(
-                            label_version_id=label.id,
-                            ingredient_id=mapped_ing_id,
-                            label_text=raw_ing[:255],
-                            position=position
-                        )
-                        session.add(li)
-                        position += 1
+                
+                def flatten_ingredients(ing_list):
+                    flat = []
+                    for i in ing_list:
+                        text = i.get("text", "").strip()
+                        percent = i.get("percent") or i.get("percent_estimate")
+                        if text and text.lower() not in ('eii', 'e', 'ii', 'mm', '68%'):
+                            flat.append((text, percent))
+                        if "ingredients" in i:
+                            flat.extend(flatten_ingredients(i["ingredients"]))
+                    return flat
+
+                parsed_ings = []
+                if structured_ingredients:
+                    parsed_ings = flatten_ingredients(structured_ingredients)
+                elif ingredients_text and ingredients_text != "Ingredients not provided by manufacturer.":
+                    raw_ings = [i.strip() for i in ingredients_text.replace("(", ",").replace(")", ",").replace(".", "").split(",")]
+                    parsed_ings = [(i, None) for i in raw_ings if i and len(i) >= 2 and not i.endswith('%')]
+
+                position = 1
+                for raw_ing_text, percent in parsed_ings:
+                    mapped_ing_id = None
+                    lower_ing = raw_ing_text.lower()
+                    for keyword, can_ing in canonical_map.items():
+                        if keyword in lower_ing:
+                            mapped_ing_id = can_ing.id
+                            break
+                            
+                    li = LabelIngredient(
+                        label_version_id=label.id,
+                        ingredient_id=mapped_ing_id,
+                        label_text=raw_ing_text[:255],
+                        position=position,
+                        declared_percent=percent
+                    )
+                    session.add(li)
+                    position += 1
 
                 nutrition = NutritionFacts(
                     label_version_id=label.id,

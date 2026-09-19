@@ -5,6 +5,7 @@ import { getApiUrl } from "@/lib/api";
 interface IngredientMapping {
   label_text: string;
   position: number;
+  declared_percent: number | null;
   canonical_name: string | null;
   slug: string | null;
 }
@@ -139,7 +140,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
                   <li key={idx} className="flex justify-between items-center text-sm border-b border-brand-border border-dashed pb-2 last:border-0 last:pb-0">
                     <span className="uppercase flex-1">{ing.label_text}</span>
                     <span className="text-xs uppercase text-brand-neutral/40 ml-4 flex-shrink-0 font-mono">
-                      {String(ing.position).padStart(2, '0')}
+                      {ing.declared_percent ? `${ing.declared_percent}%` : String(ing.position).padStart(2, '0')}
                     </span>
                   </li>
                 ))}

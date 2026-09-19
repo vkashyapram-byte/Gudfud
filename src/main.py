@@ -24,10 +24,21 @@ app = FastAPI(
 @app.get("/")
 def read_root():
     return {
-        "status": "ok", 
-        "message": "Gud Fud API is running. Please visit the frontend application to use the service.",
-        "frontend_url": "https://gudfud-web.vercel.app"
+        "status": "ok",
+        "message": "GudFud API is running",
+        "frontend_url": "https://gudfud-web.vercel.app/"
     }
+
+from sqlalchemy import text
+from src.database import engine
+
+@app.on_event("startup")
+def startup_event():
+    with engine.begin() as conn:
+        try:
+            conn.execute(text("ALTER TABLE label_ingredient ADD COLUMN IF NOT EXISTS declared_percent NUMERIC;"))
+        except Exception as e:
+            logger.error(f"Migration error: {e}")
 
 @app.post("/v1/admin/trigger_seed")
 def trigger_seed(db: Session = Depends(get_db)):
@@ -256,6 +267,7 @@ def get_product_analysis(
         db.query(
             models.LabelIngredient.label_text,
             models.LabelIngredient.position,
+            models.LabelIngredient.declared_percent,
             models.Ingredient.canonical_name,
             models.Ingredient.slug
         )
@@ -269,6 +281,7 @@ def get_product_analysis(
         {
             "label_text": ing.label_text,
             "position": ing.position,
+            "declared_percent": ing.declared_percent,
             "canonical_name": ing.canonical_name,
             "slug": ing.slug
         } for ing in ingredients_query
