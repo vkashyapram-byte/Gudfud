@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, Query, HTTPException
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional, Dict, Any, Union
 from sqlalchemy import select, func, literal, desc, union_all
@@ -21,13 +22,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
-@app.get("/")
+@app.get("/", include_in_schema=False)
 def read_root():
-    return {
-        "status": "ok",
-        "message": "GudFud API is running",
-        "frontend_url": "https://gudfud-web.vercel.app/"
-    }
+    return RedirectResponse(url="https://gudfud-web.vercel.app/")
 
 from sqlalchemy import text
 from src.database import engine
@@ -492,6 +489,7 @@ def compare_product_variants(
             db.query(
                 models.LabelIngredient.label_text,
                 models.LabelIngredient.position,
+                models.LabelIngredient.declared_percent,
                 models.Ingredient.canonical_name,
                 models.Ingredient.slug
             )
@@ -505,6 +503,7 @@ def compare_product_variants(
             {
                 "label_text": ing.label_text,
                 "position": ing.position,
+                "declared_percent": ing.declared_percent,
                 "canonical_name": ing.canonical_name,
                 "slug": ing.slug
             } for ing in ingredients_query

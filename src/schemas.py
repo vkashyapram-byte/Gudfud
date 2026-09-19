@@ -59,6 +59,7 @@ class NutritionFactsBase(BaseModel):
 class IngredientMapping(BaseModel):
     label_text: str
     position: int
+    declared_percent: Optional[float] = None
     canonical_name: Optional[str] = None
     slug: Optional[str] = None
     
