@@ -21,7 +21,7 @@ export default async function ProductHistoryPage({ params }: { params: { slug: s
 
   let data: HistoryResponse | null = null;
   try {
-    const res = await fetch(`http://127.0.0.1:8000/v1/products/${slug}/history`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/products/${slug}/history`, {
       cache: "no-store",
     });
     if (!res.ok) {
