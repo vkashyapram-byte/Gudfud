@@ -70,7 +70,7 @@ def import_data():
         try:
             now = datetime.now(timezone.utc)
             
-            market_us, _ = get_or_create(session, Market, defaults={"name": "United States"}, country_code="US")
+            market_in, _ = get_or_create(session, Market, defaults={"name": "India"}, country_code="IN")
             methodology, _ = get_or_create(
                 session, MethodologyVersion, 
                 defaults={
@@ -122,7 +122,7 @@ def import_data():
                 
                 variant = ProductVariant(
                     product_id=product.id,
-                    market_id=market_us.id,
+                    market_id=market_in.id,
                     gtin=gtin
                 )
                 session.add(variant)

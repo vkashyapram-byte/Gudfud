@@ -21,6 +21,20 @@ app = FastAPI(
     version="1.0.0"
 )
 
+@app.get("/v1/admin/fix-market")
+def fix_market(db: Session = Depends(get_db)):
+    # Create or get India market
+    market_in = db.query(models.Market).filter_by(country_code="IN").first()
+    if not market_in:
+        market_in = models.Market(name="India", country_code="IN")
+        db.add(market_in)
+        db.flush()
+    
+    # Update all product variants to India
+    db.query(models.ProductVariant).update({"market_id": market_in.id})
+    db.commit()
+    return {"status": "fixed", "market_id": market_in.id}
+
 @app.get("/v1/catalogue", response_model=schemas.PaginatedCatalogue)
 def get_catalogue(
     page: int = Query(1, ge=1, description="Page number"),
