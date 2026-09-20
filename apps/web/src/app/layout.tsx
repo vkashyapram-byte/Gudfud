@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL || "localhost:3000";
+let rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL || "localhost:3000";
+if (rawSiteUrl.includes("[SENSITIVE]")) {
+  rawSiteUrl = "localhost:3000";
+}
 const siteUrl = rawSiteUrl.startsWith("http") ? rawSiteUrl : `https://${rawSiteUrl}`;
 
 export const metadata: Metadata = {
