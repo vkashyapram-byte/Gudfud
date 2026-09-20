@@ -1,9 +1,7 @@
 import os
 import sys
 
-# Ensure serverless environment uses our pre-seeded local database
-os.environ["DATABASE_URL"] = "sqlite:///prod.db"
-
+# Removed SQLite override to use actual Postgres DATABASE_URL from Vercel config
 # Fix python path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__) + '/..'))
 
