@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Query, HTTPException
+from fastapi import FastAPI, Depends, Query, HTTPException, BackgroundTasks
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional, Dict, Any, Union
@@ -31,23 +31,36 @@ from src.database import engine
 
 
 @app.post("/v1/admin/trigger_seed")
-def trigger_seed(db: Session = Depends(get_db)):
+def trigger_seed(background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     import sys
     import os
     from sqlalchemy import text
     
-    # 1. Purge all tables to remove non-Indian data (in correct foreign key order)
+    # 0. Migrate database
+    try:
+        db.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        print(f"pg_trgm extension migration error: {e}")
+        
+    try:
+        db.execute(text("ALTER TABLE label_ingredient ADD COLUMN IF NOT EXISTS declared_percent NUMERIC;"))
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        print(f"label_ingredient column migration error: {e}")
+
+    # 1. Purge all tables to remove old data (in correct foreign key order)
     db.execute(text("TRUNCATE TABLE label_ingredient, ingredient_evidence, nutrition_facts, rating, label_version, product_variant, product, category, brand, ingredient, market RESTART IDENTITY CASCADE;"))
     db.commit()
 
-    # 2. Add scripts path and run import
+    # 2. Add scripts path and run import in background
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-    from scripts import import_openfoodfacts
-    # Temporarily bind the session to the script's engine logic, or just run it directly
-    # Since import_openfoodfacts creates its own session from DATABASE_URL, we just call it
-    import_openfoodfacts.import_data()
+    from scripts import import_csv
+    background_tasks.add_task(import_csv.import_csv_data)
     
-    return {"status": "success", "message": "Purged old data and seeded Indian products"}
+    return {"status": "success", "message": "Purged old data and seeded products from CSV via background task."}
 
 @app.get("/v1/admin/fix-market")
 def fix_market(db: Session = Depends(get_db)):
