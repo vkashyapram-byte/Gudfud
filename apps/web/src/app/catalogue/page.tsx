@@ -8,6 +8,7 @@ interface ProductCard {
   rating_band: string | null;
   confidence_grade: string | null;
   market_code: string;
+  image_url?: string | null;
   last_reviewed_at: string | null;
 }
 
@@ -50,14 +51,29 @@ export default async function CataloguePage({ searchParams }: { searchParams: { 
           <Link 
             href={`/products/${product.slug}`} 
             key={product.slug} 
-            className="flex flex-col border border-brand-border p-4 bg-white hover:border-brand-neutral transition-colors"
+            className="flex flex-col border border-brand-border bg-white hover:border-brand-neutral transition-colors overflow-hidden group"
           >
-            <div className="flex justify-between items-start mb-2">
-              <h3 className="font-bold text-base leading-tight pr-2">{product.canonical_name}</h3>
-              <span className="text-xs bg-brand-surface border border-brand-border px-1.5 py-0.5 font-mono uppercase shrink-0">
-                {product.market_code}
-              </span>
+            {/* Display Product Image */}
+            <div className="w-full h-48 bg-gray-100 flex items-center justify-center border-b border-brand-border relative overflow-hidden">
+              {product.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img 
+                  src={product.image_url} 
+                  alt={product.canonical_name} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                />
+              ) : (
+                <span className="text-gray-400 text-sm">No Image</span>
+              )}
             </div>
+
+            <div className="p-4 flex flex-col flex-grow">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-bold text-base leading-tight pr-2">{product.canonical_name}</h3>
+                <span className="text-xs bg-brand-surface border border-brand-border px-1.5 py-0.5 font-mono uppercase shrink-0">
+                  {product.market_code}
+                </span>
+              </div>
             <p className="text-xs mb-4 text-gray-800">{product.brand.name} | {product.category.name}</p>
             
             <div className="mt-auto border-t border-brand-border pt-3 text-xs">
