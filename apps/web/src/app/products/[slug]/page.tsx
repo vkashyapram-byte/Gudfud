@@ -26,7 +26,7 @@ interface ProductAnalysis {
   rating_total: number | null;
   rating_band: string | null;
   confidence_grade: string;
-  explanation: any;
+  explanation: { summary?: string; [key: string]: unknown };
   nutrition: NutritionFacts | null;
   ingredients: IngredientMapping[];
   image_url: string | null;

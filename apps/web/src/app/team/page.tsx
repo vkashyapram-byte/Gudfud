@@ -36,7 +36,7 @@ export default function TeamPage() {
           </p>
           <ul className="list-disc list-inside space-y-2">
             <li>No team member or contributor may hold direct equity, receive compensation, or accept gifts from the food manufacturers, ingredient suppliers, or brands reviewed in our catalogue.</li>
-            <li>We do not accept paid placements, sponsored reviews, or "fast-track" analysis requests.</li>
+            <li>We do not accept paid placements, sponsored reviews, or &quot;fast-track&quot; analysis requests.</li>
             <li>All corrections or methodology updates are logged publicly via our editorial transparency workflow.</li>
           </ul>
         </div>

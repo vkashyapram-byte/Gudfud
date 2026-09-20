@@ -44,8 +44,8 @@ export default function PublishLabelPage({ params }: { params: { id: string } })
       }
       
       setStatus("success");
-    } catch (err: any) {
-      setErrorMsg(err.message || "Unknown transaction error");
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : "Unknown transaction error");
       setStatus("error");
     }
   }
