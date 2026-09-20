@@ -29,13 +29,6 @@ def read_root():
 from sqlalchemy import text
 from src.database import engine
 
-@app.on_event("startup")
-def startup_event():
-    with engine.begin() as conn:
-        try:
-            conn.execute(text("ALTER TABLE label_ingredient ADD COLUMN IF NOT EXISTS declared_percent NUMERIC;"))
-        except Exception as e:
-            logger.error(f"Migration error: {e}")
 
 @app.post("/v1/admin/trigger_seed")
 def trigger_seed(db: Session = Depends(get_db)):

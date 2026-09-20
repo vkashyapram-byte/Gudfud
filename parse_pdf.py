@@ -1,0 +1,1159 @@
+import re
+import json
+
+text = """
+Cadbury 5 Star
+Cadbury Bournville Dark Chocolate
+Cadbury Bournvita
+Cadbury Bournvita Little Champs
+Cadbury Bournvita Pro-Health
+Cadbury Celebrations
+Cadbury Choclairs Gold
+Cadbury Chocobakes
+Cadbury Dairy Milk
+Cadbury Dairy Milk Crackle
+Cadbury Dairy Milk Fruit & Nut
+Cadbury Dairy Milk Lickables
+Cadbury Dairy Milk Roast Almond
+Cadbury Dairy Milk Shots
+Cadbury Dairy Milk Silk
+Cadbury Dairy Milk Silk Bubbly
+Cadbury Dairy Milk Silk Oreo
+Cadbury Eclairs
+Cadbury Fuse
+Cadbury Gems
+Cadbury Gems Surprise
+Cadbury Nutties
+Cadbury Perk
+Campa Cola
+Campa Energy
+Campa Lemon
+Campa Orange
+Carbonell Extra Virgin Olive Oil
+Carbonell Pure Olive Oil
+Catch Amchur Powder
+Catch Biryani Masala
+Catch Black Pepper Powder
+Catch Chaat Masala
+Catch Chana Masala
+Catch Chicken Masala
+Catch Coriander Powder
+Catch Garam Masala
+Catch Jeera Powder
+Catch Kasuri Methi
+Catch Kitchen King Masala
+Catch Meat Masala
+Catch Pav Bhaji Masala
+Catch Red Chilli Powder
+Catch Sabji Masala
+Catch Salt
+Catch Sambar Masala
+Catch Sprinklers Black Salt
+Catch Sprinklers Chaat Masala
+Catch Turmeric Powder
+Cavin's Milkshake Banana
+Cavin's Milkshake Butterscotch
+Cavin's Milkshake Chocolate
+Cavin's Milkshake Strawberry
+Cavin's Milkshake Vanilla
+Center Fresh Chewing Gum
+Cerelac Infant Cereal
+Cerelac Wheat Apple
+Cheetos Masala Balls
+Cheetos Puffs
+Chheda's Banana Chips
+Chheda's Chakri
+Chheda's Wafers
+Ching's Secret Dark Soy Sauce
+Ching's Secret Fried Rice Masala
+Ching's Secret Green Chilli Sauce
+Ching's Secret Hakka Noodles
+Ching's Secret Hot & Sour Soup
+Ching's Secret Hot Garlic Sauce
+Ching's Secret Manchow Soup
+Ching's Secret Manchurian Masala
+Ching's Secret Red Chilli Sauce
+Ching's Secret Schezwan Chutney
+Ching's Secret Schezwan Instant Noodles
+Ching's Secret Sweet Corn Soup
+Ching's Secret Tomato Ketchup
+Chitale Bandhu Amrakhand
+Chitale Bandhu Bakarwadi
+Chitale Bandhu Ghee
+Chitale Bandhu Milk
+Chitale Bandhu Paneer
+Chitale Bandhu Shrikhand
+Chlormint Mint
+Chupa Chups Lollipop
+Coca-Cola
+Coca-Cola Zero Sugar
+Cocojal Tender Coconut Water
+Complan Kesar Badam
+Complan Nutrigro Chocolate
+Complan Pista Badam
+Complan Royale Chocolate
+Continental Coffee Speciale Instant Coffee
+Continental Coffee Xtra Instant Coffee
+Coolberg Non-Alcoholic Beer Lemon
+Coolberg Non-Alcoholic Beer Malt
+Coolberg Non-Alcoholic Beer Mint
+Cornitos Nacho Crisps Cheese & Herbs
+Cornitos Nacho Crisps Peri Peri
+Cornitos Nacho Crisps Sea Salt
+Cornitos Nacho Crisps Sizzlin' Jalapeno
+Cornitos Nacho Crisps Tikka Masala
+Cothas Coffee Filter Coffee Powder
+Country Delight A2 Cow Milk
+Country Delight Buffalo Milk
+Country Delight Butter
+Country Delight Cow Milk
+Country Delight Curd
+Country Delight Eggs
+Country Delight Ghee
+Country Delight Paneer
+Crax Corn Rings
+Crax Natkhat
+Creambell Ice Cream
+Cremica Chocolate Cream Biscuits
+Cremica Cream Crackers
+Cremica Mayonnaise
+Cremica Orange Cream Biscuits
+Cremica Tomato Ketchup
+Daawat Biryani Basmati Rice
+Daawat Brown Basmati Rice
+Daawat Devaaya Basmati Rice
+Daawat Pulav Basmati Rice
+Daawat Quick Cooking Basmati Rice
+Daawat Rozana Basmati Rice
+Daawat Super Basmati Rice
+Daawat Traditional Basmati Rice
+Dabur Aloe Vera Juice
+Dabur Amla Juice
+Dabur Chyawanprash
+Dabur Giloy Juice
+Dabur Glucose-D
+Dabur Honey
+Dabur Karela Jamun Juice
+Dabur Pudin Hara
+Dairy Day Ice Cream
+Dairy Day Kulfi
+Dalda Refined Soyabean Oil
+Dalda Refined Sunflower Oil
+Dalda Vanaspati
+Del Monte Extra Virgin Olive Oil
+Del Monte Mayonnaise
+Del Monte Pasta Sauce
+Del Monte Tomato Ketchup
+Dexolac Infant Formula
+Dexolac Stage 2
+Dhampur Green Brown Sugar
+Dhampur Green Desi Khand
+Dhampur Green Jaggery Powder
+Dhampur Green Sugar
+Dhampur Green Sugar Cubes
+Dhampur Green Sulphurless Sugar
+Dhara Kachi Ghani Mustard Oil
+Dhara Refined Soyabean Oil
+Dhara Refined Sunflower Oil
+Diet Coke
+Dilmah Ceylon Tea
+Dilmah Earl Grey Tea
+Dilmah English Breakfast Tea
+Dilmah Green Tea
+Dodla Butter
+Dodla Curd
+Dodla Ghee
+Dodla Milk
+Dodla Paneer
+Dr. Oetker FunFoods Peanut Butter Creamy
+Dr. Oetker FunFoods Peanut Butter Crunchy
+Dr. Oetker FunFoods Sandwich Spread
+Dr. Oetker FunFoods Veg Mayonnaise
+Duncans Tea
+Eastern Appam Podi
+Eastern Biryani Masala
+Eastern Chicken Masala
+Eastern Chilli Powder
+Eastern Coriander Powder
+Eastern Egg Roast Masala
+Eastern Fish Curry Masala
+Eastern Garam Masala
+Eastern Idiyappam Podi
+Eastern Kadala Curry Masala
+Eastern Kashmiri Chilli Powder
+Eastern Meat Masala
+Eastern Pathiri Podi
+Eastern Pepper Powder
+Eastern Puttu Podi
+Eastern Rasam Powder
+Eastern Sambar Powder
+Eastern Turmeric Powder
+Eggoz Nutrition Eggs
+English Oven Brown Bread
+English Oven Sandwich Bread
+Ensure Chocolate
+Ensure Diabetes Care Vanilla
+Ensure Vanilla
+Epigamia Almond Milk
+Epigamia Greek Yogurt Blueberry
+Epigamia Greek Yogurt Mango
+Epigamia Greek Yogurt Natural
+Epigamia Greek Yogurt Strawberry
+Epigamia Smoothie
+Everest Amchur Powder
+Everest Biryani Masala
+Everest Black Pepper Powder
+Everest Chaat Masala
+Everest Chana Masala
+Everest Chicken Masala
+Everest Chole Masala
+Everest Coriander Powder
+Everest Cumin Powder
+Everest Egg Curry Masala
+Everest Fish Curry Masala
+Everest Garam Masala
+Everest Hing Powder
+Everest Jaljeera
+Everest Kashmirilal Chilli Powder
+Everest Kasuri Methi
+Everest Kitchen King Masala
+Everest Meat Masala
+Everest Pani Puri Masala
+Everest Pav Bhaji Masala
+Everest Rajma Masala
+Everest Sabji Masala
+Everest Sambar Masala
+Everest Shahi Paneer Masala
+Everest Tea Masala
+Everest Tikhalal Chilli Powder
+Everest Turmeric Powder
+Evian Natural Mineral Water
+Fabelle Chocolates
+Fabelle Trinity Truffle
+Fanta Orange
+Farmley Almonds
+Farmley Cashews
+Farmley Dates
+Farmley Dried Figs
+Farmley Pistachios
+Farmley Raisins
+Farmley Trail Mix
+Farmley Walnuts
+Ferrero Rocher
+Figaro Extra Virgin Olive Oil
+Figaro Pure Olive Oil
+Filippo Berio Extra Virgin Olive Oil
+Filippo Berio Pure Olive Oil
+Fortune Basmati Rice
+Fortune Besan
+Fortune Biryani Special Basmati Rice
+Fortune Chakki Fresh Atta
+Fortune Chana Dal
+Fortune Groundnut Oil
+Fortune Kachi Ghani Mustard Oil
+Fortune Moong Dal
+Fortune Rice Bran Health Oil
+Fortune Sona Masoori Rice
+Fortune Sooji
+Fortune Soya Chunks
+Fortune Soyabean Oil
+Fortune Sunflower Oil
+Fortune Toor Dal
+Fortune Vivo Diabetes Care Oil
+Freedom Refined Sunflower Oil
+Frooti Fizz
+Frooti Mango Drink
+Gatorade Blue Bolt
+Gatorade Orange
+Gemini Refined Sunflower Oil
+Gir Organic A2 Ghee
+Girnar Desi Kahwa Tea
+Girnar Green Tea Bags
+Girnar Instant Tea Premix Cardamom
+Girnar Instant Tea Premix Ginger
+Girnar Instant Tea Premix Masala
+Gits Dhokla Instant Mix
+Gits Dosa Instant Mix
+Gits Gulab Jamun Instant Mix
+Gits Idli Instant Mix
+Gits Jalebi Instant Mix
+Gits Rasgulla Instant Mix
+Gits Rava Idli Instant Mix
+Gits Vada Instant Mix
+Glucerna Vanilla
+Glucon-D Nimbu Pani
+Glucon-D Regular
+Glucon-D Tangy Orange
+Go Cheese Cheese Cubes
+Go Cheese Cheese Slices
+Go Cheese Cheese Spread
+Godrej Jersey Curd
+Godrej Jersey Ghee
+Godrej Jersey Milk
+Godrej Real Good Chicken
+Godrej Yummiez Chicken Nuggets
+Gokul Ghee
+Gokul Milk
+Gold Winner Refined Sunflower Oil
+Golden Temple Besan
+Golden Temple Chakki Atta
+Golden Temple Sooji
+Goldiee Chaat Masala
+Goldiee Garam Masala
+Goldiee Kitchen King Masala
+Goodricke Assam Tea
+Goodricke Darjeeling Tea
+Goodricke Green Tea Bags
+Gopal Bhavnagri Gathiya
+Gopal Bhujia
+Gopal Chana Dal
+Gopal Khatta Meetha Mix
+Gopal Ratlami Sev
+Gowardhan Butter
+Gowardhan Cheese
+Gowardhan Curd
+Gowardhan Ghee
+Gowardhan Milk
+Gowardhan Paneer
+Grand Sweets Adhirasam
+Grand Sweets Mysore Pak
+GRB Ghee
+Hajmola Anardana
+Hajmola Chatcola
+Hajmola Imli
+Hajmola Regular
+Haldiram's Aloo Bhujia
+Haldiram's Aloo Lachha
+Haldiram's Bhujia Sev
+Haldiram's Bikaneri Bhujia
+Haldiram's Chana Dal
+Haldiram's Chana Jor Garam
+Haldiram's Chole Masala (Ready to Eat)
+Haldiram's Corn Flakes Mixture
+Haldiram's Dal Makhani (Ready to Eat)
+Haldiram's Gathiya
+Haldiram's Gulab Jamun (Canned)
+Haldiram's Kaju Katli
+Haldiram's Kaju Mixture
+Haldiram's Khatta Meetha
+Haldiram's Lahsooni Sev
+Haldiram's Moong Dal
+Haldiram's Navrattan Mixture
+Haldiram's Nut Cracker
+Haldiram's Palak Paneer (Ready to Eat)
+Haldiram's Paneer Butter Masala (Ready to Eat)
+Haldiram's Papad
+Haldiram's Pav Bhaji (Ready to Eat)
+Haldiram's Punjabi Tadka
+Haldiram's Rajma Masala (Ready to Eat)
+Haldiram's Rasgulla (Canned)
+Haldiram's Rasmalai (Canned)
+Haldiram's Salted Peanuts
+Haldiram's Shahi Paneer (Ready to Eat)
+Haldiram's Soan Papdi
+Halls Menthol Lozenges
+Hamdard Jam-e-Shirin
+Hamdard Rooh Afza
+Hamdard Rooh Afza Go
+Hangyo Ice Cream
+Happilo Almonds
+Happilo Cashews
+Happilo Dates
+Happilo Dried Cranberries
+Happilo Dried Figs
+Happilo Makhana
+Happilo Mixed Nuts
+Happilo Peanut Butter
+Happilo Pistachios
+Happilo Raisins
+Happilo Trail Mix
+Happilo Walnuts
+Happydent White Chewing Gum
+Harvest Gold Brown Bread
+Harvest Gold Multigrain Bread
+Harvest Gold White Bread
+Havmor Ice Cream Butterscotch
+Havmor Ice Cream Vanilla
+Havmor Kulfi
+Heinz Baked Beans
+Heinz Tomato Ketchup
+Hell Energy Drink
+Heritage Butter
+Heritage Buttermilk
+Heritage Curd
+Heritage Ghee
+Heritage Lassi
+Heritage Milk
+Heritage Paneer
+Hershey's Chocolate Syrup
+Hershey's Cocoa Powder
+Hershey's Cookies 'n' Creme
+Hershey's Kisses
+Hershey's Milk Chocolate
+Himalayan Natural Mineral Water
+Horlicks Chocolate Delight
+Horlicks Classic Malt
+Horlicks Diabetes Plus
+Horlicks Growth Plus
+Horlicks Junior
+Horlicks Lite
+Horlicks Mother's Plus
+Horlicks Protein Plus
+Horlicks Women's Plus
+Ibaco Ice Cream
+iD Fresh Filter Coffee Decoction
+iD Fresh Idli Dosa Batter
+iD Fresh Malabar Parota
+iD Fresh Paneer
+iD Fresh Ragi Idli Dosa Batter
+iD Fresh Wheat Chapati
+iD Fresh Whole Wheat Malabar Parota
+Idhayam Sesame Oil
+Illy Classico Coffee
+India Gate Brown Basmati Rice
+India Gate Classic Basmati Rice
+India Gate Dubar Basmati Rice
+India Gate Feast Rozzana Basmati Rice
+India Gate Mogra Basmati Rice
+India Gate Super Basmati Rice
+India Gate Tibar Basmati Rice
+Indomie Mi Goreng
+ITC Master Chef Aloo Tikki
+ITC Master Chef Chicken Nuggets
+ITC Master Chef Veg Nuggets
+Jabsons Chana Dal
+Jabsons Masala Peanuts
+Jabsons Roasted Peanuts
+Jackfruit365 Green Jackfruit Flour
+Jivo Canola Oil
+Jivo Grapeseed Oil
+Jivo Olive Oil
+Jivraj 9 Tea
+K.C. Das Rasgulla (Canned)
+Kapiva Aloe Vera Juice
+Kapiva Amla Juice
+Kapiva Karela Jamun Juice
+Karachi Bakery Dilkush
+Karachi Bakery Fruit Biscuits
+Karachi Bakery Osmania Biscuits
+Karachi Bakery Plum Cake
+Katraj Curd
+Katraj Ghee
+Katraj Milk
+Katraj Shrikhand
+Kawan Lachha Paratha
+Kawan Malabar Paratha
+Kellogg's Chocos
+Kellogg's Corn Flakes Original
+Kellogg's Corn Flakes Real Almond & Honey
+Kellogg's Honey Loops
+Kellogg's Muesli Fruit & Nut
+Kellogg's Muesli Fruit Magic
+Kellogg's Muesli Nuts Delight
+Kellogg's Ragi Chocos
+Kellogg's Special K
+Kera Coconut Oil
+Keventers Milkshake Chocolate
+Keventers Milkshake Strawberry
+Keventers Milkshake Vanilla
+Kikkoman Soy Sauce
+Kinder Bueno
+Kinder Joy
+Kinley Packaged Drinking Water
+Kinley Soda
+Kissan Fresh Tomato Ketchup
+Kissan Mango Squash
+Kissan Mixed Fruit Jam
+Kissan Orange Squash
+Kissan Pineapple Jam
+Kitchens of India Dal Bukhara
+Kitchens of India Paneer Butter Masala
+KitKat 2 Finger
+KitKat 4 Finger
+KLF Coconad Coconut Oil
+KLF Nirmal Coconut Oil
+Knorr Hot & Sour Soup
+Knorr Manchow Soup
+Knorr Soupy Noodles
+Knorr Sweet Corn Soup
+Knorr Tomato Soup
+Kohinoor Dal Makhani
+Kohinoor Gold Basmati Rice
+Kohinoor Platinum Basmati Rice
+Kohinoor Rajma Masala
+Kohinoor Super Value Basmati Rice
+Kohinoor Traditional Basmati Rice
+Kopiko Coffee Candy
+Kurkure Chilli Chatka
+Kurkure Green Chutney Rajasthani Style
+Kurkure Masala Munch
+Kurkure Naughty Tomatoes
+Kurkure Puffcorn Yummy Cheese
+Kurkure Solid Masti
+Kwality Wall's Cassata
+Kwality Wall's Cornetto Butterscotch
+Kwality Wall's Cornetto Double Chocolate
+Kwality Wall's Cornetto Oreo
+Kwality Wall's Feast
+Kwality Wall's Magnum Almond
+Kwality Wall's Magnum Classic
+Kwality Wall's Magnum Truffle
+Lactogen 1 Infant Formula
+Lactogen 2 Infant Formula
+Lactogen 3 Infant Formula
+Lactogen 4 Infant Formula
+Lahori Zeera
+Lal Qilla Basmati Rice
+Lavazza Qualita Rossa
+Lay's American Style Cream & Onion
+Lay's Classic Salted
+Lay's India's Magic Masala
+Lay's Spanish Tomato Tango
+Lay's West Indies Hot n Sweet Chilli
+Lea & Perrins Worcestershire Sauce
+Lee Kum Kee Hoisin Sauce
+Lee Kum Kee Oyster Sauce
+Lijjat Appalam
+Lijjat Garlic Papad
+Lijjat Jeera Papad
+Lijjat Masala Papad
+Lijjat Moong Papad
+Lijjat Punjabi Masala Papad
+Lijjat Udad Papad
+Limca
+Lindt Excellence
+Lindt Lindor
+Lion Dates Seedless
+Lipton Darjeeling Tea
+Lipton Green Tea
+Lipton Honey Lemon Green Tea
+Lipton Ice Tea
+Lipton Yellow Label Tea
+LMN Lemon Drink
+London Dairy Ice Cream
+Lotte Choco Pie
+Lotte Koala's March
+M&M's Milk Chocolate
+M&M's Peanut
+Maaza Mango
+Madhur Sugar
+Madhur Sulphurless Sugar
+Maggi 2-Minute Masala Noodles
+Maggi Atta Noodles
+Maggi Coconut Milk Powder
+Maggi Cuppa Mania Masala Yo!
+Maggi Hot & Sour Soup
+Maggi Hot & Sweet Tomato Chilli Sauce
+Maggi Hot Heads Peri Peri Noodles
+Maggi Masala-ae-Magic
+Maggi Oats Noodles
+Maggi Pazzta Cheese Macaroni
+Maggi Pazzta Masala Penne
+Maggi Pichkoo Tomato Ketchup
+Maggi Rich Tomato Ketchup
+Maggi Special Masala Noodles
+Maggi Sweet Corn Soup
+Maltesers
+Mapro Mixed Fruit Jam
+Mapro Strawberry Crush
+Mapro Strawberry Jam
+McCain Aloo Tikki
+McCain Cheese Shots
+McCain French Fries
+McCain Potato Wedges
+McCain Smiles
+McCain Veg Nuggets
+McVitie's Digestive
+MDH Amchur Powder
+MDH Biryani Masala
+MDH Black Pepper Powder
+MDH Chana Masala
+MDH Chat Masala
+MDH Chicken Masala
+MDH Chunky Chat Masala
+MDH Coriander Powder
+MDH Deggi Mirch
+MDH Garam Masala
+MDH Jaljeera
+MDH Jeera Powder
+MDH Kashmiri Mirch
+MDH Kasuri Methi
+MDH Kitchen King
+MDH Meat Masala
+MDH Pav Bhaji Masala
+MDH Rajma Masala
+MDH Red Chilli Powder
+MDH Sabji Masala
+MDH Sambar Masala
+MDH Shahi Paneer Masala
+MDH Tea Masala
+MDH Turmeric Powder
+Mentos Fruit
+Mentos Mint
+Milkmaid Sweetened Condensed Milk
+Milky Mist Butter
+Milky Mist Cheese Slices
+Milky Mist Curd
+Milky Mist Ghee
+Milky Mist Greek Yogurt
+Milky Mist Mozzarella Cheese
+Milky Mist Paneer
+Milky Way Chocolate Bar
+Milkybar Chocolate
+Mint-O Candy
+Minute Maid Pulpy Orange
+Mirinda Orange
+Modern Brown Bread
+Modern Multigrain Bread
+Modern Sandwich Bread
+Monster Energy
+Mother Dairy Butter
+Mother Dairy Chaas
+Mother Dairy Cheese Cubes
+Mother Dairy Cheese Slices
+Mother Dairy Cheese Spread
+Mother Dairy Cow Milk
+Mother Dairy Dahi
+Mother Dairy Double Toned Milk
+Mother Dairy Fruit Yoghurt
+Mother Dairy Full Cream Milk
+Mother Dairy Ghee
+Mother Dairy Ice Cream
+Mother Dairy Lassi
+Mother Dairy Mishti Doi
+Mother Dairy Paneer
+Mother Dairy Toned Milk
+Mother's Recipe Garlic Pickle
+Mother's Recipe Ginger Garlic Paste
+Mother's Recipe Green Chilli Pickle
+Mother's Recipe Lime Pickle
+Mother's Recipe Mango Pickle
+Mother's Recipe Mixed Pickle
+Mountain Dew
+Mr. Makhana Roasted Makhana
+MTR Badam Drink Mix
+MTR Bisi Bele Bath Powder
+MTR Dosa Mix
+MTR Gulab Jamun Mix
+MTR Puliyogare Mix
+MTR Rasam Powder
+MTR Rava Idli Mix
+MTR Ready to Eat Bisi Bele Bath
+MTR Ready to Eat Chana Masala
+MTR Ready to Eat Dal Makhani
+MTR Ready to Eat Palak Paneer
+MTR Ready to Eat Paneer Butter Masala
+MTR Ready to Eat Pav Bhaji
+MTR Ready to Eat Rajma Masala
+MTR Ready to Eat Sambar
+MTR Sambar Powder
+MTR Upma Mix
+MTR Vada Mix
+MTR Vermicelli
+Munch Chocolate Wafer Bar
+Munch Max
+MuscleBlaze Peanut Butter Creamy
+MuscleBlaze Peanut Butter Crunchy
+MYFITNESS Chocolate Peanut Butter
+MYFITNESS Crunchy Peanut Butter
+MYFITNESS Original Peanut Butter
+NAN Pro 1
+NAN Pro 2
+NAN Pro 3
+Nandini Butter
+Nandini Buttermilk
+Nandini Curd
+Nandini Dharwad Peda
+Nandini Flavoured Milk
+Nandini Ghee
+Nandini Good Life Milk
+Nandini Ice Cream
+Nandini Lassi
+Nandini Milk
+Nandini Mysore Pak
+Nandini Paneer
+Nandini Toned Milk
+Nando's Peri Peri Sauce
+Narasu's Coffee Filter Coffee Powder
+Naturals Ice Cream Chocolate
+Naturals Ice Cream Mango
+Naturals Ice Cream Sitaphal
+Naturals Ice Cream Tender Coconut
+Naturals Ice Cream Vanilla
+Nature Fresh Besan
+Nature Fresh Multigrain Atta
+Nature Fresh Sampoorna Chakki Atta
+Nature Fresh Sooji
+Nature Valley Oats & Honey Granola Bar
+Nescafe Cappuccino
+Nescafe Classic
+Nescafe Gold
+Nescafe Sunrise
+Nestle A+ Dahi
+Nestle A+ Milk
+Nestle A+ Nourish Milk
+Nestle A+ Paneer
+Nestle A+ Slim Milk
+Nestle Everyday Dairy Whitener
+Nilgiris Curd
+Nilgiris Milk
+Nilon's Mango Pickle
+Nilon's Mayonnaise
+Nilon's Mixed Fruit Jam
+Nilon's Mixed Pickle
+Nilon's Tomato Ketchup
+Nirapara Appam Podi
+Nirapara Chicken Masala
+Nirapara Chilli Powder
+Nirapara Coriander Powder
+Nirapara Idiyappam Podi
+Nirapara Meat Masala
+Nirapara Pathiri Podi
+Nirapara Puttu Podi
+Nirapara Rasam Powder
+Nirapara Sambar Powder
+Nirapara Turmeric Powder
+Nissin Cup Noodles Masala
+Nissin Top Ramen Curry
+Nissin Top Ramen Masala
+Nissin Top Ramen Smoodles
+Nongshim Shin Ramyun
+Nutella Hazelnut Spread
+Nutraj Almonds
+Nutraj Cashews
+Nutraj Dates
+Nutraj Pistachios
+Nutraj Raisins
+Nutraj Walnuts
+Nutralite Buttery Spread
+Nutralite Garlic Spread
+Nutrela Soya Chunks
+Nutrela Soya Granules
+Nutrela Soya Mini Chunks
+Nutrine Maha Lacto Toffee
+Olivoila Extra Virgin Olive Oil
+Olivoila Pure Olive Oil
+Omfed Ghee
+Omfed Milk
+Orbit Peppermint Gum
+Orbit Spearmint Gum
+Oreo Chocolate Creme
+Oreo Strawberry Creme
+Oreo Vanilla Creme
+Organic India Tulsi Green Tea Classic
+Organic India Tulsi Green Tea Lemon Ginger
+Organic India Tulsi Masala Chai
+Organic India Tulsi Original
+Organic India Tulsi Sweet Rose
+Organic Tattva Basmati Rice
+Organic Tattva Chia Seeds
+Organic Tattva Honey
+Organic Tattva Jaggery Powder
+Organic Tattva Toor Dal
+Organic Tattva Whole Wheat Atta
+Orion Choco Pie
+Paper Boat Aam Panna
+Paper Boat Aamras
+Paper Boat Coconut Water
+Paper Boat Jaljeera
+Paper Boat Jamun Kala Khatta
+Paper Boat Kokum
+Paper Boat Nimbu Masala Soda
+Paper Boat Thandai
+Parachute Coconut Oil
+Parle 20-20 Butter Cookies
+Parle 20-20 Cashew Cookies
+Parle 20-20 Cookies
+Parle Coffee Bite
+Parle Fab
+Parle Happy Happy
+Parle Hide & Seek
+Parle Kaccha Mango Bite
+Parle Kismi Toffee Bar
+Parle Krackjack
+Parle Kreams Gold
+Parle Magix
+Parle Mango Bite
+Parle Marie
+Parle Melody Chocolaty Toffee
+Parle Milano
+Parle Milk Shakti
+Parle Monaco
+Parle Nutricrunch
+Parle Orange Bite
+Parle Poppins
+Parle-G Gold
+Parle-G Original Gluco Biscuits
+Parry's Sugar
+Patanjali Aloe Vera Juice
+Patanjali Amla Candy
+Patanjali Amla Juice
+Patanjali Atta
+Patanjali Atta Noodles
+Patanjali Basmati Rice
+Patanjali Besan
+Patanjali Chana Dal
+Patanjali Chyawanprash
+Patanjali Coriander Powder
+Patanjali Cow Ghee
+Patanjali Dalia
+Patanjali Doodh Biscuit
+Patanjali Garam Masala
+Patanjali Honey
+Patanjali Kachi Ghani Mustard Oil
+Patanjali Maida
+Patanjali Marie Biscuit
+Patanjali Masoor Dal
+Patanjali Moong Dal
+Patanjali Multigrain Atta
+Patanjali Poha
+Patanjali Red Chilli Powder
+Patanjali Rice Bran Oil
+Patanjali Salt
+Patanjali Sooji
+Patanjali Soya Chunks
+Patanjali Sugar
+Patanjali Tea
+Patanjali Toor Dal
+Patanjali Turmeric Powder
+Patanjali Urad Dal
+PediaSure Chocolate
+PediaSure Vanilla
+Pepsi
+Pepsi Black
+Perrier Sparkling Water
+Pintola All Natural Peanut Butter Creamy
+Pintola All Natural Peanut Butter Crunchy
+Pintola Classic Peanut Butter Crunchy
+Pintola Dark Chocolate Peanut Butter
+Pintola High Protein Peanut Butter
+Pintola Organic Peanut Butter
+Pride of Cows Ghee
+Pride of Cows Milk
+Pringles Original
+Pringles Sour Cream & Onion
+Priya Avakaya Mango Pickle
+Priya Garlic Pickle
+Priya Gongura Pickle
+Priya Lemon Pickle
+Priya Tomato Pickle
+Priyagold Butter Bite
+Priyagold Cream Cracker
+Priyagold Zig Zag
+Pro Nature Organic Chana Dal
+Pro Nature Organic Moong Dal
+Pro Nature Organic Toor Dal
+Protinex Original
+Protinex Tasty Chocolate
+Pulse Candy Guava
+Pulse Candy Kaccha Aam
+Quaker Instant Oats
+Quaker Oats
+Quaker Oats Masala
+Quaker Rolled Oats
+Raffaello
+Rajdhani Besan
+Rajdhani Sattu
+Rasna Lemon
+Rasna Mango
+Rasna Orange
+Rasna Pineapple
+Raw Pressery Apple Juice
+Raw Pressery Coconut Water
+Raw Pressery Orange Juice
+Real Activ Apple
+Real Activ Coconut Water
+Real Activ Cranberry
+Real Activ Mixed Fruit
+Real Activ Orange
+Real Activ Pomegranate
+Real Fruit Power Apple
+Real Fruit Power Guava
+Real Fruit Power Litchi
+Real Fruit Power Mango
+Real Fruit Power Mixed Fruit
+Real Fruit Power Orange
+Real Fruit Power Pineapple
+Real Fruit Power Pomegranate
+Red Bull Energy Drink
+Red Bull Sugarfree
+Red Bull Zero
+RiteBite Max Protein Daily Choco Almond
+RiteBite Max Protein Ultimate Choco Almond
+Ruchi Gold Palm Oil
+7UP
+Safal Frozen French Fries
+Safal Frozen Green Peas
+Safal Frozen Mixed Vegetables
+Safal Frozen Sweet Corn
+Safal Tomato Puree
+Saffola Active Oil
+Saffola Aura Extra Virgin Olive Oil
+Saffola Aura Olive Oil
+Saffola Gold Oil
+Saffola Honey Active
+Saffola Masala Oats Classic Masala
+Saffola Masala Oats Peppy Tomato
+Saffola Masala Oats Veggie Twist
+Saffola Oats
+Saffola Oodles
+Saffola Tasty Oil
+Saffola Total Oil
+Sakthi Masala Biryani Masala
+Sakthi Masala Chicken Masala
+Sakthi Masala Chilli Powder
+Sakthi Masala Coriander Powder
+Sakthi Masala Garam Masala
+Sakthi Masala Meat Masala
+Sakthi Masala Pepper Powder
+Sakthi Masala Rasam Powder
+Sakthi Masala Sambar Powder
+Sakthi Masala Turmeric Powder
+Samyang Buldak Carbonara Ramen
+Samyang Buldak Hot Chicken Ramen
+San Pellegrino Sparkling Water
+Sanchi Ghee
+Sanchi Milk
+Saras Butter
+Saras Ghee
+Saras Milk
+Saras Paneer
+Schweppes Ginger Ale
+Schweppes Soda
+Schweppes Tonic Water
+Shakti Bhog Atta
+Shakti Bhog Besan
+Shakti Bhog Maida
+Shakti Bhog Multigrain Atta
+Shakti Bhog Suji
+Similac IQ Plus Stage 1
+Similac IQ Plus Stage 2
+Sleepy Owl Cold Brew Coffee Bags
+Sleepy Owl Iced Coffee
+Slice Mango
+Slurrp Farm Millet Pancake Mix
+Smartwater
+Snickers Chocolate Bar
+Society Tea
+Sofit Soya Milk
+Sosyo Hajmola
+Soulfull Masala Oats
+Soulfull Millet Muesli
+Soulfull Ragi Bites Choco Fills
+Soulfull Ragi Flakes
+Sprite
+Sri Sri Tattva Atta
+Sri Sri Tattva Cow Ghee
+Sri Sri Tattva Honey
+Sting Energy Drink
+Sudha Ghee
+Sudha Lassi
+Sudha Milk
+Sudha Paneer
+Sudha Peda
+Sugar Free Gold
+Sugar Free Green
+Sugar Free Natura
+Suguna Chicken
+Suguna Eggs
+Suhana Biryani Masala
+Suhana Chana Masala
+Suhana Garam Masala
+Suhana Kitchen King Masala
+Suhana Pav Bhaji Masala
+Suhana Sambar Masala
+Sujata Chakki Fresh Atta
+Sujata Maida
+Sujata Sooji
+Sundrop Heart Sunflower Oil
+Sundrop Peanut Butter Creamy
+Sundrop Peanut Butter Crunchy
+Sunfeast Biscafe
+Sunfeast Bourbon
+Sunfeast Dark Fantasy Choco Fills
+Sunfeast Dark Fantasy Choco Nut
+Sunfeast Farmlite Digestive
+Sunfeast Farmlite Oats
+Sunfeast Glucose
+Sunfeast Marie Light
+Sunfeast Mom's Magic
+Sunfeast Snacky
+Sunpure Sunflower Oil
+24 Mantra Organic Basmati Rice
+24 Mantra Organic Jaggery Powder
+24 Mantra Organic Moong Dal
+24 Mantra Organic Sona Masoori Rice
+24 Mantra Organic Toor Dal
+24 Mantra Organic Whole Wheat Atta
+Tabasco Original Pepper Sauce
+Tang Lemon
+Tang Mango
+Tang Orange
+Tasty Bite Aloo Mutter
+Tasty Bite Bombay Potatoes
+Tasty Bite Jaipur Vegetables
+Tasty Bite Kashmir Spinach
+Tasty Bite Madras Lentils
+Tasty Bite Paneer Makhani
+Tasty Bite Punjab Choley
+Tata Coffee Gold Instant Coffee
+Tata Coffee Grand Instant Coffee
+Tata Copper Plus Water
+Tata Gluco Plus Orange
+Tata Salt Iodised Salt
+Tata Salt Lite
+Tata Salt Rock Salt
+Tata Sampann Besan
+Tata Sampann Coriander Powder
+Tata Sampann Cumin Powder
+Tata Sampann Garam Masala
+Tata Sampann Kabuli Chana
+Tata Sampann Kashmiri Chilli Powder
+Tata Sampann Rajma
+Tata Sampann Red Chilli Powder
+Tata Sampann Turmeric Powder
+Tata Sampann Unpolished Chana Dal
+Tata Sampann Unpolished Masoor Dal
+Tata Sampann Unpolished Moong Dal
+Tata Sampann Unpolished Toor Dal
+Tata Sampann Unpolished Urad Dal
+Tata Tea Agni
+Tata Tea Chakra Gold
+Tata Tea Gemini
+Tata Tea Gold
+Tata Tea Gold Care
+Tata Tea Kanan Devan
+Tata Tea Premium
+Tata Tea Teawala
+Tata Tea Tulsi Green Tea
+Teabox Assam Tea
+Teabox Darjeeling Tea
+Tetley Green Tea Lemon & Honey
+Tetley Green Tea Mint
+Tetley Green Tea Tulsi
+The Whole Truth Chocolate Peanut Butter
+The Whole Truth Peanut Butter Unsweetened
+The Whole Truth Protein Bar Coffee Cocoa
+The Whole Truth Protein Bar Peanut Cocoa
+Thums Up
+Thums Up Charged
+Tic Tac Mint
+Tilda Basmati Rice
+Tirumala Curd
+Tirumala Ghee
+Tirumala Milk
+Toblerone Dark Chocolate
+Toblerone Milk Chocolate
+Too Yumm Karare
+Too Yumm Multigrain Chips
+Too Yumm Veggie Stix
+Tops Tomato Ketchup
+Tropicana 100% Apple
+Tropicana 100% Cranberry
+Tropicana 100% Orange
+Tropicana 100% Pomegranate
+Tropicana Delight Apple
+Tropicana Delight Guava
+Tropicana Delight Litchi
+Tropicana Delight Mixed Fruit
+Tropicana Delight Orange
+True Elements Chia Seeds
+True Elements Muesli
+True Elements Raw Pumpkin Seeds
+True Elements Rolled Oats
+Twinings Camomile Tea
+Twinings Earl Grey Tea
+Twinings English Breakfast Tea
+Twinings Green Tea
+Twinings Peppermint Tea
+Twix Chocolate Bar
+Uncle Chipps Plain Salted
+Uncle Chipps Spicy Treat
+Unibic Butter Cookies
+Unibic Cashew Cookies
+Unibic Choco Chip Cookies
+Unibic Fruit & Nut Cookies
+Urban Platter Chia Seeds
+Urban Platter Flax Seeds
+Uttam Sugar
+Vadilal Frozen Green Peas
+Vadilal Ice Cream Butterscotch
+Vadilal Ice Cream Kesar Pista
+Vadilal Ice Cream Vanilla
+Vadilal Kulfi
+Vadilal Quick Treat
+Vahdam Assam Black Tea
+Vahdam Darjeeling Tea
+Vahdam Green Tea
+Vahdam Masala Chai
+Vahdam Turmeric Ginger Tea
+Veeba Chipotle Southwest Sauce
+Veeba Eggless Mayonnaise
+Veeba Sandwich Spread
+Veeba Tandoori Mayonnaise
+Veeba Thousand Island Dressing
+Veeba Tomato Ketchup
+Venky's Chicken
+Verka Butter
+Verka Dahi
+Verka Ghee
+Verka Lassi
+Verka Milk
+Verka Paneer
+Vijaya Butter
+Vijaya Curd
+Vijaya Ghee
+Vijaya Milk
+Vijaya Paneer
+Vita Dahi
+Vita Ghee
+Vita Milk
+Vita Paneer
+Wagh Bakri Elaichi Tea
+Wagh Bakri Gold Tea
+Wagh Bakri Instant Tea Premix
+Wagh Bakri Masala Tea
+Wagh Bakri Premium Tea
+Wai Wai Chicken Noodles
+Wai Wai Quick Noodles
+Wai Wai Veg Masala Noodles
+Warana Ghee
+Warana Milk
+Weikfield Baking Powder
+Weikfield Baking Soda
+Weikfield Brownie Mix
+Weikfield Chocolate Cake Mix
+Weikfield Corn Flour
+Weikfield Custard Powder
+Weikfield Ice Cream Mix
+Weikfield Jelly Crystals
+Weikfield Pancake Mix
+Weikfield Vanilla Cake Mix
+Wingreens Farms Veg Mayonnaise
+Wrigley's Doublemint
+Wrigley's Juicy Fruit
+Yakult Probiotic Drink
+Yellow Diamond Chips
+Yellow Diamond Rings
+Yippee Classic Masala Noodles
+Yippee Magic Masala Noodles
+Yippee Mood Masala Noodles
+Yippee Power Up Atta Noodles
+Yippee Tricolor Pasta
+Yoga Bar Breakfast Protein Bar
+Yoga Bar Muesli
+Yoga Bar Multigrain Energy Bar
+Yoga Bar Oats
+Yoga Bar Peanut Butter
+Yoga Bar Protein Bar
+Zandu Chyawanprash
+Zandu Kesari Jivan
+Zorabian Chicken
+"""
+
+items = [line.strip() for line in text.split('\n') if line.strip()]
+
+with open('products_c_to_z.json', 'w') as f:
+    json.dump(items, f, indent=2)
+
+print(f"Extracted {len(items)} items")
