@@ -37,7 +37,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           <h1 className="text-3xl font-bold tracking-tight">Search Results</h1>
           <p className="text-sm mt-1">Query: <span className="font-mono bg-white border border-brand-border px-1">{query}</span></p>
         </div>
-        <Link href="/" className="text-sm hover:underline font-medium">Home</Link>
+        <Link href="/" className="text-sm font-medium bg-brand-neutral text-white px-5 py-2 hover:bg-black transition-colors rounded-sm shadow-sm border border-brand-neutral">Home</Link>
       </header>
 
       {(!results || results.items.length === 0 || query.length < 2) ? (
