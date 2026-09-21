@@ -80,6 +80,7 @@ export default async function CataloguePage({ searchParams }: { searchParams: { 
               <span className="block font-semibold">Rating: {product.rating_band || "Unrated"}</span>
               <span className="block text-gray-600 mt-1">Confidence: {product.confidence_grade || "N/A"}</span>
             </div>
+            </div>
           </Link>
         ))}
       </div>
