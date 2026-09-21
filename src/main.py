@@ -240,6 +240,7 @@ def get_product_analysis(
             models.Rating.explanation,
             models.Rating.published_at.label("last_reviewed_at"),
             models.LabelVersion.label_image_id.label("image_url"),
+            models.LabelVersion.ingredients_raw.label("ingredients_raw"),
             models.LabelVersion.id.label("label_version_id"),
             models.MethodologyVersion.name.label("methodology_version")
         )
@@ -312,6 +313,7 @@ def get_product_analysis(
         explanation=result.explanation,
         nutrition=nutrition,
         ingredients=mapped_ingredients,
+        ingredients_raw=result.ingredients_raw,
         flags=[],
         sources=[],
         image_url=result.image_url,

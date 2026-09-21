@@ -29,6 +29,7 @@ interface ProductAnalysis {
   explanation: { summary?: string; [key: string]: unknown };
   nutrition: NutritionFacts | null;
   ingredients: IngredientMapping[];
+  ingredients_raw?: string | null;
   image_url: string | null;
   last_reviewed_at: string | null;
   methodology_version?: string;
@@ -132,7 +133,9 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
         <section className="space-y-6">
           <h2 className="text-xl font-semibold border-b border-brand-border pb-2 uppercase tracking-tight">Ingredients</h2>
           {product.ingredients.length === 0 ? (
-            <p className="text-sm border border-brand-border p-4 bg-white">No ingredient data available.</p>
+            <p className="text-sm border border-brand-border p-4 bg-white">
+              {product.ingredients_raw ? product.ingredients_raw : "No ingredient data available."}
+            </p>
           ) : (
             <div className="border border-brand-border bg-white p-5">
               <ul className="space-y-3">

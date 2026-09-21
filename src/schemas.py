@@ -86,6 +86,7 @@ class ProductAnalysis(BaseModel):
     explanation: Dict[str, Any]
     nutrition: Optional[NutritionFactsBase] = None
     ingredients: List[IngredientMapping] = []
+    ingredients_raw: Optional[str] = None
     flags: List[Dict[str, str]] = []
     sources: List[Dict[str, str]] = []
     image_url: Optional[str] = None
@@ -158,6 +159,7 @@ class VariantComparisonCard(BaseModel):
     methodology_version: str
     nutrition: Optional[NutritionFactsBase] = None
     ingredients: List[IngredientMapping] = []
+    ingredients_raw: Optional[str] = None
     
     model_config = ConfigDict(from_attributes=True)
 
