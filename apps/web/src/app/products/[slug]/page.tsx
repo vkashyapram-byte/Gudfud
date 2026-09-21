@@ -137,13 +137,16 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
               {product.ingredients_raw ? product.ingredients_raw : "No ingredient data available."}
             </p>
           ) : (
-            <div className="border border-brand-border bg-white p-5">
+            <div className="border border-brand-border bg-white p-5 space-y-4">
+              <p className="text-xs text-brand-neutral/70 italic mb-2">
+                * Ingredients are listed in descending order by weight as per labeling regulations. Exact percentages are shown where declared by the manufacturer.
+              </p>
               <ul className="space-y-3">
-                {product.ingredients.map((ing, idx) => (
-                  <li key={idx} className="flex justify-between items-center text-sm border-b border-brand-border border-dashed pb-2 last:border-0 last:pb-0">
-                    <span className="uppercase flex-1">{ing.label_text}</span>
-                    <span className="text-xs uppercase text-brand-neutral/40 ml-4 flex-shrink-0 font-mono">
-                      {ing.declared_percent ? `${ing.declared_percent}%` : String(ing.position).padStart(2, '0')}
+                {product.ingredients.map((ing, i) => (
+                  <li key={i} className="flex items-start justify-between border-b border-brand-border/30 pb-2 last:border-0 last:pb-0">
+                    <span className="text-sm font-medium">{ing.label_text || ing.canonical_name || "Unknown"}</span>
+                    <span className="text-xs uppercase text-brand-neutral/40 ml-4 flex-shrink-0 font-mono text-right">
+                      {ing.declared_percent ? `${ing.declared_percent}%` : `Unspecified (Rank #${ing.position})`}
                     </span>
                   </li>
                 ))}
