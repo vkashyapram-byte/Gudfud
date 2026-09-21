@@ -16,7 +16,8 @@ interface HistoryResponse {
   history: HistoryRecord[];
 }
 
-export default async function ProductHistoryPage({ params }: { params: { slug: string } }) {
+export default async function ProductHistoryPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { slug } = params;
 
   let data: HistoryResponse | null = null;

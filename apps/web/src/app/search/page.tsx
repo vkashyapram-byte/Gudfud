@@ -25,8 +25,9 @@ async function getSearchResults(query: string): Promise<SearchResponse | null> {
   }
 }
 
-export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
-  const query = searchParams.q || "";
+export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const params = await searchParams;
+  const query = params.q || "";
   const results = await getSearchResults(query);
 
   return (

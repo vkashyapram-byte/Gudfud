@@ -58,56 +58,19 @@ export default async function HomePage() {
 
       <section className="py-20 px-6 flex flex-col items-center justify-center border-b border-brand-border relative overflow-hidden bg-brand-surface">
         <div className="w-full max-w-4xl z-10">
-          <form action={search} className="flex w-full border-2 border-brand-neutral shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white transition-all focus-within:translate-y-[2px] focus-within:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+          <form action={search} className="flex items-center w-full max-w-3xl mx-auto bg-brand-surface border-[3px] border-[#8b5cf6] rounded-full px-2 py-1 transition-shadow focus-within:shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#8b5cf6] ml-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
             <input
               type="text"
               name="q"
-              placeholder="SEARCH PRODUCTS, BRANDS, E-NUMBERS..."
+              placeholder="Search products, brands, e-numbers..."
               required
               minLength={2}
-              className="w-full p-4 md:p-6 text-base md:text-lg outline-none placeholder:text-brand-neutral/40 rounded-none uppercase font-bold"
+              className="w-full p-4 md:p-5 text-lg md:text-xl outline-none placeholder:text-[#059669] text-[#059669] font-medium bg-transparent"
             />
-            <button
-              type="submit"
-              className="border-l-2 border-brand-neutral px-6 md:px-12 uppercase font-bold bg-brand-neutral text-brand-surface hover:bg-brand-neutral/90 transition-none rounded-none text-base md:text-lg shrink-0 flex items-center gap-2 cursor-pointer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <span className="hidden md:inline">Search</span>
-            </button>
           </form>
-          
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8 text-center">
-            <Link href="/search?q=snacks" className="flex flex-col items-center group cursor-pointer">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-neutral mb-3 flex items-center justify-center bg-white group-hover:bg-brand-neutral group-hover:text-white transition-colors">
-                <span className="text-2xl">🍫</span>
-              </div>
-              <span className="text-xs uppercase font-bold tracking-widest text-brand-neutral/80 group-hover:text-brand-neutral">Snacks</span>
-            </Link>
-            <Link href="/search?q=beverage" className="flex flex-col items-center group cursor-pointer">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-neutral mb-3 flex items-center justify-center bg-white group-hover:bg-brand-neutral group-hover:text-white transition-colors">
-                <span className="text-2xl">🧃</span>
-              </div>
-              <span className="text-xs uppercase font-bold tracking-widest text-brand-neutral/80 group-hover:text-brand-neutral">Beverages</span>
-            </Link>
-            <Link href="/search?q=breakfast" className="flex flex-col items-center group cursor-pointer">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-neutral mb-3 flex items-center justify-center bg-white group-hover:bg-brand-neutral group-hover:text-white transition-colors">
-                <span className="text-2xl">🥣</span>
-              </div>
-              <span className="text-xs uppercase font-bold tracking-widest text-brand-neutral/80 group-hover:text-brand-neutral">Breakfast</span>
-            </Link>
-            <Link href="/search?q=sauce" className="flex flex-col items-center group cursor-pointer">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-neutral mb-3 flex items-center justify-center bg-white group-hover:bg-brand-neutral group-hover:text-white transition-colors">
-                <span className="text-2xl">🥫</span>
-              </div>
-              <span className="text-xs uppercase font-bold tracking-widest text-brand-neutral/80 group-hover:text-brand-neutral">Pantry</span>
-            </Link>
-            <Link href="/search?q=ice+cream" className="flex flex-col items-center group cursor-pointer col-span-2 md:col-span-1">
-              <div className="w-16 h-16 rounded-full border-2 border-brand-neutral mb-3 flex items-center justify-center bg-white group-hover:bg-brand-neutral group-hover:text-white transition-colors">
-                <span className="text-2xl">🧊</span>
-              </div>
-              <span className="text-xs uppercase font-bold tracking-widest text-brand-neutral/80 group-hover:text-brand-neutral">Frozen</span>
-            </Link>
-          </div>
         </div>
       </section>
 

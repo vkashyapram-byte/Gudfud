@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useParams } from "next/navigation";
 
-export default function PublishLabelPage({ params }: { params: { id: string } }) {
+export default function PublishLabelPage() {
+  const params = useParams();
+  const id = params.id as string;
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -32,7 +35,7 @@ export default function PublishLabelPage({ params }: { params: { id: string } })
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/admin/labels/${params.id}/publish`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/admin/labels/${id}/publish`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -55,7 +58,7 @@ export default function PublishLabelPage({ params }: { params: { id: string } })
       <div className="max-w-3xl">
         <div className="border-4 border-brand-neutral p-8 bg-white text-center">
           <h2 className="text-2xl font-bold mb-4 uppercase">Publication Successful</h2>
-          <p className="font-mono mb-6">Label Version {params.id} has been atomically published.</p>
+          <p className="font-mono mb-6">Label Version {id} has been atomically published.</p>
           <button onClick={() => setStatus("idle")} className="border-2 border-brand-neutral px-6 py-2 font-bold uppercase hover:bg-brand-surface">
             Publish Another Update
           </button>
@@ -70,7 +73,7 @@ export default function PublishLabelPage({ params }: { params: { id: string } })
         Publish Label Transaction
       </h1>
       <p className="text-sm font-mono mb-6 bg-brand-surface p-3 border border-brand-border">
-        Target: <span className="font-bold">{params.id}</span>
+        Target: <span className="font-bold">{id}</span>
       </p>
 
       {status === "error" && (

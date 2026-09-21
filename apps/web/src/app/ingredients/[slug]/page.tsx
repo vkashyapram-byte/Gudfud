@@ -52,7 +52,8 @@ async function getIngredient(slug: string): Promise<IngredientAnalysis | null> {
   }
 }
 
-export default async function IngredientPage({ params }: { params: { slug: string } }) {
+export default async function IngredientPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const ingredient = await getIngredient(params.slug);
   
   if (!ingredient) notFound();

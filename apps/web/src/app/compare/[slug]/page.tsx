@@ -29,9 +29,11 @@ async function getComparison(slug: string, markets: string): Promise<ComparisonD
   }
 }
 
-export default async function ComparePage({ params, searchParams }: { params: { slug: string }, searchParams: { [key: string]: string | string[] | undefined } }) {
-  const marketsStr = typeof searchParams.markets === 'string' ? searchParams.markets : "IN";
-  const data = await getComparison(params.slug, marketsStr);
+export default async function ComparePage({ params, searchParams }: { params: Promise<{ slug: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const marketsStr = typeof resolvedSearchParams.markets === 'string' ? resolvedSearchParams.markets : "IN";
+  const data = await getComparison(resolvedParams.slug, marketsStr);
 
   if (!data || data.variants.length === 0) notFound();
 

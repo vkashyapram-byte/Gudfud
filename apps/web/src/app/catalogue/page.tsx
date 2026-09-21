@@ -31,8 +31,9 @@ async function getCatalogue(page: number): Promise<PaginatedCatalogue> {
   }
 }
 
-export default async function CataloguePage({ searchParams }: { searchParams: { page?: string } }) {
-  const currentPage = parseInt(searchParams.page || "1", 10);
+export default async function CataloguePage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
+  const params = await searchParams;
+  const currentPage = parseInt(params.page || "1", 10);
   const catalogue = await getCatalogue(currentPage);
   const totalPages = Math.ceil(catalogue.total / catalogue.size) || 1;
 
