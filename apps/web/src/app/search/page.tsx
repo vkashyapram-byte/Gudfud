@@ -45,24 +45,42 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           No results found.
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {results.items.map((item, idx) => (
-            <Link 
-              key={`${item.type}-${item.slug}-${idx}`} 
-              href={item.type === 'brand' ? `/brands/${item.slug}` : `/products/${item.slug}`} 
-              className={`block p-4 bg-white hover:bg-brand-surface transition-colors ${
-                item.type === 'brand' ? 'border-2 border-brand-neutral' : 'border border-brand-border'
-              }`}
-            >
-              <div className="flex justify-between items-start mb-2">
-                <span className="text-xs uppercase font-mono bg-brand-surface border border-brand-border px-1">
-                  {item.type}
-                </span>
+        <div className="space-y-12">
+          {results.items.filter(item => item.type === 'brand').length > 0 && (
+            <section>
+              <h2 className="text-xl font-bold uppercase tracking-tight mb-4 border-b border-brand-border pb-2">Brands</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                {results.items.filter(item => item.type === 'brand').map((item, idx) => (
+                  <Link 
+                    key={`brand-${item.slug}-${idx}`} 
+                    href={`/brands/${item.slug}`} 
+                    className="block p-4 bg-white hover:bg-brand-surface transition-colors border-2 border-brand-neutral text-center"
+                  >
+                    <h3 className="font-bold text-lg leading-tight mb-1">{item.name}</h3>
+                    {item.subtitle && <p className="text-sm text-gray-700">{item.subtitle}</p>}
+                  </Link>
+                ))}
               </div>
-              <h3 className="font-bold text-lg leading-tight mb-1">{item.name}</h3>
-              {item.subtitle && <p className="text-sm text-gray-700">{item.subtitle}</p>}
-            </Link>
-          ))}
+            </section>
+          )}
+
+          {results.items.filter(item => item.type === 'product').length > 0 && (
+            <section>
+              <h2 className="text-xl font-bold uppercase tracking-tight mb-4 border-b border-brand-border pb-2">Products</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {results.items.filter(item => item.type === 'product').map((item, idx) => (
+                  <Link 
+                    key={`product-${item.slug}-${idx}`} 
+                    href={`/products/${item.slug}`} 
+                    className="block p-4 bg-white hover:bg-brand-surface transition-colors border border-brand-border"
+                  >
+                    <h3 className="font-bold text-lg leading-tight mb-1">{item.name}</h3>
+                    {item.subtitle && <p className="text-sm text-gray-700">{item.subtitle}</p>}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       )}
     </main>
