@@ -56,10 +56,10 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <section className="py-20 px-6 flex flex-col items-center justify-center border-b border-brand-border relative overflow-hidden bg-brand-surface">
-        <div className="w-full max-w-4xl z-10">
-          <form action={search} className="flex items-center w-full max-w-3xl mx-auto bg-brand-surface border-[3px] border-[#8b5cf6] rounded-full px-2 py-1 transition-shadow focus-within:shadow-md">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#8b5cf6] ml-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+      <section className="py-20 px-6 flex flex-col items-center justify-center border-b border-brand-border bg-white">
+        <div className="w-full max-w-3xl z-10">
+          <form action={search} className="flex items-center w-full border border-brand-border bg-white p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brand-neutral ml-2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -68,24 +68,9 @@ export default async function HomePage() {
               placeholder="Search products, brands, e-numbers..."
               required
               minLength={2}
-              className="w-full p-4 md:p-5 text-lg md:text-xl outline-none placeholder:text-[#059669] text-[#059669] font-medium bg-transparent"
+              className="w-full p-3 text-lg outline-none text-brand-neutral placeholder:text-brand-neutral/50 bg-transparent"
             />
           </form>
-        </div>
-      </section>
-
-      <section className="border-b border-brand-border bg-white flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-brand-border">
-        <div className="flex-1 p-6 text-center">
-          <div className="text-sm uppercase tracking-widest text-brand-neutral/60 mb-1">Total Products</div>
-          <div className="text-3xl font-bold text-brand-neutral">852+</div>
-        </div>
-        <div className="flex-1 p-6 text-center">
-          <div className="text-sm uppercase tracking-widest text-brand-neutral/60 mb-1">Brands Analyzed</div>
-          <div className="text-3xl font-bold text-brand-neutral">140+</div>
-        </div>
-        <div className="flex-1 p-6 text-center">
-          <div className="text-sm uppercase tracking-widest text-brand-neutral/60 mb-1">Ingredients Mapped</div>
-          <div className="text-3xl font-bold text-brand-neutral">1,200+</div>
         </div>
       </section>
 

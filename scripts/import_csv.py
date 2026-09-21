@@ -165,8 +165,8 @@ def import_csv_data():
                 session.add(variant)
                 session.flush()
 
-                # Get Image
-                image_url = get_image_url(f"{brand_name} {product_name} product packaging india")
+                # Get Image removed to speed up import
+                image_url = None
                 
                 ingredients_text = row.get("Ingredients", "")
                 
