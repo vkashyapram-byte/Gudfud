@@ -30,51 +30,6 @@ from sqlalchemy import text
 from src.database import engine
 
 
-@app.post("/v1/admin/trigger_seed")
-def trigger_seed(background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    import sys
-    import os
-    from sqlalchemy import text
-    
-    # 0. Migrate database
-    try:
-        db.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
-        db.commit()
-    except Exception as e:
-        db.rollback()
-        print(f"pg_trgm extension migration error: {e}")
-        
-    try:
-        db.execute(text("ALTER TABLE label_ingredient ADD COLUMN IF NOT EXISTS declared_percent NUMERIC;"))
-        db.commit()
-    except Exception as e:
-        db.rollback()
-        print(f"label_ingredient column migration error: {e}")
-
-    # 1. Purge all tables to remove old data (in correct foreign key order)
-    db.execute(text("TRUNCATE TABLE label_ingredient, ingredient_evidence, nutrition_facts, rating, label_version, product_variant, product, category, brand, ingredient, market RESTART IDENTITY CASCADE;"))
-    db.commit()
-
-    # 2. Add scripts path and run import in background
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-    from scripts import import_csv
-    background_tasks.add_task(import_csv.import_csv_data)
-    
-    return {"status": "success", "message": "Purged old data and seeded products from CSV via background task."}
-
-@app.get("/v1/admin/fix-market")
-def fix_market(db: Session = Depends(get_db)):
-    # Create or get India market
-    market_in = db.query(models.Market).filter_by(country_code="IN").first()
-    if not market_in:
-        market_in = models.Market(name="India", country_code="IN")
-        db.add(market_in)
-        db.flush()
-    
-    # Update all product variants to India
-    db.query(models.ProductVariant).update({"market_id": market_in.id})
-    db.commit()
-    return {"status": "fixed", "market_id": market_in.id}
 
 @app.get("/v1/catalogue", response_model=schemas.PaginatedCatalogue)
 def get_catalogue(
@@ -353,20 +308,29 @@ def get_ingredient_analysis(slug: str, db: Session = Depends(get_db)):
     ).all()
 
     evidence_list = []
-    for ev in evidence_records:
-        sources = db.query(models.Source).join(
-            models.EvidenceSource, models.EvidenceSource.source_id == models.Source.id
-        ).filter(models.EvidenceSource.ingredient_evidence_id == ev.id).all()
+    if evidence_records:
+        evidence_ids = [ev.id for ev in evidence_records]
         
-        evidence_list.append({
-            "effect_type": ev.effect_type,
-            "population": ev.population,
-            "dose_context": ev.dose_context,
-            "evidence_grade": ev.evidence_grade,
-            "summary": ev.summary,
-            "jurisdiction": ev.jurisdiction,
-            "sources": [{"title": s.title, "publisher": s.publisher, "url": s.url, "publication_date": s.publication_date} for s in sources]
-        })
+        all_sources = db.query(models.EvidenceSource.ingredient_evidence_id, models.Source).join(
+            models.Source, models.EvidenceSource.source_id == models.Source.id
+        ).filter(models.EvidenceSource.ingredient_evidence_id.in_(evidence_ids)).all()
+        
+        from collections import defaultdict
+        sources_by_ev = defaultdict(list)
+        for ev_id, src in all_sources:
+            sources_by_ev[ev_id].append(src)
+            
+        for ev in evidence_records:
+            sources = sources_by_ev.get(ev.id, [])
+            evidence_list.append({
+                "effect_type": ev.effect_type,
+                "population": ev.population,
+                "dose_context": ev.dose_context,
+                "evidence_grade": ev.evidence_grade,
+                "summary": ev.summary,
+                "jurisdiction": ev.jurisdiction,
+                "sources": [{"title": s.title, "publisher": s.publisher, "url": s.url, "publication_date": s.publication_date} for s in sources]
+            })
 
     # 4. Fetch Regulatory Statuses & Jurisdiction
     reg_records = db.query(models.RegulatoryStatus, models.Market.country_code).join(
@@ -582,32 +546,6 @@ def get_product_history(
 
     return {"history": formatted_history}
 
-def generate_reference_number(length=8):
-    chars = string.ascii_uppercase + string.digits
-    return ''.join(random.choice(chars) for _ in range(length))
-
-@app.post("/v1/corrections", status_code=201)
-def submit_correction(
-    report: schemas.CorrectionReportCreate,
-    db: Session = Depends(get_db)
-):
-    reference = f"CORR-{generate_reference_number()}"
-    
-    new_report = models.CorrectionReport(
-        public_reference=reference,
-        reporter_contact=report.reporter_contact,
-        entity_type=report.entity_type,
-        entity_id=report.entity_id,
-        message=report.message,
-        evidence_asset_id=report.evidence_asset_id,
-        status="open",
-        created_at=datetime.now(timezone.utc)
-    )
-    
-    db.add(new_report)
-    db.commit()
-    
-    return {"reference_number": reference, "status": "submitted"}
 
 
 @app.post("/v1/admin/labels/{label_version_id}/publish")

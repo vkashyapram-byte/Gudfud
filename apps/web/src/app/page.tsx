@@ -24,7 +24,7 @@ async function fetchRecentProducts(): Promise<ProductCard[]> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
   try {
     const res = await fetch(`${apiUrl}/v1/catalogue?page=1&size=12&market=in`, {
-      cache: "no-store",
+      next: { revalidate: 60 },
     });
     if (!res.ok) return [];
     const data: PaginatedCatalogue = await res.json();

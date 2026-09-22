@@ -169,12 +169,6 @@ class ProductComparisonResponse(BaseModel):
     brand_name: str
     variants: List[VariantComparisonCard]
 
-class CorrectionReportCreate(BaseModel):
-    reporter_contact: Optional[str] = None
-    entity_type: str
-    entity_id: UUID
-    message: str
-    evidence_asset_id: Optional[UUID] = None
 
 class PublishRequest(BaseModel):
     actor_id: str

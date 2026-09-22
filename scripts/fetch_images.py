@@ -18,15 +18,14 @@ session_req.headers.update({
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 })
 
-def get_off_image_url(product_name, brand_name):
+def get_spoonacular_image_url(product_name, brand_name):
     query = f"{brand_name} {product_name}".strip()
-    url = f"https://world.openfoodfacts.org/cgi/search.pl"
+    api_key = "6c5743e49c5940eaa1762562056289db"
+    url = f"https://api.spoonacular.com/food/products/search"
     params = {
-        "search_terms": query,
-        "search_simple": "1",
-        "action": "process",
-        "json": "1",
-        "page_size": "1"
+        "query": query,
+        "apiKey": api_key,
+        "number": 1
     }
     try:
         response = session_req.get(url, params=params, timeout=10)
@@ -34,7 +33,7 @@ def get_off_image_url(product_name, brand_name):
         data = response.json()
         products = data.get("products", [])
         if products:
-            img = products[0].get("image_front_url") or products[0].get("image_url")
+            img = products[0].get("image")
             return img
     except Exception as e:
         print(f"Error fetching image for {query}: {e}")
@@ -64,7 +63,7 @@ def fetch_images():
             
             print(f"[{i+1}/{len(labels_without_images)}] Fetching image for: {brand_name} {product_name}")
             
-            image_url = get_off_image_url(product_name, brand_name)
+            image_url = get_spoonacular_image_url(product_name, brand_name)
             if image_url:
                 label.label_image_id = image_url
                 updated_count += 1
@@ -77,7 +76,7 @@ def fetch_images():
                 session.commit()
                 
             # Rate limiting
-            time.sleep(1.0)
+            time.sleep(0.2)
             
         session.commit()
         print(f"Finished! Successfully added images to {updated_count} products.")

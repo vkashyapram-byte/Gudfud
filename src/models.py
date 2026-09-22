@@ -178,15 +178,6 @@ class RegulatoryStatus(Base):
         Index("ix_regulatory_status_market_effective", "ingredient_id", "market_id", "effective_from"),
     )
 
-class VariantSource(Base):
-    __tablename__ = "variant_source"
-
-    label_version_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("label_version.id"), primary_key=True)
-    source_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("source.id"), primary_key=True)
-    field_path: Mapped[str] = mapped_column(String, primary_key=True)
-    locator: Mapped[Optional[str]] = mapped_column(String)
-    verification_note: Mapped[Optional[str]] = mapped_column(String)
-
 class MethodologyVersion(Base):
     __tablename__ = "methodology_version"
 
@@ -234,18 +225,6 @@ class Rating(Base):
         UniqueConstraint("label_version_id", "methodology_version_id", name="uq_rating_label_methodology"),
     )
 
-class Alternative(Base):
-    __tablename__ = "alternative"
-
-    source_variant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("product_variant.id"), primary_key=True)
-    alternative_variant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("product_variant.id"), primary_key=True)
-    methodology_version_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("methodology_version.id"), primary_key=True)
-    reason: Mapped[str] = mapped_column(String, nullable=False)
-    rank: Mapped[int] = mapped_column(Integer, nullable=False)
-    status: Mapped[str] = mapped_column(String, nullable=False)
-    reviewed_by: Mapped[str] = mapped_column(String, nullable=False)
-    reviewed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-
 class LabelIngredient(Base):
     __tablename__ = "label_ingredient"
     
@@ -264,46 +243,6 @@ class IngredientAlias(Base):
     alias: Mapped[str] = mapped_column(String, nullable=False)
     alias_normalized: Mapped[str] = mapped_column(String, nullable=False, index=True)
 
-class AdminUser(Base):
-    __tablename__ = "admin_user"
-
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    display_name: Mapped[str] = mapped_column(String, nullable=False)
-    role: Mapped[str] = mapped_column(String, nullable=False)
-    status: Mapped[str] = mapped_column(String, nullable=False)
-    auth_subject: Mapped[Optional[str]] = mapped_column(String)
-    last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
-
-class TeamMember(Base):
-    __tablename__ = "team_member"
-
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    slug: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    role_title: Mapped[str] = mapped_column(String, nullable=False)
-    bio: Mapped[Optional[str]] = mapped_column(String)
-    photo_asset_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True))
-    display_order: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
-    is_public: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-
-class ReviewTask(Base):
-    __tablename__ = "review_task"
-
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    entity_type: Mapped[str] = mapped_column(String, nullable=False)
-    entity_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
-    status: Mapped[str] = mapped_column(String, nullable=False)
-    assigned_to: Mapped[Optional[str]] = mapped_column(String)
-    requested_by: Mapped[str] = mapped_column(String, nullable=False)
-    checklist: Mapped[Optional[dict]] = mapped_column(JSONB)
-    due_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
-    resolved_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
-
-    __table_args__ = (
-        Index("ix_review_task_status_assigned_due", "status", "assigned_to", "due_at"),
-    )
-
 class AuditLog(Base):
     __tablename__ = "audit_log"
 
@@ -317,22 +256,3 @@ class AuditLog(Base):
     ip_hash: Mapped[Optional[str]] = mapped_column(String)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 
-class CorrectionReport(Base):
-    __tablename__ = "correction_report"
-
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    public_reference: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    reporter_contact: Mapped[Optional[str]] = mapped_column(String)
-    entity_type: Mapped[str] = mapped_column(String, nullable=False)
-    entity_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
-    message: Mapped[str] = mapped_column(String, nullable=False)
-    evidence_asset_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True))
-    status: Mapped[str] = mapped_column(String, nullable=False)
-    assigned_to: Mapped[Optional[str]] = mapped_column(String)
-    resolution: Mapped[Optional[str]] = mapped_column(String)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    closed_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
-
-    __table_args__ = (
-        Index("ix_correction_report_status_created", "status", "created_at"),
-    )
