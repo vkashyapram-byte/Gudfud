@@ -1,3 +1,6 @@
 {
-  "installCommand": "npm install --no-package-lock"
+  "installCommand": "npm install --no-package-lock",
+  "rewrites": [
+    { "source": "/v1/(.*)", "destination": "/api/index" }
+  ]
 }
