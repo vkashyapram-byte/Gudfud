@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin')) {
     const token = request.cookies.get(process.env.ADMIN_COOKIE_NAME || 'admin_session_token')?.value;
 
