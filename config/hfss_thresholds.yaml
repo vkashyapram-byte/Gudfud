@@ -1,0 +1,10 @@
+# Derived from FSSAI Draft Notification September 2022
+# High fat, sugar, salt (HFSS) food definition:
+# Energy from total sugar >= 10% of total energy
+# Energy from saturated fat >= 10% of total energy
+# Sodium >= 1 mg per 1 kcal
+
+hfss_thresholds:
+  sugar_energy_pct_min: 10  # >= 10%
+  sat_fat_energy_pct_min: 10 # >= 10%
+  sodium_mg_per_kcal_min: 1 # >= 1 mg / kcal

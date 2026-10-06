@@ -69,7 +69,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
             <img 
               src={product.image_url} 
               alt={product.canonical_name} 
-              className="w-full md:w-1/3 object-cover border border-brand-border bg-white"
+              className="w-full md:w-1/3 aspect-square object-cover border border-brand-border bg-white"
             />
           ) : (
             <div className="w-full md:w-1/3 aspect-square border border-brand-border bg-brand-neutral/5 flex items-center justify-center">
@@ -169,8 +169,8 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
                 <span>Fat</span>
                 <span>{product.nutrition.fat !== null ? `${product.nutrition.fat}g` : "N/A"}</span>
               </div>
-              <div className="flex justify-between border-b border-brand-border border-dashed pb-2 ml-4">
-                <span className="text-brand-neutral/70">Saturated Fat</span>
+              <div className="flex justify-between border-b border-brand-border border-dashed pb-2">
+                <span className="text-brand-neutral/70 ml-4">Saturated Fat</span>
                 <span>{product.nutrition.saturated_fat !== null ? `${product.nutrition.saturated_fat}g` : "N/A"}</span>
               </div>
               <div className="flex justify-between border-b border-brand-border border-dashed pb-2">

@@ -54,3 +54,4 @@ yarn-debug.log*
 next-env.d.ts
 /coverage
 .env*
+temp_img/

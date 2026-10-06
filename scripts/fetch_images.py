@@ -18,23 +18,23 @@ session_req.headers.update({
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 })
 
-def get_spoonacular_image_url(product_name, brand_name):
-    query = f"{brand_name} {product_name}".strip()
-    api_key = "6c5743e49c5940eaa1762562056289db"
-    url = f"https://api.spoonacular.com/food/products/search"
-    params = {
-        "query": query,
-        "apiKey": api_key,
-        "number": 1
-    }
+import urllib.parse
+from bs4 import BeautifulSoup
+import re
+
+def get_image_url(product_name, brand_name):
+    # Enforce strictly Indian grocery results
+    query = f"{brand_name} {product_name} India grocery OR bigbasket OR jiomart".strip()
+    url = f"https://www.bing.com/images/async?q={urllib.parse.quote(query)}&first=0&count=1"
+    
     try:
-        response = session_req.get(url, params=params, timeout=10)
+        response = session_req.get(url, timeout=10)
         response.raise_for_status()
-        data = response.json()
-        products = data.get("products", [])
-        if products:
-            img = products[0].get("image")
-            return img
+        soup = BeautifulSoup(response.text, 'html.parser')
+        for a in soup.find_all('a', class_='iusc'):
+            m = re.search(r'"murl":"(.*?)"', a.get('m', ''))
+            if m:
+                return m.group(1)
     except Exception as e:
         print(f"Error fetching image for {query}: {e}")
     return None
@@ -44,7 +44,9 @@ def fetch_images():
     with Session(engine) as session:
         # Get labels without images
         labels_without_images = session.query(LabelVersion).filter(
-            (LabelVersion.label_image_id == None) | (LabelVersion.label_image_id == "")
+            (LabelVersion.label_image_id == None) | 
+            (LabelVersion.label_image_id == "") |
+            (LabelVersion.label_image_id.like("%wikipedia.org%"))
         ).all()
         
         print(f"Found {len(labels_without_images)} products missing images.")
@@ -63,7 +65,7 @@ def fetch_images():
             
             print(f"[{i+1}/{len(labels_without_images)}] Fetching image for: {brand_name} {product_name}")
             
-            image_url = get_spoonacular_image_url(product_name, brand_name)
+            image_url = get_image_url(product_name, brand_name)
             if image_url:
                 label.label_image_id = image_url
                 updated_count += 1
@@ -76,7 +78,7 @@ def fetch_images():
                 session.commit()
                 
             # Rate limiting
-            time.sleep(0.2)
+            time.sleep(1)
             
         session.commit()
         print(f"Finished! Successfully added images to {updated_count} products.")

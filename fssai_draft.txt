@@ -1,0 +1,853 @@
+--- PAGE 1 ---
+6167 GI/2022 (1) 
+ 
+रजजस्ट्री सं. डी.एल.- 33004/99 REGD. No. D. L.-33004/99 
+  
+ 
+ 
+xxxGIDHxxx 
+xxxGIDExxx 
+असाधारण  
+EXTRAORDINARY 
+भाग III—खण् ड 4  
+PART III—Section 4 
+प्राजधकार से प्रकाजित 
+PUBLISHED BY AUTHORITY 
+भारतीय खाद्य सुरक्षा और मानक प्राजधकरण 
+अजधसूचना 
+नई ददल् ली, 13 जसतम् बर, 2022 
+फा. सं . स्ट् टैंड्सस/एस ी-08/टी(एफओ ीएनएल-एन-01).—खाद्य सुरक्षा और मानक (लेबललग और प्रदिसन ) 
+जिजनयम, 2020 में और आगे संिोधन, जो भारतीय खाद्य सुरक्षा और मानक प्राजधकरण , क ें द्र सरकार क े   ूिासनुमोदन से, 
+खाद्य सुरक्षा और मानक अजधजनयम, 2006 (2006 का संख यांक 34) का धारा 16 का उ -धारा (2) क े  खंड (ज) और धारा 
+23  क े साथ  ठित धारा 92 का उ -धारा (2) क े खंड (ट) द्वारा प्रदत् त िजतियों का प्रयोग करते हुए करना चाहती है, करने 
+क े  जलए इनक े जिजनयमों का प्रारू  इनसे प्रभाजित हो सकने िाले सभी व् यजतियों का सूचना क े जलए एतदद्वारा प्रकाजित 
+करती है और एतदद्वारा नोठटस ददया जाता है दक उक् त  प्रारू  जिजनयमों  र उस जतजथ से साि ददनों का अिजध समाप् त 
+होने क े  बाद जिचार दकया जाएगा, जजस जतजथ को इस अजधसूचना को प्रकाजित करने  िाले राज त्र का प्रजतयााँ जनता को 
+उ लब् ध कराई जाएाँगी। 
+ यदद कोई आ जि या सुझाि हो तो, उसे मुख य कायसकारी अजधकारी, भारतीय खाद्य सुरक्षा और मानक प्राजधकरण, 
+एफडीए भिन, कोटला रोड, नई ददल् ली-110002 को अथिा regulation@fssai.gov.in  र ई-मेल से भेजा जा सकता 
+है।  
+ उक् त प्रारू  जिजनयमों क े  संबंध में दकसी व् यजति से इस प्रकार जनधासठरत जतजथ तक प्राप् त  आ जियों और सुझािों 
+ र भारतीय खाद्य सुरक्षा और मानक प्राजधकरण द्वारा जिचार दकया जाएगा। 
+प्रारू  जिजनयम 
+1.  (1)  इन जिजनयमों को ‘खाद्य सुरक्षा और मानक (लेबललग और प्रदिसन) संिोधन जिजनयम, 2022’ कहा जा 
+सकता है।  
+सं.   450] नई ददल्ली, बुधिार, जसतम् बर 14, 2022/भाद्र 23, 1944  
+No. 450] NEW DELHI, WEDNESDAY, SEPTEMBER 14, 2022/BHADRA 23, 1944  
+सी.जी.-डी.एल.-अ.-16092022-238893
+CG-DL-E-16092022-238893
+44272/2022/REGULATION-FSSAI
+25
+--- PAGE 2 ---
+2  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+ (2)  ये राज त्र में इनक े प्रकािन का तारीख से प्रिृि होंगे। राज त्र में प्रकािन का जतजथ से 48 महीनों तक 
+इनका अनु ालन स्ट् िैजकछक होगा और उसक े  बाद अजनिायस होगा ।  
+2.  खाद्य सुरक्षा और मानक (लेबललग और प्रदिसन) जिजनयम , 2020 ( (जजन् हें एतश च चात् ‘उक् त जिजनयम ’ कहा 
+जाएगा), में,-  
+(1)  अध् याय-1 क े  ‘’ ठरभाषाएाँ’’ से संबंजधत जिजनयम 2 के खंड (झ) क े  बाद जनम् नजलजखत को अंत: स्ट्थाज त 
+दकया जाएगा, अथासत्,- 
+ ‘’(झ क)  ैक क े  अग्र भाग  र  ोषण ले  बललग (एफओ ीएनएल)   ोषण संबंधी िह  ूरक सूचना है , 
+जजसमें  ूिस  ैक े जबंद खाद्य  दाथों क े   ैकों क े  सम् मुख भाग  र  ोषण क े संबंध में सरल सूचना होती है। 
+इसमें ऐसे प्रतीक/ ग्राफ,  ाठ्य सामग्री अथिा उनका जमला-जुला रू  हो सकता हे, जजससे खाद्य क े  समग्र 
+ ोषण मान और/अथिा एफओ ीएनएल में िाजमल  ोषक तत् िों क े  बारे में सूचना जमले।‘’  
+ ‘’(झ ख) उक च िसा , िक सरा, नमक (एचएफएसएस) खाद्य से िह प्रसं स्ट् क ृत खाद्य उत्  ाद अजभप्रेत है , 
+जजसमें सैक युरेठटड िसा अथिा क ु ल िक सरा अथिा सोजडयम अजधक मात्रा में हो। इन संघटकों का घोजषत 
+मान ऐसा होता है दक उत्  ाद क ु ल िक सरा क े  क ुल ऊजास क े  10 प्रजत ित से कम ऊजास मान (दकक ै )  र, 
+अथिा क ुल ऊजास क े 10 प्रजत ित सैक युरेठटड िसा, और 1 जमग्रा /1  दकक ै  से कम सोजडयम  र खरा न 
+उतरे।‘’  
+(2)  ‘’लेबललग अ ेक्षाएं’’ से संबंजधत जिजनयम 5 क े,-  
+(क)  उ -जिजनयम (2) क े  खंड (ख) क े  बाद जनम् नजलजखत  रंतुक को अंत: स्ट्थाज त दकया जाएगा , 
+अथासत्,-  
+ ‘’ रंतु यह दक यदद खाद्य उत्  ा द में फल , सब् जी, जगठरयााँ, फजलयााँ और जमल् लेट हों तो उन् हें 
+प्रजतित में घोजषत दकया जाए।‘’  
+(ख)  उ -जिजनयम (3) क े खंड (ख) क े  उ -खंड (ii) के ‘’सोजडयम(जमग्रा)’’ से संबंजधत मद (घ) क े  बाद 
+जनम् नजलजखत को अंत: स्ट्थाज त दकया जाएगा, अथासत्,-  
+ ‘’(ङ) आहाठरक रेिा (ग्रा),''  
+(3)  ''खाद्य सहयोज् य  दाथों क े  उसी रू  में बेचे जाने  र उनका लेबललग'' से संबंजधत अध् याय-5 क े  बाद 
+जनम् नजलजखत को अंत: स्ट्थाज त दकया जाएगा, अथासत्,-  
+''अध् याय 6 
+14.  भारतीय  ोषण रेटटग (आईएनआर)  
+  (1)   आधारभूत संदभस मान और श्रेजणयााँ  
+ दकसी िोस खाद्य  दाथस अथिा द्रि खाद्य का रेटटग क े  आकलन में जिचाराथस  ैक क े  अग्र भाग  र  ोषण 
+लेबललग (एफओ ीएनएल) क े प्रयोजन क े जलए स्ट् िास्ट् ् य का जोजखम ब़ााने िाले चार घटकों अथासत् 
+उत्  ाद क े  प्रजत 100 ग्रा अथिा 100 जम.ली में ऊजास, क ु ल िक सरा, सैक युरेठटड फ ै ट और सोजडयम का 
+आधारभूत संदभस मान; तथा सकारात् मक  ोषक तत् िों, उदाहरणाथस फल और सब् जी (एफिी); जगठरयााँ, 
+फजलयााँ और जमल् लेट (एनएलम); रेिा और प्रोटीन का न् यूनतम प्रजतित अनुसूची -3 का सारणी -1 में 
+ददया गया है।  
+ आगे, मौजूदा खाद्य सुरक्षा और मानक में िा जमल सभी प्रसंस्ट् क ृत और  ैक े जबंद खाद्य उत्  ादों को तीन 
+श्रेजणयों में बांटा गया है , उदाहरणाथस श्रेणी -1 (िोस खाद्य  दाथस) , श्रेणी-2 (द्रि खाद्य  दाथस) और 
+श्रेणी-3 (एफओ ीएनएल से छ ूट-प्रदत् त)। जचत्रात् मक जडस्ट् प् ले का  धतिजत क े  फोरमैट को भारतीय  ोषण 
+रेटटग (आईएनआर) कहा जाएगा। खाद्य जोजखम घटकों  का आधारभूत संदभस मान और सकारात् मक 
+घटकों का न् यू नतम प्रजतितता , श्रेणी-1 क े  जलए आईएनआर  बेसलाइन प् िाइंट, श्रेणी-2 क े जलए 
+आईएनआर बेसलाइन प् िाइंट, सकारात् मक घटकों क े  प् िाइंटों का क ै ल ग, स्ट् टार रेटटग आकलन का 
+फॉमूसला और सम् बधति व् याख या अनुसूची-3 का क्रमि: सारणी 1, 2, 3, 4, 5 और 6 में दी गई है। श्रेणी-3 
+क े  तहत िोस  दाथों/द्रि  दाथों का सूची (एफओ ीएनएल से छ ू ट-प्रदत् त) अनुसूची-4 में दी गई है।  
+ रंतु यह दक ऊजास और/अथिा िक सरारजहत कोई  ेय /काबोनेठटड  ेय स्ट् टार रेटटग (आईएनआर) का 
+घोषणा क े   ात्र नहीं हैं। 
+44272/2022/REGULATION-FSSAI
+26
+--- PAGE 3 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  3 
+(2)   जचत्रात् मक जडस्ट् प् ले फोरमैट 
+(क)  इन जिजनयमों क े अंतगसत  ोषण सूचना देने से छ ू ट-प्रदत् त  ैक े जबंद खाद्य को छो़ककर  ैक े जबंद 
+खाद्य क े  प्रत् येक  ैक े ज  र अनुसूची-3 का सारणी-5 में ददए गए फॉमूसले का प्रयोग करक े  ‘जबक्रा क े  
+समय’’ प्रजत 100 ग्रा िोस  खाद्य  दाथस अथिा 100 जम.ली द्रि खाद्य  दाथस क े आधार  र 
+ ठरकजलत ऊजास  (दकक ै ), सैक युरेठटड फ ै ट (ग्रा), क ु ल िक सरा (ग्रा) और सोजडयम (जमग्रा) का 
+योगदान (दकलो क ैलोरी में) सकारात् मक  ोषक तत् ि क े रू  में  ैक क े अग्र भाग  र जनधासठरत 
+फोरमैट (आईएनआर) में जडस्ट् प् ले दकया जाएगा।  
+(ख)  आईएनआर  धतिजत  ैक े जबंद खाद्य को ½ स्ट् टार (न् यूनतम स्ट् िास्ट् ् यकर) से 5 स्ट् टार (सिासजधक 
+स्ट् िास्ट् ् यकर) तक का रेटटग देकर उसक े  समग्र  ोषण प्रोफाइल का रेटटग करती है। अजधक स्ट् टार 
+होने से तात्  यस है खाद्य  दाथस मानि क े जलए  ोषक तत् िों का दैजनक आिच यकता का  ू्त 
+अजधक मात्रामें करता है। आईएनआर क े  लोगो का फोरमैट जनम् नानुसार होगा: 
+ 
+लोगो  ैक क े  अग्र भाग  र उत्  ाद क े नाम अथिा रांांड नाम क े जबल् क ुल जनकट जडस्ट् प् ले दकया 
+जाए।  
+  रंतु यह दक खाद्य कारोबारी आईएनआर लोगो क े  साथ आरडीए ऊजास, क ु ल िक सरा, सैक युरेठटड 
+फ ै ट और नमक समतुल् य सोजडयम को प्रजत  रोसा योगदान क े  प्रजतित क े रू  में अजतठरक् त 
+व् याख यात् मक सूचना जनम् नानुसार ऐजकछक रू  से दे सकता है:  
+ 
+*अजतठरक् त व् याख यात् मक सूचना का जडस्ट् प् ले साइज मुख य लोगो क े  25% क े  रू  में जनधासठरत 
+दकया जा सकता है। 
+A – मुख य आईएनआर लोगो का ऊ ाँ चाई क े बराबर। B-मुख य आईएनआर लोगो का ऊ ाँ चाई  
+का ¼. 
+(ग)  आईएनआर लोगो का साइज 
+क्रम 
+सं. 
+प्रमुख जडस्ट् प् ले  ैनल का क्षेत्र, 
+िगस सें.मी. में  
+न् यूनतम ऊ ाँचाई 
+(जममी) 
+न् यूनतम चौ़काई 
+(जममी)  
+1.  100 से अजधक और 500 
+तक 
+15 15 
+2.  500 से अजधक और 2500 
+तक 
+20 20 
+3.  2500 से अजधक 25 25 
+44272/2022/REGULATION-FSSAI
+27
+--- PAGE 4 ---
+4  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+(घ)  रंग कोड : 
+ 
+ 
+ 
+44272/2022/REGULATION-FSSAI
+28
+--- PAGE 5 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  5 
+(3)  आईएनआर लोगो जनरेिन  
+ खाद्य कारोबारी, आईएनआर स्ट्कोर तथा लोगो को  जनरेट करने क े जलए अ ने उत्  ाद संबंजधत  ोषण 
+प्रोफाइल को, ऐजकछक व् या ख यात् मक सूचना क े  साथ अथिा उसक े  जबना, फॉस्ट् कोस प्रणाली में प्रस्ट् तु त 
+करेगा।‘’    
+15.   खाद्य सुरक्षा और मानक (खाद्य उत्  ाद मानक और खाद्य सहयोज् य) जिजनयम, 2011 क े अंतगसत यथाजिजहत दुग् ध 
+लोगो िाले खाद्य उत्  ादों को एच.एफ.एस.एस का  ठरभाषा क े क्षेत्र से छ ू ट होगी।  
+ 
+(4)  अनुसूची-2 क े  बाद जनम्  नजलजखत अनुसूची को अंत: स्ट्थाज त दकया जाएगा , अथासत्,-  
+''अनुसूची-3  
+ 
+सारणी 1. ‘जबक्रा क े  समय’ के आधार  र प्रजत 100 ग्रा अथिा 100 जम.ली खाद्य जोजखम घटकों और सकारात् मक घटक का 
+न् यूनतम प्रजतितता क े जलए बेसलाइन संदभस मान 
+खाद्य जोजखम 
+घटक 
+िोस खाद्य 
+ दाथस 
+द्रि खाद्य  दाथस 
+(गैर-डेयरी) 
+सकारात् मक घटक न् यूनतम, % 
+ऊजास, दकक ै   400 30 फल और सजब्जयााँ  10 (िोस खाद्य  दाथस) और 5 (द्रि 
+खाद्य  दाथस)  
+क ु ल िक सरा, ग्रा 21 6 जगठरयााँ, फजलयााँ, और 
+जमल् लेट 
+10 
+सैक युरेठटड फ ै ट, 
+ग्रा 
+5 3 आहाठरक रेिा 3 
+सोजडयम, जमग्रा  450 100 प्रोटीन  1.5 
+ 
+सारणी 2. श्रेणी-1 क े  जलए आईएनआर बेसलाइन प् िाइंट : िोस खाद्य  दाथस (डेयरी उत्  ादों और बीिरेज सजहत) प्रजत  
+100 ग्रा.  
+श्रेणी-1 में खाद्य सुरक्षा और मानक (खाद्य उत्  ाद मानक और खाद्य सहयोज् य) जिजनयम, 2011 क े तहत उजल्लजखत श्रेणी 
+सं. 6.8.1 और 14.0 को छो़ककर सभी खाद्य श्रेजणयााँ िाजमल हैं 
+बेसलाइन 
+प् िाइंट 
+ऊजास, 
+दकक ै   
+सैक युरेठटड फ ै ट 
+(गा)  
+क ु ल िक सरा 
+(गा)  
+सोजडयम 
+(जमग्रा)  
+सकारात् मक प् िाइंट  
+एफिी एनएलएम  आहाठरक 
+रेिा  प्रोटीन  
+0 ≤80 ≤1.0 ≤4.2 ≤90 ≤10 ≤10 ≤3 ≤1.5 
+1 >80 >1.0 >4.2 >90 >10 >10 >3 >1.5 
+2 >160 >2.0 >8.4 >180 >15 >15 >6 >2.0 
+3 >240 >3.0 >12.6 >270 >20 >20 >9 >2.5 
+4 >320 >4.0 >16.8 >360 >25 >25 >12 >3.0 
+5 >400 >5.0 >21 >450 >30 >30 >15 >5 
+6 >480 >6.0 >25.2 >540 >35 >35 >18 >7 
+7 > 560 >7 >29.4 >630 >40 >40 >21 >10 
+8 >640 >8 >33.6 >720 >45 >45 >24 >15 
+9 >720 >9 >37.8 >810 >50 >50 >27 >20 
+44272/2022/REGULATION-FSSAI
+29
+--- PAGE 6 ---
+6  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+10 >800 >10 >42 >900 >55 >55 >30 >25 
+11   >12 >46.2 >990      >30 
+12   >14 >50.4 >1080      >35 
+13   >16 >54.6 >1170      >40 
+14   >18 >58.8 >1260       >45 
+15   >20 >63 >1350       >50 
+16   >22 >67.2 >1440         
+17   >24 >71.4 >1530         
+18   >26 >75.6 >1620         
+19   >28 >79.8 >1710         
+20   >30 >84 >1800         
+21   >32  >1890         
+22   >34  >1980         
+23   >36   >2070         
+24   >38   >2160         
+25   >40   >2250         
+ 
+सारणी 3. श्रेणी-2 : द्रि खाद्य  दाथस (डेयरी उत्  ादों को छो़ककर) क े  जलए आईएनआर बेसलाइन प् िाइंट, प्रजत 100 जम.ली 
+श्रेणी-2 में खाद्य सुरक्षा और मानक (खाद्य उत्  ाद मानक और खाद्य सहयोज् य) जिजनयम, 2011 क े   ठरजिष् ट ‘क’ में 
+उजल्लजखत खाद्य श्रेणी सं. 6.8.1 और 14.0 िाजमल हैं। 
+बेसलाइन प् िाइंट ऊजास (दकक ै )  क ु ल िक स रा (ग्रा)  सकारात् मक प् िाइंट  
+एफिी  प्रोटीन  
+0 ≤6 ≤0.1 ≤5 ≤1.5 
+1 >6 >0.1 >5 >1.5 
+2 >12 >1.6 >10 >2.0 
+3 >18 >3.1 >15 >2.5 
+4 >24 >4.6 >20 >3.0 
+5 >30 >6.1 >25 >5 
+6 >36 >7.6 >30 >7 
+7 >42 >9.1 >35 >10 
+8 >48 >10.6 >40 >15 
+9 >54 >12.1 >45 >20 
+10 >60 >13.6 >55 >25 
+11    >30 
+12    >35 
+13    >40 
+14    >45 
+15    >50 
+44272/2022/REGULATION-FSSAI
+30
+--- PAGE 7 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  7 
+सारणी 4. सकारात् मक प् िाइंटों का क ै ल ग  
+श्रेणी  क ै ल ग मानदंड 
+िोस खाद्य 
+ दाथस  
+आईएनआर बेसलाइन प् िाइंट ≤ 20  होने  र प्रोटी न क े  जलए 15 प् िाइंट तथा एफिी , एनएलएम और 
+आहाठरक रेिा क े  जलए 10-10 प् िाइंट स्ट् कोर दकए जा सकते हैं।   
+ आईएनआर बेसलाइन प् िाइंट > 20  होने  र प्रोटीन क े जलए 7 प् िाइंट और एफिी , एनएलएम तथा 
+आहाठरक रेिा क े  जलए 5-5 प् िाइंट स्ट् कोर दकए जा सकते हैं। 
+द्रि खाद्य 
+ दाथस 
+आईएनआर बेसलाइन प् िाइंट ≤ 10 होने  र 10 प् िाइंट एफिी क े  जलए और प्रोटीन क े जलए 15 तक प् िाइंट 
+स्ट् कोर दकए जा सकते हैं। 
+आईएनआर बेसलाइन प् िाइंट > 10 होने  र एफिी क े  जलए 5 प् िाइंट और प्रोटीन क े  जलए 7 प् िाइंट तक 
+स्ट् कोर दकए जा सकते हैं।  
+सारणी 5 : स्ट् टार रेटटग  ठरकलन का फॉमूसला  
+अंजतम आईएनआर स्ट् कोर 
+= (आईएनआर बेसलाइन प् िाइंट)-[(आईएनआर एफिी* प् िाइंट) + (आईएनआर एनएलएम* प् िाइंट) + (आईएनआर  ी* 
+प् िाइंट) + (आईएनआर एफ* प् िाइंट)] 
+ 
+सारणी 6 : भारतीय  ोषण रेटटग  
+अनुसूची-4  
+श्रेणी-3 आईएनआर क े अंतगसत एफओ ीएनएल से छ ू ट-प्रदत् त िोस खाद्य  दाथस/द्रि खाद्य  दाथस। श्रेणी संख या  से तात्  यस 
+खाद्य सुरक्षा और मानक (खाद्य उत्  ाद मानक और खाद्य सहयोज् य) जिजनयम, 2011 में जिजहत खाद्य श्रेणी है।  
+श्रेणी सं.  श्रेणी जििरण  
+1.1.1 दूध और छाछ (सादी)  
+1.1.1.1 दूध (सादा) 
+1.1.1.2 छाछ (सादा) 
+1.2 दकजण्ित और रेनेटक ृ त दूध उत्  ाद (सादा), खाद्य श्रेणी को छो़ककर  
+1.2.1 दकजण्ित दूध (सादा)  
+भारतीय  ोषण रेटटग 
+अंजतम भारतीय  ोषण रेटटग क े साथ िोस खाद्य  दाथस श्रेणी 
+क े  जलए आईएनआर स्ट् कोर  
+अंजतम भारतीय  ोषण रेटटग क े साथ द्रि खाद्य  दाथस श्रेणी 
+क े  जलए आईएनआर स्ट् कोर  
+स्ट् टार  प् िाइंट  प् िाइंट  
+5 ≤ -11 ≤0 
+4.5 -10 – -7 1 – 2 
+4 -6 – -2 3 – 4 
+3.5 -1 – 2 5 – 6 
+3 3 – 6 7 – 9 
+2.5 7 – 11 10 – 12 
+2 12 – 15 13 – 15 
+1.5 16 – 20 16 – 18 
+1 21 – 24 18-20 
+0.5 ≥25 ≥20 
+44272/2022/REGULATION-FSSAI
+31
+--- PAGE 8 ---
+8  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+1.2.1.1 दकजण्ित दूध (सादा), दकण् िन क े बाद ऊष्मा अनू चाठरत 
+1.2.1.2 दकजण्ित दूध (सादा), दकण् िन क े  बाद ऊष्मा-उ चाठरत 
+1.2.2 रेनेटक ृ त दूध (सादा) 
+1.3 संघजनत दूध और एनालॉग (सादा) 
+1.3.1 संघजनत दूध (सादा), िाजष् त दूध, मीिा संघजनत  
+1.3.2  ेय श्वेतक  
+1.4 क्राम (सादा) और इसी प्रकार का क्राम तथा मलाई  
+1.4.1  ास्ट्चरीक ृ त क्राम (सादा), क्राम और मलाई 
+1.4.2 जिसंक्रजमत और यूएचटी क्राम, जव्हल ग या जव्हप्ड क्राम, तथा न्यूनीक ृ त िसा क्राम (सादा)  
+1.4.3 थक्क े दार क्राम (सादा)  
+1.4.4 क्राम एनालॉग  
+1.5 दूध  ाउडर और क्राम  ाउडर और  ाउडर एनालॉग (सादा) 
+1.5.1 दूध  ाउडर और क्राम  ाउडर (सादा) 
+1.5.2 दूध और क्राम  ाउडर एनालॉग 
+1.8 व् हे और व् हे उत्  ाद, व् हे चीज को छो़ककर  
+1.8.1 द्रि व् हे और व् हे उत्  ाद, व् हे चीज़ को छो़ककर  
+1.8.2 िुजष्कत व् हे और व् हे उत्  ाद, व् हे चीज़ व् हे  ाउडर को छो़ककर  
+2.1 िसा और तेल जो मौजलक रू  से  ानी से मुति होते हैं 
+2.1.1 बटर ऑइल, एनहाइड्रस जमल्कफ ै ट, घी 
+2.1.2 िनस्ट्  जत तेल और िसाएाँ  
+2.1.3 सुअर का चबी, मछली क े तेल, तथा अन् य  िु िसा 
+2.3 िसा इमल्िन मुख यत:  ानी में तेल िाले  प्रकार क े िसा इमल्िन  र आधाठरत जमश्र ण तथा/ अथिा 
+सुरुजचत  दाथस  
+4.1.1 ताजे फल  
+4.1.1.1 अनु चाठरत ताजे फल  
+4.1.1.2 सतह उ चाठरत ताजे फल  
+4.1.1.3 छीले हुए या कटे हुए ताजे फल 
+4.1.2.1 जमे हुए फल  
+4.2.1 ताजी सजब्जयााँ (मिरुम और किकों, ज़कों और क ं दों , दालों और फजलयों, और धृतक ु मारी सजहत), समुद्री 
+िैिाल ओर नट्स तथा बीज  
+4.2.1.1 अनु चाठरत ताजी सजब्जयााँ (मिरुम और किकों, ज़कों और क ं दों, दालों तथा सोयाबीन सजहत फजलयों , 
+और धृतक ु मारी सजहत), समुद्री िैिाल ओर नट्स तथा बीज 
+4.2.1.2 
+सतह-उ चाठरत ताजी सजब्जयााँ (मिरुम और किकों, ज़कों और क ं दों, दालों तथा फजलयों, और धृतक ु मारी 
+सजहत), समुद्री िैिाल ओर नट्स तथा बीज 
+4.2.1.3 
+छीली, कटी अथिा कसी हुई ताजी सजब्जयााँ (मिरुम और किकों, ज़कों और क ं दों, दालों तथा फजलयों , 
+और धृतक ु मारी सजहत), समुद्री िैिाल ओर नट्स तथा बीज 
+44272/2022/REGULATION-FSSAI
+32
+--- PAGE 9 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  9 
+4.2.2.1 जमी हुई सजब्जयााँ (मिरुम और किकों, ज़कों और क ं दों, दालों तथा फजलयों , और धृतक ु मारी सजहत), 
+समुद्री िैिाल ओर नट्स तथा बीज 
+5.1.1 कोको जमश्रण ( ाउडर) और काको ज ण्ड/क े क  
+5.1.2 कोको जमश्रण (चािनी)  
+6.1 चािल सजहत साबुत, टूटे अथिा फ्लेक् ड अनाज,  
+6.2 आटा और मांडी (सोयाबीन  ाउडर सजहत) 
+6.2.1 आटा 
+6.2.2 मांडी (स्ट्टाचस) 
+6.6 ला सी  
+8.1 ताजा मांस एिं  ोल्री 
+8.1.1 ताजा मांस एिं  ोल्री, साबुत अथिा कटे हुए 
+8.1.2 जिखंजडत ताजा मांस एिं  ोल्री 
+8.3.3 जमाये हुए संसाजधत मांस एिं  ोल्री उत्  ाद  
+8.4 खाद्य खोल (उदाहरण क े जलए सॉसेज खोल)  
+9.1 मोलस्ट्क, क्रस्ट्टेिन और एकानोडम्सस सजहत ताजा मछली और मछली उत्  ाद  
+9.1.1 ताजा मछली  
+9.1.2 ताजा मोलस्ट्क, क्रस्ट्टेिन और एकानोडम्सस 
+10.0 अंडे और अंडे उत्  ाद  
+10.1 ताजा अंडे  
+10.2 अंडा उत्  ाद  
+10.2.1 तरल अंडे उत्  ाद  
+10.2.2 जमे हुए अंडे उत्  ाद  
+10.2.3 िुजष्कत और/अथिा ता -स्ट् क ंददत अंडा उत्  ाद 
+10.3 क्षारीय, साल्टेड और जडब् बाबंद अंडे सजहत संरजक्षत अंडे 
+10.4 अंडा-आधाठरत डेसटस  
+11 जमिास कारक िहद सजहत  
+11.1  ठरष्क ृ त और कक ची िक सरा  
+11.1.1 सफ े द िक सरा, अन्हाईड्रेस डेक् स्ट् रोस , डेक् स्ट् रोस मोनोहाड्रेट, फ्रुक ्   टोस  
+11.1.2 ज सी हुई िकसरा,  ाउडर डेक् स्ट् रोस  
+11.1.3 
+नरम सफ े द िक सरा, नरम रांाउन िक सरा, ग् लुकोज जसर , िुजष्कत ग् लुकोज जसर , गन् ने का कक ची िक सरा, 
+खंडसारी िक सरा (सल् फर िूगर), बूरा 
+11.1.3.1 िुगर कन्फ े क्िनरी क े जनमासण क े  जलए प्रयुति िुजष्कत ग् लुकोज जसर   
+11.1.3.2 िुगर कन्फ े क्िनरी क े जनमासण क े  जलए प्रयुति ग् लुकोज जसर  (गोल् डन जसर )  
+11.1.4 लैक् टोज  
+11.1.5 प् लांटेिन अथिा जमल व् हाइट िक सरा (प् लांटेिन व् हाइट िक सरा, क् यूब िक सरा, जमश्री)  
+44272/2022/REGULATION-FSSAI
+33
+--- PAGE 10 ---
+10  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+11.2 रांाउन िूगर, खाद्य श्रेणी 11.1.3 क े उत्  ादों को छो़ककर  
+11.3 िक सरा घोल और जसर , इन् िर्टिटड (अंित:) भी, राब और िीरा सजहत, खाद्य श्रेणी 11.1.3 क े उत्  ादों को 
+छो़ककर  
+11.4 अन् य िक सराएाँ और जसर   
+11.5 िहद  
+11.6 
+टेबल-टॉ  स्ट् िीटनर, जजसमे उक च गहनता स्ट् िीटनर भी िाजमल है  (सैक् करीन सोजडयम , एस्ट्  ाटेम, 
+एजससल् फ ेम  ोटाजियम, सूक्रालोज)  
+12.1 नमक और नमक क े जिकल्  
+12.1.1 नमक (खाद्य आम नमक, लौह  ौजिकाक ृ त नमक, आयोडीनयुक् त नमक सजहत) 
+12.1.2 नमक जिकल्  
+12.2 ज़की-बूठटयााँ, मसाले, सीजलनग और क ं जडमेंट (उदाहरण क े  जलए इन् सटैंट नूडलस का सीजलनग) 
+12.2.1 ज़की-बूठटयााँ और मसाले 
+12.2.2 सीजलनग और क ं जडमेंट  
+12.3 जसरक े  
+12.4 सरसों  
+12.7 सलाद और सैंडजिच  स्ट्प्रै्स, खाद्य श्रेणी 4.2.2.5 और 5.1.3 क े कोको तथा जगरी -आधाठरत स्ट्प्रै्स को 
+छो़ककर  
+12.8 खमीर और ऐसे उत्  ाद  
+12.10 सोयाबीन क े  अलाि  प्रोटीन क े  अन्य उत्  ाद  
+13.0 जििेष  ोषण उद्देचय क े  प्रयोग हेतु खाद्य  दाथस  
+13.1 जििु फॉमूसला, अनुिती फॉमूसला, तथा जििुओं क े  जलए जििेष जचदकत् सा प्रयोजन क े  जलए फॉमूसला  
+13.1.1 जििु फॉमूसला  
+13.1.2 अनुिती फॉमूसला  
+13.1.3 जििुओं क े जलए जििेष जचदकत् सा प्रयोजनों क े  जलए फॉमूसला  
+13.2 जििुओं और छोटे बक चों क े जलए  ूरक आहार  
+13.3 जििेष जचदकत् सा को लजक्षत करने क े  उद्देचय से खाद्य  दाथस (खाद्य श्रेणी 13.1 क े उत्  ादों को छो़ककर)  
+13.4 जस्ट्ललमग प्रयोजनों और िजन कम करने क े  जलए आहार जजनत फॉमूसला 
+13.5 
+आहार जजनत खाद्य  दाथस (खाद्य श्रेणी 13.1 क े  उत्  ादों को छो़ककर) (उदाहरण क े  जलए आहारीय 
+उ योग क े  जलए  ूरक खाद्य), खाद्य श्रेणी 13.1-13.4 और 13.6 क े  उत्  ादों को छो़ककर  
+13.6 खाद्य सं ूरक 
+14.1.1 जल 
+14.1.1.1 प्राक ृ जतक खजनज जल और स्रोत जल  
+14.1.1.2 टेबल िाटर और सोडा िाटर  
+14.2 अल्कोहल  ेय, अल्कोहल से मुति और अल्   अल्कोहजलक समकक्षो सजहत   
+14.2.1 बीयर और माल् ट से बने  ेय 
+14.2.2 साइडर और  ेरी 
+44272/2022/REGULATION-FSSAI
+34
+--- PAGE 11 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  11 
+14.2.3 अंगूर िाइन 
+14.2.3.1 जस्ट्टल अंगूर िाइन 
+14.2.3.2 स्ट् ाक्रललग और सेमी-स्ट्  ाक सललग अंगूरी िराब  
+14.2.3.3 फोटीफाइड अंगूर का िाइन , अंगूर जलकर िाइन, और स्ट् िीट अंगूर िाइन 
+14.2.4 िाइन (अंगूर क े  अलािा)  
+14.2.5 मीड  
+14.2.6 15% से अजधक एल् कोहल िाले जडजस्ट्टल्ड जस्ट् ठरट युक् त  ेय  दाथस 
+14.2.7 सुगजन्धत अल्कोहल  ेय ’’;  
+ 
+अरुण लसघल, मुख य कायसकारी अजधकारी 
+[जिज्ञा न-III/4/असा./268/2022-23] 
+ 
+ठटप्  ण: मूल जिजनयम भारत क े  राज त्र, असाधारण में अजधसूचना संख या फा. सं. 1-94/एफ.एस. एस.ए.आई /एस ी 
+(लेबललग)/2014(भाग 2), ददनांक 17 निंबर, 2020 द्वारा प्रकाजित दकए गए थे और बाद में उनमें जनम् नजलजखत 
+अजधसूचना द्वारा संिोधन दकया गया था:  
+1). फा. सं. स्ट् टैंडडस/एस ी-08/ए-1.2019/एन-02, ददनांक 10 जसतंबर, 2021 
+ 
+ 
+FOOD SAFETY AND STANDARDS AUTHORITY OF INDIA 
+NOTIFICATION 
+New Delhi, the 13th September, 2022 
+F. No. Std./SP-08/T(FoPNL-N-01).—The following draft of certain regulations to f urther amend the Food 
+Safety and Standards (Labelling & Display) Regulations, 2020, which the Food Safety and Standards Authority of 
+India proposes to make with previous approval of the Central Government, in exercise of the powers conferred by 
+clause (k) of sub-section (2) of section 92 read with clause (h) of sub -section (2) of section 16 and section 23 of the 
+Food Safety and Standards Act, 2006 (34 of 2006) is hereby published as required by sub -section (1) of section 92 of 
+the said Act, for the informat ion of all persons likely to be affected thereby, and notice is hereby given that the said 
+draft regulations shall be taken into consideration after the expiry of the period of sixty days from the date on whi ch 
+copies of the Official Gazette in which this notification is published are made available to the public; 
+ Objections or suggestions, if any, may be addressed to the Chief Executive Officer, Food Safety and 
+Standards Authority of India, FDA Bhawan, Kotla  Road, New Delhi - 110002 or may be sent by e -mail at 
+regulation@fssai.gov.in;  
+ Objections or suggestions which may be received with respect to the said draft regulations within the period 
+specified above shall be considered by the Food Safety and Standards Authority of India.  
+Draft Regulations 
+1. Short title and commencement -(1) These regulations may be called the Food Safety and Standards ( Labelling 
+& Display) Amendment Regulations, 2022. 
+(2) They shall come into force on the date of their final publication in the Official Gazette.  Compliance shall be 
+voluntary until a period of 48 months from the date of final notification of these regulations and mandatory 
+thereafter. 
+44272/2022/REGULATION-FSSAI
+35
+--- PAGE 12 ---
+12  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+2. In the Food Safety and Stand ards ( Labelling & Display ) Regulations, 2020 (herein after refer red as said 
+regulations), - 
+(1)   in Chapter-1, in regulation 2  relating to “Definitions”, after clause  (i), the following shall be inserted , 
+namely, - 
+“(ia) Front-of-pack nutrition labelling (FOPNL)  is a form o f supplementary nutrition inform ation that 
+presents simplified nutrition information on the front -of-pack of pre -packaged foods. It can include 
+symbols/graphics, text or a combination thereof that provide information on the ove rall nutritional value of 
+the food and/or on nutrients included in the FOPNL”. 
+“(ib) High fat, sugar, salt (HFSS) food means a processed food product which has high levels of saturated 
+fat or total sugar or sodium. The declared values of these ingredients are such that the product; do es not 
+satisfy the value of energy (kcal) from total sugar less than 10 percent of total energy, or from saturated fat 
+10 percent of total energy, and sodium less than 1 mg/1 kcal.”   
+(2)   in regulation 5 relating to “Labelling Requirements”, - 
+       (a) in sub-regulation (2), after clause (b), the following proviso shall be inserted, namely, - 
+    “provided that the percentage of Fruits, Vegetable, Nuts, Legumes & Millets, if present in the food 
+product, shall be declared”. 
+      (b)  in sub-regulation (3), in sub-clause (ii) of clause (b) , after item (D) relating to “ Sodium (mg)”, the 
+following shall be inserted, namely, - 
+“(E) Dietary Fibre (g);” 
+(3)   after CHAPTER 5 relating to “Labelling of food additives when sold a s such” following shall be inserted ,  
+namely, - 
+“CHAPTER 6 
+14. Indian Nutrition Rating (INR) 
+         (1)  Baseline Reference values and Categories 
+For the purpose of Front of Pack Nutritional Labelling (F OPNL), the baseline reference values for four 
+health risk increasing factors i.e., energy, total sugars, saturated fat and sodium per 100  g or 100 ml of the 
+product; and, the minimum percentage of positive nutrients viz., fruit & ve getable (FV); nuts, legumes &  
+millets (NLM); fibre and protein for consideration in the calculation for rating of a speci fic solid foods or 
+liquid foods, is provided in Table-1 of Schedule –III. 
+Further, all processed and packaged food products covered und er the extant FSS Regulations are 
+classified into three categories viz., CATEGORY -I ( Solid f oods), CATEGORY -II ( Liquid fo ods) and 
+CATEGORY-III (Exempted from F OPNL).The system of pictorial display format shall be referred to as 
+Indian Nutrition Rating (INR) .The baseline reference values for food risk factors and  minimum 
+percentage of positive factors; INR  baseline points for Category-I; INR baseline points for Category –II; 
+capping of positive points; formula to calculate  star rating and associat ed interpretation are provided in  
+Table 1, 2, 3, 4, 5 & 6 of Schedule- III, respectively. The list of solid foods/liquid foods under Category-
+III (exempted from FOPNL) are provided in Schedule-IV. 
+Provided that any beverage/carbonated beverage without energy and/or sugar shall not be eligible for 
+declaring Star Rating (INR). 
+(2) Pictorial Display Format 
+(a) Every packaged food except those exempted from nutritional information under these regulations, shall 
+display the prescribed format (INR) on front of pack calculated on the basis of contributio n of energy 
+(in kilo calories; kcal), saturated fat (g), total sugar (g) and sodium  (mg) and the positive nutrients per 
+100 g of solid food or 100 ml of liquid food on a „as sold‟ basis, using  the formula mentioned in T able-
+5 of Schedule –III. 
+44272/2022/REGULATION-FSSAI
+36
+--- PAGE 13 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  13 
+(b) The INR system rates the overall nutritional profile for packaged food  by assigning it a ra ting from ½ 
+star (least healthy) to 5 stars (healthiest). More stars indicate that the food product is better positioned to 
+provide for daily human need of nutrients. The format of logo for INR is as indicated below: 
+ 
+ 
+The logo shall be displayed close in proximity to the name or brand name of the product on front of pack. 
+Provided that food business operators may give optionally additional interpretive information as per serve 
+percentage contribution to RDA  of energy, total sugars, saturated fats and sodium expre ssed as salt 
+equivalent, along with the INR logo as illustrated below: 
+  
+ 
+*The display size of additional interpretive information may be specified as 25 % of main INR logo. A- 
+same as the height of main INR logo. B-1/4th of the height of the main INR logo. 
+     (c) Size of the INR logo 
+ 
+Sl.No. Area of principal display panel in 
+cm. square 
+Minimum Height 
+(mm) 
+Minimum Width  
+(mm) 
+1.  Above 100 to 500 15 15 
+2.  Above 500 to 2500 20 20 
+3.  Above 2500 25 25 
+ 
+ 
+ 
+ 
+44272/2022/REGULATION-FSSAI
+37
+--- PAGE 14 ---
+14  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+ 
+ 
+(d) Colour codes:  
+ 
+44272/2022/REGULATION-FSSAI
+38
+--- PAGE 15 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  15 
+(3) Generation of INR logo  
+The FBO shall submit their product‟s releva nt nutrient profile in the FoSCo S system for generating the 
+respective INR score and the logo with or without the optional interpretive information. 
+15.   Food products with milk logo as specified under Food Safety a nd Standards (Food Products Standards and 
+Food Additives) Regulation, 2011 shall be exempted from the purview of HFSS definition. ” 
+(4) after Schedule-II, following shall be inserted, namely, - 
+“Schedule-III 
+Table 1. Baseline reference values for Food risk factors and minimum percentage of positive factor per 100 gm 
+or 100 ml on ‘as sold’ basis. 
+Food Risk Factors Solid Foods Liquid Foods (non-
+dairy) 
+Positive Factors Minimum, % 
+Energy, kcal 400 30 Fruits & vegetables 10 (solid foods) & 5 
+(liquid foods) 
+Total Sugars, g 21 6 Nuts, legumes & millets 10 
+Saturated fat, g 5 3 Dietary Fibre 3 
+Sodium, mg 450 100 Protein 1.5 
+ 
+Table 2. INR Baseline points for Category-I: Solid Foods (Incl. Dairy products and beverages) per 100 g  
+Category-I includes all food categ ories except category no. 6.8.1 & 14.0 mentioned under Appendix A of FSS (Food 
+Products Standards and Food Additives) Regulations, 2011 
+Baseline 
+points 
+Energy, 
+kcal 
+Sat.  fat 
+(g) 
+Total sugars 
+(g) 
+Sodium 
+(mg) 
+Positive Point 
+FV NLM Dietary 
+Fibre Protein 
+0 ≤80 ≤1.0 ≤4.2 ≤90 ≤10 ≤10 ≤3 ≤1.5 
+1 >80 >1.0 >4.2 >90 >10 >10 >3 >1.5 
+2 >160 >2.0 >8.4 >180 >15 >15 >6 >2.0 
+3 >240 >3.0 >12.6 >270 >20 >20 >9 >2.5 
+4 >320 >4.0 >16.8 >360 >25 >25 >12 >3.0 
+5 >400 >5.0 >21 >450 >30 >30 >15 >5 
+6 >480 >6.0 >25.2 >540 >35 >35 >18 >7 
+7 > 560 >7 >29.4 >630 >40 >40 >21 >10 
+8 >640 >8 >33.6 >720 >45 >45 >24 >15 
+9 >720 >9 >37.8 >810 >50 >50 >27 >20 
+10 >800 >10 >42 >900 >55 >55 >30 >25 
+11   >12 >46.2 >990      >30 
+12   >14 >50.4 >1080      >35 
+13   >16 >54.6 >1170      >40 
+14   >18 >58.8 >1260       >45 
+15   >20 >63 >1350       >50 
+16   >22 >67.2 >1440         
+17   >24 >71.4 >1530         
+18   >26 >75.6 >1620         
+19   >28 >79.8 >1710         
+20   >30 >84 >1800         
+21   >32  >1890         
+22   >34  >1980         
+23   >36   >2070         
+24   >38   >2160         
+25   >40   >2250         
+ 
+Table 3. INR Baseline points for Category-II: Liquid Foods (excluding Dairy Products), per 100 ml 
+Category-II includes food category no. 6.8.1 and 14.0 mentioned under Appendix A of FSS (Food Products Standards 
+and Food Additives) Regulations, 2011 
+ 
+44272/2022/REGULATION-FSSAI
+39
+--- PAGE 16 ---
+16  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+ 
+Baseline points 
+ 
+Energy (kcal) Total sugars (g) 
+Positive Points 
+FV Protein 
+0 ≤6 ≤0.1 ≤5 ≤1.5 
+1 >6 >0.1 >5 >1.5 
+2 >12 >1.6 >10 >2.0 
+3 >18 >3.1 >15 >2.5 
+4 >24 >4.6 >20 >3.0 
+5 >30 >6.1 >25 >5 
+6 >36 >7.6 >30 >7 
+7 >42 >9.1 >35 >10 
+8 >48 >10.6 >40 >15 
+9 >54 >12.1 >45 >20 
+10 >60 >13.6 >55 >25 
+11    >30 
+12    >35 
+13    >40 
+14    >45 
+15    >50 
+ 
+Table 4. Capping of positive points 
+ 
+Category Capping criteria 
+Solid Foods if INR baseline points are ≤ 20, can score up to 15 points for protein and 10  points each for FV, 
+NLM & Dietary Fibre 
+  if INR baseline points are > 20, can score upto 7  points for protein and 5 points each for FV, NLM 
+& Dietary Fibre 
+Liquid Foods 
+  
+if INR baseline points are ≤ 10, can score upto 10 points for FV and upto 15 points for protein 
+if INR baseline points are > 10, can score up to 5 points for FV and up to 7 points for protein  
+ 
+Table 5: Formula to Calculate Star Rating 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 6: Indian Nutrition Rating 
+ 
+Indian Nutrition Rating 
+INR scores for  Solid Foods category, with final Indian 
+Nutrition Rating 
+INR scores for  Liquid Foods category, with final  
+Indian Nutrition Rating 
+Stars Points  Points  
+5 ≤ -11 ≤0 
+4.5 -10 – -7 1 – 2 
+4 -6 – -2 3 – 4 
+3.5 -1 – 2 5 – 6 
+3 3 – 6 7 – 9 
+2.5 7 – 11 10 – 12 
+2 12 – 15 13 – 15 
+1.5 16 – 20 16 – 18 
+1 21 – 24 18-20 
+0.5 ≥25 ≥20 
+ 
+Final INR score 
+ 
+= (INR baseline points) – [(INR FV* points) + (INR NLM* points) + (INR P* points) + (INR F* points)] 
+ 
+ 
+ 
+ 
+ 
+44272/2022/REGULATION-FSSAI
+40
+--- PAGE 17 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  17 
+ 
+Schedule-IV 
+ 
+Category-III Solid Foods/Liquid Foods exempted from FO PNL under INR. The category numbers refer to fo od 
+categories as provided under FSS (FPS & FA) Regulations, 2011. 
+ 
+Cat. No. Category description 
+1.1.1 Milk and buttermilk (plain) 
+1.1.1.1 Milk (plain) 
+1.1.1.2 Buttermilk (plain) 
+1.2 Fermented and renneted milk products (plain), excluding food category  
+1.2.1 Fermented milks (plain) 
+1.2.1.1 Fermented milks (plain), not heat-treated after fermentation 
+1.2.1.2 Fermented milks (plain), heat-treated after fermentation 
+1.2.2 Renneted milk (plain) 
+1.3 Condensed milk and analogues (plain) 
+1.3.1 Condensed milk (plain), evaporated milk(s),sweetened condensed 
+1.3.2 Beverage whiteners 
+1.4 Cream (plain) and the like cream and malai 
+1.4.1 Pasteurized cream (plain), cream and malai 
+1.4.2 Sterilized and UHT creams, whipping and whipped creams, and reduced fat creams (plain) 
+1.4.3 Clotted cream (plain) 
+1.4.4 Cream analogues 
+1.5 Milk powder and cream powder and powder analogues (plain) 
+1.5.1 Milk powder and cream powder (plain) 
+1.5.2 Milk and cream powder analogues 
+1.8 Whey and whey products, excluding whey cheeses 
+1.8.1 Liquid whey and whey products, excluding whey cheeses 
+1.8.2 Dried whey and whey products, excluding whey cheeses whey powder 
+2.1 Fats and oils essentially free from water 
+2.1.1 Butter oil, anhydrous milk fat, ghee 
+2.1.2 Vegetable oils and fats 
+2.1.3 Lard, tallow, fish oil, and other animal fats 
+2.3 Fat emulsions mainly of type oil -in-water, including mixed and/or flavoured products based  on fat 
+emulsions 
+4.1.1 Fresh fruit 
+4.1.1.1 Untreated fresh fruit 
+4.1.1.2 Surface treated fresh fruit 
+4.1.1.3 Peeled or cut fresh fruit 
+4.1.2.1 Frozen fruit 
+4.2.1 Fresh vegetables, (including mushrooms and fungi, roots and tubers, pulses and legumes, and  aloe 
+vera), seaweeds and nuts and seeds 
+4.2.1.1 Untreated fresh vegetables, (including mushroo ms and fungi, roots and tubers, pulses and  legumes 
+including soybeans, and aloe vera), seaweeds and nuts and seeds; 
+4.2.1.2 Surface-treated fresh vegetables, (including mushrooms and fungi, roots and tubers, pulses  and 
+legumes, and aloe vera), seaweeds and nuts and seeds; 
+4.2.1.3 Peeled, cut or shredded fresh vegetables, (including mushrooms and fungi, roots and tubers,  pulses 
+and legumes, and aloe vera), seaweeds and nuts and seeds 
+4.2.2.1 Frozen vegetables (including mushrooms and fungi, roots and tube rs, pulses and legumes, and  aloe 
+vera), seaweeds and nuts and seeds 
+5.1.1 Cocoa mixes (powders) and cocoa mass/cake 
+44272/2022/REGULATION-FSSAI
+41
+--- PAGE 18 ---
+18  THE GAZETTE OF INDIA : EXTRAORDINARY    [PART III—SEC.4] 
+5.1.2 Cocoa mixes (syrups) 
+6.1 Whole, broken, or flaked grain, including rice 
+6.2 Flours and starches (including soybean powder) 
+6.2.1 Flours 
+6.2.2 Starches 
+6.6 Batters 
+8.1 Fresh meat and poultry 
+8.1.1 Fresh meat and poultry whole pieces or cuts 
+8.1.2 Fresh meat and poultry comminuted. 
+8.3.3 Frozen processed comminuted meat and poultry products 
+8.4 Edible casings (e.g. Sausage casings) 
+9.1 Fresh fish and fish products, including molluscs, crustaceans, and echinoderms 
+9.1.1 Fresh fish 
+9.1.2 Fresh molluscs, crustaceans, and echinoderms 
+10.0 Eggs and egg products 
+10.1 Fresh eggs 
+10.2 Egg products 
+10.2.1 Liquid egg products 
+10.2.2 Frozen egg products 
+10.2.3 Dried and/or heat coagulated egg products 
+10.3 Preserved eggs, including alkaline, salted, and canned eggs 
+10.4 Egg-based desserts 
+11 Sweeteners, including honey 
+11.1 Refined and raw sugars 
+11.1.1 White sugar, dextrose anhydrous, dextrose monohydrate, fructose 
+11.1.2 Powdered sugar, powdered dextrose 
+11.1.3 Soft white sugar, soft brown sugar, glucose syrup, dried glucose syrup, raw cane sugar,  khandsari 
+sugar (sulphur sugar), bura sugar 
+11.1.3.1 Dried glucose syrup used to manufacture sugar confectionery 
+11.1.3.2 Glucose syrup for manufacture of sugar confectionery (golden syrup) 
+11.1.4 Lactose 
+11.1.5 Plantation or mill white sugar (plantation white sugar, cube sugar, misri)  
+11.2 Brown sugar excluding products of food category 11.1.3 
+11.3 Sugar solutions and syrups, also (partially) inverted, including treacle and molasses,  excluding 
+products of food category 11.1.3 
+11.4 Other sugars and syrups 
+11.5 Honey 
+11.6 Table-top sweeteners including those containing high intensity sweeteners (saccharin sodium,  
+aspartame, acesulfame potassium, sucralose) 
+12.1 Salt and salt substitutes 
+12.1.1 Salt (including edible common salt, iron fortified salt, iodized salt) 
+12.1.2 Salt substitutes 
+12.2 Herbs, spices, seasonings and condiments (e.g. seasoning for instant noodles) 
+12.2.1 Herbs, spices including masalas 
+12.2.2 Seasonings and condiments 
+12.3 Vinegars 
+12.4 Mustards 
+12.7 Salads and sandwich spreads excluding cocoa -and nut based spreads of food categories 4.2.2.5 and 
+5.1.3 
+12.8 Yeast and like products 
+44272/2022/REGULATION-FSSAI
+42
+--- PAGE 19 ---
+[भाग III—खण् ड 4] भारत का राज त्र : असाधारण  19 
+12.10 Protein products other than from soybeans 
+13 Foodstuffs intended for particular nutritional uses 
+13.1 Infant formulae, follow-on formulae, and formulae for special medical purposes for infants 
+13.1.1 Infant formulae 
+13.1.2 Follow-up formulae 
+13.1.3 Formulae for special medical purposes for infants 
+13.2 Complementary foods for infants and young children 
+13.3 Dietetic foods intended for special medical purposes (excluding products of food category 13.1 
+13.4 Dietetic formulae for slimming purposes and weight reduction 
+13.5 Dietetic foods (e.g. supplementary foods for dietary use) excluding products of food  categories13.1- 
+13.4 and 13.6 
+13.6 Food supplements 
+14.1.1 Waters 
+14.1.1.1 Natural mineral waters and source waters 
+14.1.1.2 Table waters and soda waters 
+14.2 Alcoholic beverages, including alcohol-free and low-alcoholic counterparts 
+14.2.1 Beer and malt beverages 
+14.2.2 Cider and Perry 
+14.2.3 Grape wines 
+14.2.3.1 Still grape wine 
+14.2.3.2 Sparkling and semi-sparkling grape wines 
+14.2.3.3 Fortified grape wine, grape liquor wine, and sweet grape wine 
+14.2.4 Wines (other than grape) 
+14.2.5 Mead 
+14.2.6 Distilled spirituous beverages containing more than 15% alcohol 
+14.2.7 Aromatized alcoholic beverages”; 
+ 
+ARUN SINGHAL, Chief Executive Officer 
+[ADVT.-III/4/Exty./268/2022-23] 
+ 
+  
+Note :  The principal regulations were published in the Gazette of India, Extraordinary vide notification number  
+F. No. 1 -94/FSSAI/SP(Labelling)/2014(Pt-2), dated the 17 th November, 2020 and subsequently amended 
+vide notification number: 
+1.  F. No. Std/SP-08/A-1.2019/N-02, dated 10th September, 2021. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Uploaded by Dte. of Printing at Government of India Press, Ring Road, Mayapuri, New Delhi-110064 
+and Published by the Controller of Publications, Delhi-110054. 
+44272/2022/REGULATION-FSSAI
+43

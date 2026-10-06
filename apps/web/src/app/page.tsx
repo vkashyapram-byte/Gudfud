@@ -97,7 +97,7 @@ export default async function HomePage() {
               <Link
                 href={`/products/${product.slug}`}
                 key={product.slug}
-                className="group border border-brand-border p-4 flex flex-col hover:bg-brand-neutral/5 transition-none rounded-none"
+                className="group border border-brand-border p-4 flex flex-col h-full hover:bg-brand-neutral/5 transition-none rounded-none"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="border border-brand-border px-2 py-1 text-xs uppercase font-bold tracking-wider">
@@ -108,15 +108,15 @@ export default async function HomePage() {
                   </div>
                 </div>
                 {product.image_url ? (
-                  <div className="w-full h-48 mb-4 border border-brand-border bg-white overflow-hidden">
+                  <div className="w-full h-48 mb-4 border border-brand-border bg-white overflow-hidden shrink-0">
                     <img src={product.image_url} alt={product.canonical_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                 ) : (
-                  <div className="w-full h-48 mb-4 border border-brand-border bg-brand-neutral/5 flex items-center justify-center">
+                  <div className="w-full h-48 mb-4 border border-brand-border bg-brand-neutral/5 flex items-center justify-center shrink-0">
                     <span className="text-brand-neutral/30 uppercase tracking-widest text-xs font-bold">No Image</span>
                   </div>
                 )}
-                <div className="flex-grow">
+                <div className="flex-grow flex flex-col">
                   <h3 className="font-bold text-lg leading-tight uppercase group-hover:underline">
                     {product.canonical_name}
                   </h3>
@@ -124,7 +124,7 @@ export default async function HomePage() {
                     {product.brand.name}
                   </p>
                 </div>
-                <div className="mt-4 pt-4 border-t border-brand-border border-dashed flex justify-between items-center text-xs text-brand-neutral/50">
+                <div className="mt-auto pt-4 border-t border-brand-border border-dashed flex justify-between items-center text-xs text-brand-neutral/50 shrink-0">
                   <span className="uppercase">{product.category.name}</span>
                   <span>{product.confidence_grade || "N/A"}</span>
                 </div>
