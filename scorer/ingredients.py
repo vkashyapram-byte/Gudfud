@@ -136,6 +136,23 @@ def score_ingredients(nodes, nova_class=None):
     for node in nodes:
         traverse(node)
         
+    # Calculate Confidence
+    total_nodes = 0
+    matched_nodes = 0
+    
+    def count_matches(node):
+        nonlocal total_nodes, matched_nodes
+        total_nodes += 1
+        if node.canonical_id or node.ins_codes:
+            matched_nodes += 1
+        for child in node.children:
+            count_matches(child)
+            
+    for node in nodes:
+        count_matches(node)
+        
+    confidence_score = int((matched_nodes / total_nodes * 100)) if total_nodes > 0 else 50
+        
     # Processing Level (NOVA)
     if nova_class == 4:
         score -= 35
@@ -183,6 +200,7 @@ def score_ingredients(nodes, nova_class=None):
     
     return {
         "ingredient_score": round(score, 1),
+        "confidence": confidence_score,
         "red_flag": red_flag,
         "reasons": reasons
     }

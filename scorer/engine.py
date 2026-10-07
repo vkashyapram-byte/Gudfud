@@ -15,6 +15,14 @@ def get_overall_label(score):
     else:
         return "Unfavourable"
 
+def get_color_status(score):
+    if score >= 70:
+        return "GREEN"
+    elif score >= 40:
+        return "YELLOW"
+    else:
+        return "RED"
+
 def calculate_overall_score(product_dict):
     """
     Main entry point for the GudFud scoring engine.
@@ -66,13 +74,35 @@ def calculate_overall_score(product_dict):
     nodes = parse_ingredients(product_dict.get('ingredients', ''))
     ing_score_dict = score_ingredients(nodes, nova_class=product_dict.get('nova', 4))
     ingredient_score = ing_score_dict["ingredient_score"]
+    confidence_score = ing_score_dict["confidence"]
     
     # 4. Context Score
-    # For now, placeholder at 50 until M1-M3 models are wired.
-    context_score = 50.0
+    # Map NOVA classification (processing level) to a score
+    nova = product_dict.get('nova', 4)
+    if nova == 1:
+        context_score = 100.0
+    elif nova == 2:
+        context_score = 75.0
+    elif nova == 3:
+        context_score = 50.0
+    else:
+        context_score = 25.0
     
     # 5. Overall Calculation
     overall_score = (0.5 * nutrition_score) + (0.3 * ingredient_score) + (0.2 * context_score)
+    
+    # Check Safe Consumption Limits (Penalty)
+    safe_limit_violations = []
+    if sodium_mg > 2300:
+        safe_limit_violations.append(f"Sodium ({sodium_mg}mg) exceeds daily safe limit of 2300mg")
+    if sugars > 50:
+        safe_limit_violations.append(f"Sugars ({sugars}g) exceed daily safe limit of 50g")
+    if sat_fat > 20:
+        safe_limit_violations.append(f"Saturated fat ({sat_fat}g) exceeds daily safe limit of 20g")
+
+    # Penalize overall score if safe limits are violated
+    if safe_limit_violations:
+        overall_score = min(overall_score, 39) # Force it into 'Mostly unfavourable' / RED status
     
     # Penalty caps (e.g., if HFSS is true for multiple things)
     if 'high_sugar' in hfss_flags and 'high_sat_fat' in hfss_flags:
@@ -80,15 +110,20 @@ def calculate_overall_score(product_dict):
         
     # Compile reasons
     reasons = hygiene_reasons + [{"factor": "nutrition_points", "points": nutri_points}] + ing_score_dict["reasons"]
+    for v in safe_limit_violations:
+        reasons.append({"factor": "safe_consumption_limit", "error": v})
     
     return {
-        "overall_label": get_overall_label(overall_score),
+        "overall_label": get_overall_label(overall_score).upper(),
         "overall_score": round(overall_score, 1),
         "nutrition_score": round(nutrition_score, 1),
         "ingredient_score": round(ingredient_score, 1),
         "context_score": round(context_score, 1),
-        "confidence": "80_B", # Placeholder
+        "confidence": confidence_score,
+        "color_status": get_color_status(overall_score),
+        "safe_limit_violations": safe_limit_violations,
         "score_interval": [round(max(0, overall_score-5), 1), round(min(100, overall_score+5), 1)],
         "reasons": reasons,
         "hfss_flags": hfss_flags
     }
+

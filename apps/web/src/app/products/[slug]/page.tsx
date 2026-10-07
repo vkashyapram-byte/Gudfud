@@ -26,6 +26,7 @@ interface ProductAnalysis {
   rating_total: number | null;
   rating_band: string | null;
   confidence_grade: string;
+  color_status?: string | null;
   explanation: { summary?: string; [key: string]: unknown };
   nutrition: NutritionFacts | null;
   ingredients: IngredientMapping[];
@@ -60,6 +61,15 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
   
   if (!product) notFound();
 
+  let imageBorderClass = "border border-brand-border";
+  if (product.color_status === "GREEN" || (product.rating_total !== null && product.rating_total >= 70)) {
+    imageBorderClass = "border-4 border-green-500";
+  } else if (product.color_status === "YELLOW" || (product.rating_total !== null && product.rating_total >= 40 && product.rating_total < 70)) {
+    imageBorderClass = "border-4 border-yellow-500";
+  } else if (product.color_status === "RED" || (product.rating_total !== null && product.rating_total < 40)) {
+    imageBorderClass = "border-4 border-red-500";
+  }
+
   return (
     <main className="max-w-5xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen font-mono">
       <header className="mb-8 border-b border-brand-border pb-6">
@@ -69,10 +79,10 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
             <img 
               src={product.image_url} 
               alt={product.canonical_name} 
-              className="w-full md:w-1/3 aspect-square object-cover border border-brand-border bg-white"
+              className={`w-full md:w-1/3 aspect-square object-cover bg-white ${imageBorderClass}`}
             />
           ) : (
-            <div className="w-full md:w-1/3 aspect-square border border-brand-border bg-brand-neutral/5 flex items-center justify-center">
+            <div className={`w-full md:w-1/3 aspect-square bg-brand-neutral/5 flex items-center justify-center ${imageBorderClass}`}>
               <span className="text-brand-neutral/30 uppercase tracking-widest text-sm font-bold">No Image</span>
             </div>
           )}

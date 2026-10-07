@@ -1,41 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
-interface ProductCard {
-  slug: string;
-  canonical_name: string;
-  brand: { name: string; slug: string };
-  category: { name: string; slug: string };
-  rating_band: string | null;
-  confidence_grade: string | null;
-  market_code: string;
-  image_url: string | null;
-  last_reviewed_at: string | null;
-}
-
-interface PaginatedCatalogue {
-  items: ProductCard[];
-  total: number;
-  page: number;
-  size: number;
-}
-
-async function fetchRecentProducts(): Promise<ProductCard[]> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-  try {
-    const res = await fetch(`${apiUrl}/v1/catalogue?page=1&size=12&market=in`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return [];
-    const data: PaginatedCatalogue = await res.json();
-    return data.items;
-  } catch (error) {
-    return [];
-  }
-}
+import ScoreChart from "@/components/ScoreChart";
 
 export default async function HomePage() {
-  const products = await fetchRecentProducts();
 
   async function search(formData: FormData) {
     "use server";
@@ -74,64 +41,42 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <main className="p-6">
-        <div className="mb-6 border-b border-brand-border pb-4 flex justify-between items-end">
-          <h2 className="text-xl font-bold uppercase tracking-tight">Recently Reviewed</h2>
+      <main className="p-6 max-w-5xl mx-auto">
+        <div className="mb-8 border-b border-brand-border pb-4 flex justify-between items-end">
+          <h2 className="text-2xl font-bold uppercase tracking-tight">How We Grade</h2>
           <Link
             href="/catalogue"
             className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none"
           >
-            View Full Catalogue
+            Explore Catalogue
           </Link>
         </div>
 
-        {products.length === 0 ? (
-          <div className="border border-brand-border p-12 text-center">
-            <p className="uppercase tracking-widest text-brand-neutral/60">
-              No recent reviews available or system is offline.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-6">
+            <p className="text-lg leading-relaxed border border-brand-border p-6 bg-white shadow-sm">
+              Gud Fud is an independent AI platform that deeply analyzes food products based on a rigorous 100-point scale. We evaluate every product transparently using a standardized engine.
             </p>
+            <div className="space-y-4">
+              <div className="border border-brand-border p-4 bg-brand-neutral/5">
+                <h3 className="font-bold uppercase mb-2">1. Nutrition (50%)</h3>
+                <p className="text-sm">We assess calories, macronutrients, sodium, and sugars against recommended limits.</p>
+              </div>
+              <div className="border border-brand-border p-4 bg-brand-neutral/5">
+                <h3 className="font-bold uppercase mb-2">2. Ingredients (30%)</h3>
+                <p className="text-sm">We parse every additive, preservative, and raw material, penalizing harmful components and ensuring limits aren't exceeded.</p>
+              </div>
+              <div className="border border-brand-border p-4 bg-brand-neutral/5">
+                <h3 className="font-bold uppercase mb-2">3. Context (20%)</h3>
+                <p className="text-sm">We map products into the NOVA framework, rewarding unprocessed foods and penalizing ultra-processed alternatives.</p>
+              </div>
+            </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <Link
-                href={`/products/${product.slug}`}
-                key={product.slug}
-                className="group border border-brand-border p-4 flex flex-col h-full hover:bg-brand-neutral/5 transition-none rounded-none"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div className="border border-brand-border px-2 py-1 text-xs uppercase font-bold tracking-wider">
-                    {product.rating_band || "UNRATED"}
-                  </div>
-                  <div className="text-xs uppercase text-brand-neutral/50">
-                    {product.market_code}
-                  </div>
-                </div>
-                {product.image_url ? (
-                  <div className="w-full h-48 mb-4 border border-brand-border bg-white overflow-hidden shrink-0">
-                    <img src={product.image_url} alt={product.canonical_name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                  </div>
-                ) : (
-                  <div className="w-full h-48 mb-4 border border-brand-border bg-brand-neutral/5 flex items-center justify-center shrink-0">
-                    <span className="text-brand-neutral/30 uppercase tracking-widest text-xs font-bold">No Image</span>
-                  </div>
-                )}
-                <div className="flex-grow flex flex-col">
-                  <h3 className="font-bold text-lg leading-tight uppercase group-hover:underline">
-                    {product.canonical_name}
-                  </h3>
-                  <p className="text-sm mt-1 text-brand-neutral/70 uppercase">
-                    {product.brand.name}
-                  </p>
-                </div>
-                <div className="mt-auto pt-4 border-t border-brand-border border-dashed flex justify-between items-center text-xs text-brand-neutral/50 shrink-0">
-                  <span className="uppercase">{product.category.name}</span>
-                  <span>{product.confidence_grade || "N/A"}</span>
-                </div>
-              </Link>
-            ))}
+          
+          <div className="w-full flex justify-center">
+            <ScoreChart />
           </div>
-        )}
+        </div>
       </main>
     </div>
   );

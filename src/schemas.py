@@ -141,6 +141,9 @@ class IngredientAnalysis(BaseModel):
     technical_function: Optional[str] = None
     public_summary: Optional[str] = None
     aliases: List[str] = []
+    is_generally_safe: Optional[bool] = None
+    daily_limit_amount: Optional[float] = None
+    daily_limit_unit: Optional[str] = None
     evidence: List[IngredientEvidenceBase] = []
     regulatory_statuses: List[RegulatoryStatusBase] = []
     products: List[IngredientProductCard] = []

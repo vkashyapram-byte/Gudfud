@@ -37,6 +37,9 @@ interface IngredientAnalysis {
   technical_function: string | null;
   public_summary: string | null;
   aliases: string[];
+  is_generally_safe: boolean | null;
+  daily_limit_amount: number | null;
+  daily_limit_unit: string | null;
   evidence: Evidence[];
   regulatory_statuses: RegulatoryStatus[];
   products: Array<{ slug: string; canonical_name: string; brand_name: string; rating_band: string | null }>;
@@ -71,12 +74,33 @@ export default async function IngredientPage(props: { params: Promise<{ slug: st
       </header>
 
       <section className="mb-8 border border-brand-border p-6 bg-white">
-        <h2 className="text-xl font-semibold mb-2 border-b border-brand-border pb-2">Function & Summary</h2>
-        <p className="text-sm font-semibold mb-2 text-gray-800">Purpose: {ingredient.technical_function || "Not declared"}</p>
-        <p className="text-sm leading-relaxed">{ingredient.public_summary || "No summary available."}</p>
-        {ingredient.aliases.length > 0 && (
-          <p className="text-xs mt-4 text-gray-600">Also known as: {ingredient.aliases.join(", ")}</p>
-        )}
+        <h2 className="text-xl font-semibold mb-4 border-b border-brand-border pb-2">Function & Summary</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <p className="text-sm font-semibold mb-2 text-gray-800">Purpose: {ingredient.technical_function || "Not declared"}</p>
+            <p className="text-sm leading-relaxed">{ingredient.public_summary || "No summary available."}</p>
+            {ingredient.aliases.length > 0 && (
+              <p className="text-xs mt-4 text-gray-600">Also known as: {ingredient.aliases.join(", ")}</p>
+            )}
+          </div>
+          <div className="bg-brand-neutral/5 p-4 border border-brand-border">
+            <h3 className="font-bold uppercase mb-2 text-sm">Safety Profile</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between border-b border-brand-border/30 pb-1">
+                <span>Generally Safe:</span>
+                <span className="font-bold">{ingredient.is_generally_safe === null ? "Unknown" : ingredient.is_generally_safe ? "Yes" : "No"}</span>
+              </div>
+              <div className="flex justify-between border-b border-brand-border/30 pb-1">
+                <span>Daily Limit:</span>
+                <span className="font-bold">
+                  {ingredient.daily_limit_amount !== null 
+                    ? `${ingredient.daily_limit_amount} ${ingredient.daily_limit_unit || ''}` 
+                    : "Not specified"}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

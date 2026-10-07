@@ -121,6 +121,9 @@ class Ingredient(Base):
     technical_function: Mapped[Optional[str]] = mapped_column(String)
     public_summary: Mapped[Optional[str]] = mapped_column(String)
     status: Mapped[str] = mapped_column(String, nullable=False, default='active')
+    daily_limit_amount: Mapped[Optional[Numeric]] = mapped_column(Numeric)
+    daily_limit_unit: Mapped[Optional[str]] = mapped_column(String)
+    is_generally_safe: Mapped[Optional[bool]] = mapped_column(Boolean)
 
 class Source(Base):
     __tablename__ = "source"
@@ -218,6 +221,7 @@ class Rating(Base):
     context_score: Mapped[Optional[int]] = mapped_column(Integer)
     confidence_grade: Mapped[str] = mapped_column(String, nullable=False)
     explanation: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    color_status: Mapped[Optional[str]] = mapped_column(String)
     calculated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     published_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
 
@@ -256,3 +260,14 @@ class AuditLog(Base):
     ip_hash: Mapped[Optional[str]] = mapped_column(String)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 
+
+class RatingSafetyViolation(Base):
+    __tablename__ = "rating_safety_violation"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    rating_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("rating.id"), nullable=False)
+    ingredient_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("ingredient.id"), nullable=False)
+    violation_details: Mapped[str] = mapped_column(String, nullable=False)
+
+    rating: Mapped["Rating"] = relationship(backref="safety_violations")
+    ingredient: Mapped["Ingredient"] = relationship()
