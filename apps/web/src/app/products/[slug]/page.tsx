@@ -73,7 +73,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
   return (
     <main className="max-w-5xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen font-mono">
       <header className="mb-8 border-b border-brand-border pb-6">
-        <Link href="/" className="text-sm hover:underline mb-4 inline-block font-medium">&lt; Back to Catalogue</Link>
+        <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white mb-4 inline-block">&lt; Back to Catalogue</Link>
         <div className="flex flex-col md:flex-row gap-8 items-start">
           {product.image_url ? (
             <img 

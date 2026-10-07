@@ -44,7 +44,7 @@ export default async function CataloguePage({ searchParams }: { searchParams: Pr
           <h1 className="text-3xl font-bold tracking-tight">Catalogue</h1>
           <p className="text-sm mt-1">Browse all published product analyses.</p>
         </div>
-        <Link href="/" className="text-sm hover:underline font-medium">Home</Link>
+        <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white">Home</Link>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">

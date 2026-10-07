@@ -64,7 +64,7 @@ export default async function IngredientPage(props: { params: Promise<{ slug: st
   return (
     <main className="max-w-5xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen">
       <header className="mb-8 border-b border-brand-border pb-6">
-        <Link href="/" className="text-sm hover:underline mb-4 inline-block font-medium">&lt; Back to Search</Link>
+        <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white mb-4 inline-block">&lt; Back to Search</Link>
         <h1 className="text-3xl font-bold tracking-tight mb-2">{ingredient.canonical_name}</h1>
         <div className="flex gap-4 text-sm font-mono uppercase bg-white border border-brand-border p-3 inline-flex">
           {ingredient.INS_number && <span>INS: {ingredient.INS_number}</span>}

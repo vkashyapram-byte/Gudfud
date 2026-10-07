@@ -5,7 +5,7 @@ export default function HowItWorksPage() {
     <main className="max-w-4xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen">
       <header className="mb-8 border-b border-brand-border pb-6 flex justify-between items-baseline">
         <h1 className="text-3xl font-bold tracking-tight">How it Works</h1>
-        <Link href="/" className="text-sm hover:underline font-medium">Home</Link>
+        <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white">Home</Link>
       </header>
 
       <section className="space-y-8">

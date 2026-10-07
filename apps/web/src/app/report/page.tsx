@@ -39,7 +39,7 @@ export default function ReportPage() {
   return (
     <main className="max-w-3xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen">
       <header className="mb-8 border-b border-brand-border pb-6">
-        <Link href="/" className="text-sm hover:underline mb-4 inline-block font-medium">&lt; Back to Home</Link>
+        <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white mb-4 inline-block">&lt; Back to Home</Link>
         <h1 className="text-3xl font-bold tracking-tight">Submit a Correction</h1>
         <p className="text-sm mt-1">Request a product update, missing item, or report an inaccuracy.</p>
       </header>

@@ -5,7 +5,7 @@ export default function TeamPage() {
     <main className="max-w-5xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen">
       <header className="mb-8 border-b border-brand-border pb-6 flex justify-between items-baseline">
         <h1 className="text-3xl font-bold tracking-tight">Team</h1>
-        <Link href="/" className="text-sm hover:underline font-medium">Home</Link>
+        <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white">Home</Link>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
