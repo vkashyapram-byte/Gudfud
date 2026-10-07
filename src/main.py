@@ -388,6 +388,7 @@ def get_ingredient_analysis(slug: str, db: Session = Depends(get_db)):
         "is_generally_safe": ingredient.is_generally_safe,
         "daily_limit_amount": ingredient.daily_limit_amount,
         "daily_limit_unit": ingredient.daily_limit_unit,
+        "image_url": ingredient.image_url,
         "aliases": aliases,
         "evidence": evidence_list,
         "regulatory_statuses": reg_list,
@@ -420,6 +421,7 @@ def get_ingredients_list(
             is_generally_safe=ing.is_generally_safe,
             daily_limit_amount=ing.daily_limit_amount,
             daily_limit_unit=ing.daily_limit_unit,
+            image_url=ing.image_url,
             evidence=[],
             regulatory_statuses=[],
             products=[]

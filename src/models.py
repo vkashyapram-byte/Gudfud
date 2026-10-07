@@ -124,6 +124,7 @@ class Ingredient(Base):
     daily_limit_amount: Mapped[Optional[Numeric]] = mapped_column(Numeric)
     daily_limit_unit: Mapped[Optional[str]] = mapped_column(String)
     is_generally_safe: Mapped[Optional[bool]] = mapped_column(Boolean)
+    image_url: Mapped[Optional[str]] = mapped_column(String)
 
 class Source(Base):
     __tablename__ = "source"

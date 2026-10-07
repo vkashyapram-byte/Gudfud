@@ -9,6 +9,7 @@ interface IngredientItem {
   technical_function: string | null;
   public_summary: string | null;
   is_generally_safe: boolean | null;
+  image_url?: string | null;
 }
 
 interface PaginatedIngredients {
@@ -51,28 +52,42 @@ export default async function IngredientsCataloguePage({ searchParams }: { searc
           <Link 
             href={`/ingredients/${ingredient.slug}`} 
             key={ingredient.slug} 
-            className="flex flex-col border border-brand-border bg-white hover:bg-brand-neutral hover:text-white transition-colors overflow-hidden group p-6"
+            className="flex flex-col border border-brand-border bg-white hover:border-brand-neutral transition-colors overflow-hidden group"
           >
-            <div className="flex justify-between items-start mb-4">
-              <h3 className="font-bold text-lg leading-tight pr-2">{ingredient.canonical_name}</h3>
-              {(ingredient.E_number || ingredient.INS_number) && (
-                <span className="text-xs border border-current px-1.5 py-0.5 font-mono uppercase shrink-0 group-hover:border-white">
-                  {ingredient.E_number || ingredient.INS_number}
-                </span>
+            <div className="w-full h-40 bg-gray-100 flex items-center justify-center border-b border-brand-border relative overflow-hidden group-hover:opacity-90">
+              {ingredient.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img 
+                  src={ingredient.image_url} 
+                  alt={ingredient.canonical_name} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                />
+              ) : (
+                <span className="text-gray-400 text-xs uppercase font-mono">No Image</span>
               )}
             </div>
-            
-            <div className="mb-4 text-sm opacity-80 line-clamp-3">
+
+            <div className="p-5 flex flex-col flex-grow">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="font-bold text-lg leading-tight pr-2 group-hover:text-brand-neutral">{ingredient.canonical_name}</h3>
+                {(ingredient.E_number || ingredient.INS_number) && (
+                  <span className="text-xs border border-brand-border px-1.5 py-0.5 font-mono uppercase shrink-0 text-brand-neutral">
+                    {ingredient.E_number || ingredient.INS_number}
+                  </span>
+                )}
+              </div>
+            <div className="mb-4 text-sm opacity-80 line-clamp-3 text-gray-700">
               {ingredient.public_summary || "No summary available for this ingredient."}
             </div>
 
-            <div className="mt-auto border-t border-brand-border/20 pt-3 text-xs flex justify-between items-center">
+            <div className="mt-auto border-t border-brand-border/20 pt-3 text-xs flex justify-between items-center text-gray-800">
               <span className="font-mono uppercase">{ingredient.ingredient_type || "Unknown Type"}</span>
               {ingredient.is_generally_safe !== null && (
-                <span className={`px-2 py-1 ${ingredient.is_generally_safe ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"} group-hover:bg-white group-hover:text-brand-neutral`}>
+                <span className={`px-2 py-1 ${ingredient.is_generally_safe ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
                   {ingredient.is_generally_safe ? "GRAS" : "Restricted"}
                 </span>
               )}
+            </div>
             </div>
           </Link>
         ))}

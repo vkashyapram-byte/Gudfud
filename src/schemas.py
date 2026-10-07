@@ -144,6 +144,7 @@ class IngredientAnalysis(BaseModel):
     is_generally_safe: Optional[bool] = None
     daily_limit_amount: Optional[float] = None
     daily_limit_unit: Optional[str] = None
+    image_url: Optional[str] = None
     evidence: List[IngredientEvidenceBase] = []
     regulatory_statuses: List[RegulatoryStatusBase] = []
     products: List[IngredientProductCard] = []

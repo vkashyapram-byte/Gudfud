@@ -65,25 +65,40 @@ export default async function IngredientPage(props: { params: Promise<{ slug: st
     <main className="max-w-5xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen">
       <header className="mb-8 border-b border-brand-border pb-6">
         <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white mb-4 inline-block">&lt; Back to Search</Link>
-        <h1 className="text-3xl font-bold tracking-tight mb-2">{ingredient.canonical_name}</h1>
-        <div className="flex gap-4 text-sm font-mono uppercase bg-white border border-brand-border p-3 inline-flex">
-          {ingredient.INS_number && <span>INS: {ingredient.INS_number}</span>}
-          {ingredient.E_number && <span>E: {ingredient.E_number}</span>}
-          <span>Type: {ingredient.ingredient_type || "N/A"}</span>
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          {ingredient.image_url ? (
+            <img 
+              src={ingredient.image_url} 
+              alt={ingredient.canonical_name} 
+              className="w-full md:w-1/3 aspect-square object-cover border border-brand-border bg-white"
+            />
+          ) : (
+            <div className="w-full md:w-1/3 aspect-square bg-gray-100 border border-brand-border flex items-center justify-center">
+              <span className="text-gray-400 font-mono text-sm uppercase">No Image Available</span>
+            </div>
+          )}
+          
+          <div className="flex-1 space-y-4">
+            <h1 className="text-4xl font-bold tracking-tight">{ingredient.canonical_name}</h1>
+            <div className="flex flex-wrap gap-4 text-sm font-mono uppercase bg-white border border-brand-border p-3 inline-flex">
+              {ingredient.INS_number && <span>INS: {ingredient.INS_number}</span>}
+              {ingredient.E_number && <span>E: {ingredient.E_number}</span>}
+              <span>Type: {ingredient.ingredient_type || "N/A"}</span>
+            </div>
+            {ingredient.aliases.length > 0 && (
+              <p className="text-xs text-gray-600">Also known as: {ingredient.aliases.join(", ")}</p>
+            )}
+            <div className="mt-4 p-4 border border-brand-border bg-white text-sm leading-relaxed">
+              <p className="font-semibold mb-2">Technical Purpose: {ingredient.technical_function || "Not declared"}</p>
+              <p>{ingredient.public_summary || "No summary available."}</p>
+            </div>
+          </div>
         </div>
       </header>
 
-      <section className="mb-8 border border-brand-border p-6 bg-white">
-        <h2 className="text-xl font-semibold mb-4 border-b border-brand-border pb-2">Function & Summary</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="text-sm font-semibold mb-2 text-gray-800">Purpose: {ingredient.technical_function || "Not declared"}</p>
-            <p className="text-sm leading-relaxed">{ingredient.public_summary || "No summary available."}</p>
-            {ingredient.aliases.length > 0 && (
-              <p className="text-xs mt-4 text-gray-600">Also known as: {ingredient.aliases.join(", ")}</p>
-            )}
-          </div>
-          <div className="bg-brand-neutral/5 p-4 border border-brand-border">
+      <section className="mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-1 bg-brand-neutral/5 p-6 border border-brand-border">
             <h3 className="font-bold uppercase mb-2 text-sm">Safety Profile</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between border-b border-brand-border/30 pb-1">
