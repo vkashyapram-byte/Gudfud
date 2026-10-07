@@ -47,7 +47,7 @@ interface ProductAnalysis {
 async function getProduct(slug: string): Promise<ProductAnalysis | null> {
   try {
     const baseUrl = getApiUrl();
-    const res = await fetch(`${baseUrl}/v1/products/${slug}`, { cache: "no-store" });
+    const res = await fetch(`${baseUrl}/v1/products/${slug}`, { next: { revalidate: 300 } });
     if (!res.ok) return null;
     return res.json();
   } catch (error) {

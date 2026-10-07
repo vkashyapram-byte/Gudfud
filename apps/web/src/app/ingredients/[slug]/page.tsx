@@ -47,7 +47,7 @@ interface IngredientAnalysis {
 
 async function getIngredient(slug: string): Promise<IngredientAnalysis | null> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/ingredients/${slug}`, { cache: "no-store" });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/ingredients/${slug}`, { next: { revalidate: 300 } });
     if (!res.ok) return null;
     return res.json();
   } catch (error) {
