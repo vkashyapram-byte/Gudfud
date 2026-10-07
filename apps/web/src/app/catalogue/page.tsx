@@ -1,42 +1,114 @@
 import Link from "next/link";
 
-export default function CatalogueSelectionPage() {
+interface ProductCard {
+  slug: string;
+  canonical_name: string;
+  brand: { name: string; slug: string };
+  category: { name: string; slug: string };
+  rating_band: string | null;
+  confidence_grade: string | null;
+  market_code: string;
+  image_url?: string | null;
+  last_reviewed_at: string | null;
+}
+
+interface PaginatedCatalogue {
+  items: ProductCard[];
+  total: number;
+  page: number;
+  size: number;
+}
+
+async function getCatalogue(page: number): Promise<PaginatedCatalogue> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/catalogue?page=${page}&size=24&market=in`, {
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) return { items: [], total: 0, page: 1, size: 24 };
+    return res.json();
+  } catch (error) {
+    return { items: [], total: 0, page: 1, size: 24 };
+  }
+}
+
+export default async function CataloguePage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
+  const params = await searchParams;
+  const currentPage = parseInt(params.page || "1", 10);
+  const catalogue = await getCatalogue(currentPage);
+  const totalPages = Math.ceil(catalogue.total / catalogue.size) || 1;
+
   return (
-    <main className="max-w-4xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen flex flex-col items-center justify-center">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">Explore the Database</h1>
-        <p className="text-lg">What would you like to explore today?</p>
+    <main className="max-w-6xl mx-auto p-8 text-brand-neutral bg-brand-surface min-h-screen">
+      <header className="mb-8 border-b border-brand-border pb-6 flex justify-between items-baseline">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Catalogue</h1>
+          <p className="text-sm mt-1">Browse all published product analyses.</p>
+        </div>
+        <Link href="/" className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white">Home</Link>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+        {catalogue.items.map((product) => (
+          <Link 
+            href={`/products/${product.slug}`} 
+            key={product.slug} 
+            className="flex flex-col border border-brand-border bg-white hover:border-brand-neutral transition-colors overflow-hidden group"
+          >
+            {/* Display Product Image */}
+            <div className="w-full h-48 bg-gray-100 flex items-center justify-center border-b border-brand-border relative overflow-hidden">
+              {product.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img 
+                  src={product.image_url} 
+                  alt={product.canonical_name} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                />
+              ) : (
+                <span className="text-gray-400 text-sm">No Image</span>
+              )}
+            </div>
+
+            <div className="p-4 flex flex-col flex-grow">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-bold text-base leading-tight pr-2">{product.canonical_name}</h3>
+                <span className="text-xs bg-brand-surface border border-brand-border px-1.5 py-0.5 font-mono uppercase shrink-0">
+                  {product.market_code}
+                </span>
+              </div>
+            <p className="text-xs mb-4 text-gray-800">{product.brand.name} | {product.category.name}</p>
+            
+            <div className="mt-auto border-t border-brand-border pt-3 text-xs">
+              <span className="block font-semibold">Rating: {product.rating_band || "Unrated"}</span>
+              <span className="block text-gray-600 mt-1">Confidence: {product.confidence_grade || "N/A"}</span>
+            </div>
+            </div>
+          </Link>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl">
-        <Link 
-          href="/catalogue/products"
-          className="flex flex-col items-center p-12 bg-white border border-brand-border hover:bg-brand-neutral hover:text-white transition-colors group"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-          </svg>
-          <h2 className="text-2xl font-bold uppercase tracking-widest mb-2">Packaged Food</h2>
-          <p className="text-sm opacity-70 text-center">Browse fully analyzed food products and their scores.</p>
-        </Link>
+      {catalogue.items.length > 0 && (
+        <div className="flex justify-between items-center border-t border-brand-border pt-6 text-sm">
+          <Link 
+            href={`/catalogue/products?page=${Math.max(1, currentPage - 1)}`}
+            className={`border border-brand-border px-4 py-2 bg-white hover:bg-brand-surface ${currentPage === 1 ? 'opacity-50 pointer-events-none' : ''}`}
+          >
+            &lt; Previous
+          </Link>
+          <span className="font-mono">Page {currentPage} of {totalPages}</span>
+          <Link 
+            href={`/catalogue/products?page=${Math.min(totalPages, currentPage + 1)}`}
+            className={`border border-brand-border px-4 py-2 bg-white hover:bg-brand-surface ${currentPage === totalPages ? 'opacity-50 pointer-events-none' : ''}`}
+          >
+            Next &gt;
+          </Link>
+        </div>
+      )}
 
-        <Link 
-          href="/catalogue/ingredients"
-          className="flex flex-col items-center p-12 bg-white border border-brand-border hover:bg-brand-neutral hover:text-white transition-colors group"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-          </svg>
-          <h2 className="text-2xl font-bold uppercase tracking-widest mb-2">Ingredients</h2>
-          <p className="text-sm opacity-70 text-center">Explore the raw data on food additives and individual ingredients.</p>
-        </Link>
-      </div>
-      
-      <div className="mt-12">
-        <Link href="/" className="text-sm font-bold uppercase border border-brand-border px-6 py-2 bg-white hover:bg-brand-surface transition-none">
-          &lt; Back to Home
-        </Link>
-      </div>
+      {catalogue.items.length === 0 && (
+        <div className="p-8 border border-brand-border text-center text-sm bg-white">
+          No published products found in the catalogue.
+        </div>
+      )}
     </main>
   );
 }

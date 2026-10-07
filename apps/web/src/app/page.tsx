@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import ScoreChart from "@/components/ScoreChart";
 
 export default async function HomePage() {
@@ -16,8 +15,8 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <section className="py-24 px-6 flex flex-col items-center justify-center border-b border-brand-border bg-white">
-        <div className="w-full max-w-3xl z-10 flex flex-col items-center">
+      <section className="py-20 px-6 flex flex-col items-center justify-center border-b border-brand-border bg-white">
+        <div className="w-full max-w-3xl z-10">
           <form action="/search" method="GET" className="flex items-center w-full border border-brand-border bg-white p-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brand-neutral ml-2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -32,10 +31,10 @@ export default async function HomePage() {
             />
           </form>
           
-          <div className="mt-8">
+          <div className="mt-8 flex justify-center">
             <Link
               href="/catalogue"
-              className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white"
+              className="text-sm uppercase font-bold border border-brand-border px-8 py-3 bg-brand-neutral text-brand-surface hover:bg-brand-neutral/80 transition-none"
             >
               Explore Catalogue
             </Link>
@@ -43,36 +42,35 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <main className="p-6 md:p-12 max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-brand-neutral">How We Grade</h2>
-          <p className="text-lg text-brand-neutral/70 max-w-2xl mx-auto font-sans">
-            Ever wonder what's really in your food? We break it down so you don't have to. Our AI engine scores products on a 100-point scale.
-          </p>
+      <main className="p-6 max-w-5xl mx-auto">
+        <div className="mb-8 border-b border-brand-border pb-4 flex justify-between items-end">
+          <h2 className="text-2xl font-bold uppercase tracking-tight">How We Grade</h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <div className="bg-[#FF6B6B]/10 border-2 border-[#FF6B6B]/20 p-8 rounded-3xl flex flex-col items-center text-center transform hover:scale-105 transition-transform">
-            <div className="text-5xl mb-4">🥦</div>
-            <h3 className="font-bold text-xl mb-3 text-brand-neutral">1. Nutrition (50%)</h3>
-            <p className="text-sm font-sans text-brand-neutral/80">We look at the macros! Balancing the good stuff like protein with the things you might want to watch, like sugar and sodium.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-6">
+            <p className="text-lg leading-relaxed border border-brand-border p-6 bg-white shadow-sm">
+              Gud Fud is an independent AI platform that deeply analyzes food products based on a rigorous 100-point scale. We evaluate every product transparently using a standardized engine.
+            </p>
+            <div className="space-y-4">
+              <div className="border border-brand-border p-4 bg-brand-neutral/5">
+                <h3 className="font-bold uppercase mb-2">1. Nutrition (50%)</h3>
+                <p className="text-sm">We assess calories, macronutrients, sodium, and sugars against recommended limits.</p>
+              </div>
+              <div className="border border-brand-border p-4 bg-brand-neutral/5">
+                <h3 className="font-bold uppercase mb-2">2. Formulation (30%)</h3>
+                <p className="text-sm">We parse every additive, preservative, and raw material, penalizing harmful components and ensuring limits aren't exceeded.</p>
+              </div>
+              <div className="border border-brand-border p-4 bg-brand-neutral/5">
+                <h3 className="font-bold uppercase mb-2">3. Context (20%)</h3>
+                <p className="text-sm">We map products into the NOVA framework, rewarding unprocessed foods and penalizing ultra-processed alternatives.</p>
+              </div>
+            </div>
           </div>
           
-          <div className="bg-[#4ECDC4]/10 border-2 border-[#4ECDC4]/20 p-8 rounded-3xl flex flex-col items-center text-center transform hover:scale-105 transition-transform">
-            <div className="text-5xl mb-4">🔬</div>
-            <h3 className="font-bold text-xl mb-3 text-brand-neutral">2. Ingredients (30%)</h3>
-            <p className="text-sm font-sans text-brand-neutral/80">No more mysterious E-numbers. We scan the label for additives, preservatives, and weird chemicals.</p>
+          <div className="w-full flex justify-center">
+            <ScoreChart />
           </div>
-
-          <div className="bg-[#FFE66D]/20 border-2 border-[#FFE66D]/40 p-8 rounded-3xl flex flex-col items-center text-center transform hover:scale-105 transition-transform">
-            <div className="text-5xl mb-4">🏭</div>
-            <h3 className="font-bold text-xl mb-3 text-brand-neutral">3. Processing (20%)</h3>
-            <p className="text-sm font-sans text-brand-neutral/80">Is it real food or a science experiment? We check how processed the product actually is using the NOVA framework.</p>
-          </div>
-        </div>
-
-        <div className="w-full flex justify-center max-w-2xl mx-auto">
-          <ScoreChart />
         </div>
       </main>
     </div>
