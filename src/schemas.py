@@ -83,7 +83,7 @@ class ProductAnalysis(BaseModel):
     component_scores: Optional[ComponentScores] = None
     confidence_grade: str
     methodology_version: Optional[str] = None
-    explanation: Dict[str, Any]
+    explanation: Any
     nutrition: Optional[NutritionFactsBase] = None
     ingredients: List[IngredientMapping] = []
     ingredients_raw: Optional[str] = None
