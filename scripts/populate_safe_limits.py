@@ -72,38 +72,42 @@ def populate_safe_limits():
         ingredients = db.query(Ingredient).all()
         updated_count = 0
 
-        for ing in ingredients:
-            ing_name_lower = ing.canonical_name.lower()
-            
-            # Check if we have data for this ingredient
-            match = None
-            for key, data in limits_data.items():
-                if key in ing_name_lower:
-                    match = data
-                    break
-            
-            if match:
-                # Update the Ingredient model
-                ing.daily_limit_amount = match["limit"]
-                ing.daily_limit_unit = match["unit"]
-                ing.is_generally_safe = match["safe"]
-                
-                # Create Educational Evidence
-                evidence = db.query(IngredientEvidence).filter_by(ingredient_id=ing.id).first()
-                if not evidence:
-                    evidence = IngredientEvidence(
-                        ingredient_id=ing.id,
-                        effect_type="General Health",
-                        evidence_grade=match["evidence_grade"],
-                        summary=match["summary"],
-                        review_status="Approved",
-                        reviewed_at=datetime.now(timezone.utc)
-                    )
-                    db.add(evidence)
-                else:
-                    evidence.summary = match["summary"]
+        for key, data in limits_data.items():
+            # Find ingredient by name
+            ing = db.query(Ingredient).filter(Ingredient.canonical_name.ilike(f"%{key}%")).first()
+            if not ing:
+                # Create it
+                ing = Ingredient(
+                    id=uuid.uuid4(),
+                    canonical_name=key.title(),
+                    slug=key.replace(" ", "-").lower(),
+                    public_summary=data["summary"],
+                    status="published"
+                )
+                db.add(ing)
+                db.flush()
 
-                updated_count += 1
+            # Update the Ingredient model
+            ing.daily_limit_amount = data["limit"]
+            ing.daily_limit_unit = data["unit"]
+            ing.is_generally_safe = data["safe"]
+            
+            # Create Educational Evidence
+            evidence = db.query(IngredientEvidence).filter_by(ingredient_id=ing.id).first()
+            if not evidence:
+                evidence = IngredientEvidence(
+                    ingredient_id=ing.id,
+                    effect_type="General Health",
+                    evidence_grade=data["evidence_grade"],
+                    summary=data["summary"],
+                    review_status="Approved",
+                    reviewed_at=datetime.now(timezone.utc)
+                )
+                db.add(evidence)
+            else:
+                evidence.summary = data["summary"]
+
+            updated_count += 1
                 
         db.commit()
         print(f"✅ Successfully updated {updated_count} ingredients with Safe Consumption Limits and Educational Evidence.")
