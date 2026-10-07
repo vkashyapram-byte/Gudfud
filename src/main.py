@@ -781,7 +781,3 @@ def process_outbox_events(
         logger.error("Worker process failed", extra={"error": str(e)}, exc_info=True)
         raise HTTPException(status_code=500, detail="Worker process failed")
 
-@app.post("/v1/admin/run_scripts")
-def run_scripts():
-    import os
-    return {"db": os.getenv("DATABASE_URL")}
