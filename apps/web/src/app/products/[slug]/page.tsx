@@ -193,8 +193,77 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
               </div>
             </div>
           )}
+          {product.nutrition && (
+            <NutritionAssessment nutrition={product.nutrition} explanation={product.explanation} />
+          )}
         </section>
       </div>
     </main>
+  );
+}
+
+function NutritionAssessment({ nutrition, explanation }: { nutrition: NutritionFacts, explanation: any }) {
+  const good: string[] = [];
+  const bad: string[] = [];
+
+  if (nutrition.sugars !== null) {
+    if (nutrition.sugars > 15) bad.push("High in sugar, which can lead to energy crashes and metabolic issues.");
+    else if (nutrition.sugars < 5) good.push("Low sugar content, making it a better choice for blood sugar management.");
+  }
+
+  if (nutrition.sodium !== null) {
+    if (nutrition.sodium > 1.5) bad.push("High sodium content, which may negatively impact blood pressure.");
+    else if (nutrition.sodium < 0.14) good.push("Low sodium, good for heart health.");
+  }
+
+  if (nutrition.saturated_fat !== null) {
+    if (nutrition.saturated_fat > 5) bad.push("High saturated fat, which should be consumed in moderation.");
+    else if (nutrition.saturated_fat < 1.5) good.push("Low saturated fat, which is generally healthier for your heart.");
+  }
+
+  if (nutrition.energy !== null) {
+    if (nutrition.energy > 400) bad.push("High in calories (energy dense), meaning it's easy to overconsume.");
+    else if (nutrition.energy < 40) good.push("Low in calories, which can fit easily into most diets.");
+  }
+
+  // Also check explanation for NOVA
+  if (Array.isArray(explanation)) {
+    const isUltraProcessed = explanation.find((e: any) => e.factor === "nova_4");
+    if (isUltraProcessed) {
+      bad.push("Ultra-processed (NOVA 4), meaning it contains ingredients rarely used in kitchens and is highly industrially formulated.");
+    }
+  }
+
+  if (good.length === 0 && bad.length === 0) {
+    return (
+      <div className="mt-4 p-4 border border-brand-border bg-white text-sm">
+        <h3 className="font-bold uppercase mb-2">About the Nutrition</h3>
+        <p className="text-brand-neutral/80">This product has moderate nutritional values without extreme highs or lows in sugar, sodium, or saturated fat per 100g.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-4 p-4 border border-brand-border bg-white text-sm">
+      <h3 className="font-bold uppercase mb-4 tracking-tight text-lg">Nutrition Summary</h3>
+      <div className="space-y-4">
+        {bad.length > 0 && (
+          <div>
+            <h4 className="font-bold text-red-600 uppercase text-xs mb-2 tracking-widest border-b border-red-200 pb-1 inline-block">The Bad</h4>
+            <ul className="list-disc pl-5 space-y-1.5 text-brand-neutral/80 marker:text-red-400">
+              {bad.map((text, i) => <li key={i}>{text}</li>)}
+            </ul>
+          </div>
+        )}
+        {good.length > 0 && (
+          <div>
+            <h4 className="font-bold text-green-600 uppercase text-xs mb-2 tracking-widest border-b border-green-200 pb-1 inline-block">The Good</h4>
+            <ul className="list-disc pl-5 space-y-1.5 text-brand-neutral/80 marker:text-green-400">
+              {good.map((text, i) => <li key={i}>{text}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
