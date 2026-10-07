@@ -7,7 +7,19 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_API_URL: apiUrl
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
