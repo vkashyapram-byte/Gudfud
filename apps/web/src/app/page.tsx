@@ -4,14 +4,7 @@ import ScoreChart from "@/components/ScoreChart";
 
 export default async function HomePage() {
 
-  async function search(formData: FormData) {
-    "use server";
-    const query = formData.get("q");
-    if (query && typeof query === "string" && query.length >= 2) {
-      redirect(`/search?q=${encodeURIComponent(query)}`);
-    }
-  }
-
+  // Native form submission is used for search to ensure it is independent and always works.
   return (
     <div className="min-h-screen bg-brand-surface text-brand-neutral font-mono selection:bg-brand-neutral selection:text-brand-surface">
       <header className="border-b border-brand-border p-6 flex justify-between items-center bg-white">
@@ -23,10 +16,10 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <section className="py-24 px-6 flex flex-col items-center justify-center bg-brand-surface border-b border-brand-border">
+      <section className="py-24 px-6 flex flex-col items-center justify-center border-b border-brand-border bg-white">
         <div className="w-full max-w-3xl z-10 flex flex-col items-center">
-          <form action={search} className="flex items-center w-full bg-white rounded-full shadow-lg p-3 border-2 border-brand-neutral/10 focus-within:border-[#4ECDC4] transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brand-neutral ml-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <form action="/search" method="GET" className="flex items-center w-full border border-brand-border bg-white p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brand-neutral ml-2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -35,15 +28,14 @@ export default async function HomePage() {
               placeholder="Search products, brands, e-numbers..."
               required
               minLength={2}
-              className="w-full px-4 py-2 text-xl outline-none text-brand-neutral placeholder:text-brand-neutral/40 bg-transparent font-sans"
+              className="w-full p-3 text-lg outline-none text-brand-neutral placeholder:text-brand-neutral/50 bg-transparent"
             />
-            <button type="submit" className="bg-[#FF6B6B] text-white px-6 py-2 rounded-full font-bold hover:bg-[#ff5252] transition-colors shadow-sm">Search</button>
           </form>
           
           <div className="mt-8">
             <Link
               href="/catalogue"
-              className="inline-block text-sm uppercase tracking-wider font-bold bg-white text-[#4ECDC4] border-2 border-[#4ECDC4] px-8 py-3 rounded-full hover:bg-[#4ECDC4] hover:text-white transition-all shadow-sm transform hover:-translate-y-1"
+              className="text-sm uppercase font-bold border border-brand-border px-4 py-2 hover:bg-brand-neutral hover:text-brand-surface transition-none bg-white"
             >
               Explore Catalogue
             </Link>
