@@ -394,6 +394,44 @@ def get_ingredient_analysis(slug: str, db: Session = Depends(get_db)):
         "products": [{"slug": p.slug, "canonical_name": p.canonical_name, "brand_name": p.brand_name, "rating_band": p.rating_band} for p in product_records]
     }
 
+@app.get("/v1/ingredients", response_model=schemas.PaginatedIngredients)
+def get_ingredients_list(
+    page: int = Query(1, ge=1, description="Page number"),
+    size: int = Query(24, ge=1, le=100, description="Items per page"),
+    db: Session = Depends(get_db)
+):
+    offset = (page - 1) * size
+    
+    query = db.query(models.Ingredient).filter(models.Ingredient.status == "active").order_by(models.Ingredient.canonical_name)
+    total = query.count()
+    results = query.limit(size).offset(offset).all()
+    
+    items = []
+    for ing in results:
+        items.append(schemas.IngredientAnalysis(
+            slug=ing.slug,
+            canonical_name=ing.canonical_name,
+            INS_number=ing.INS_number,
+            E_number=ing.E_number,
+            ingredient_type=ing.ingredient_type,
+            technical_function=ing.technical_function,
+            public_summary=ing.public_summary,
+            aliases=[],
+            is_generally_safe=ing.is_generally_safe,
+            daily_limit_amount=ing.daily_limit_amount,
+            daily_limit_unit=ing.daily_limit_unit,
+            evidence=[],
+            regulatory_statuses=[],
+            products=[]
+        ))
+    
+    return {
+        "items": items,
+        "total": total,
+        "page": page,
+        "size": size
+    }
+
 @app.get("/v1/compare/{product_slug}", response_model=schemas.ProductComparisonResponse)
 def compare_product_variants(
     product_slug: str,

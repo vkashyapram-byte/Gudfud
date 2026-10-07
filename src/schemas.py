@@ -150,6 +150,12 @@ class IngredientAnalysis(BaseModel):
     
     model_config = ConfigDict(from_attributes=True)
 
+class PaginatedIngredients(BaseModel):
+    items: List[IngredientAnalysis]
+    total: int
+    page: int
+    size: int
+
 class VariantComparisonCard(BaseModel):
     market_code: str
     label_version_id: UUID
