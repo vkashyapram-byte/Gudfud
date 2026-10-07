@@ -40,6 +40,7 @@ interface IngredientAnalysis {
   is_generally_safe: boolean | null;
   daily_limit_amount: number | null;
   daily_limit_unit: string | null;
+  image_url?: string | null;
   evidence: Evidence[];
   regulatory_statuses: RegulatoryStatus[];
   products: Array<{ slug: string; canonical_name: string; brand_name: string; rating_band: string | null }>;
