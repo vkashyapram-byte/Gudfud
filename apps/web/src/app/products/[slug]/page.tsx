@@ -100,17 +100,17 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
             </div>
 
             <div className="flex flex-col gap-4">
-              <div className="flex flex-wrap gap-4 text-sm uppercase bg-white border border-brand-border p-3 font-bold">
-                <span className="text-brand-neutral">Overall: {product.rating_band || "UNRATED"}</span>
-                <span className="border-l border-brand-border pl-4">{product.rating_total !== null ? `${product.rating_total}/100` : "N/A"}</span>
-                <span className="border-l border-brand-border pl-4 text-brand-neutral/60">Confidence: {product.confidence_grade}</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 text-sm uppercase bg-white border border-brand-border p-3 font-bold sm:divide-x sm:divide-brand-border">
+                <span className="text-brand-neutral sm:pr-4">Overall: {product.rating_band || "UNRATED"}</span>
+                <span className="sm:px-4">{product.rating_total !== null ? `${product.rating_total}/100` : "N/A"}</span>
+                <span className="sm:pl-4 text-brand-neutral/60">Confidence: {product.confidence_grade}</span>
               </div>
               
               {product.component_scores && (
-                <div className="flex flex-wrap gap-4 text-xs uppercase bg-brand-neutral/5 border border-brand-border p-2">
-                  <span>Nutrition: {product.component_scores.nutrition_score !== null ? product.component_scores.nutrition_score : "N/A"}</span>
-                  <span className="border-l border-brand-border pl-4">Ingredient: {product.component_scores.ingredient_score !== null ? product.component_scores.ingredient_score : "N/A"}</span>
-                  <span className="border-l border-brand-border pl-4">Context: {product.component_scores.context_score !== null ? product.component_scores.context_score : "N/A"}</span>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0 text-xs uppercase bg-brand-neutral/5 border border-brand-border p-2 sm:divide-x sm:divide-brand-border">
+                  <span className="sm:pr-4">Nutrition: {product.component_scores.nutrition_score !== null ? product.component_scores.nutrition_score : "N/A"}</span>
+                  <span className="sm:px-4">Ingredient: {product.component_scores.ingredient_score !== null ? product.component_scores.ingredient_score : "N/A"}</span>
+                  <span className="sm:pl-4">Context: {product.component_scores.context_score !== null ? product.component_scores.context_score : "N/A"}</span>
                 </div>
               )}
             </div>
@@ -153,10 +153,10 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
               </p>
               <ul className="space-y-3">
                 {product.ingredients.map((ing, i) => (
-                  <li key={i} className="flex items-start justify-between border-b border-brand-border/30 pb-2 last:border-0 last:pb-0">
-                    <span className="text-sm font-medium">{ing.label_text || ing.canonical_name || "Unknown"}</span>
-                    <span className="text-xs uppercase text-brand-neutral/40 ml-4 flex-shrink-0 font-mono text-right">
-                      {ing.declared_percent ? `${ing.declared_percent}%` : `Unspecified (Rank #${ing.position})`}
+                  <li key={i} className="flex flex-col sm:flex-row sm:items-start justify-between border-b border-brand-border/30 pb-2 last:border-0 last:pb-0 gap-1 sm:gap-4">
+                    <span className="text-sm font-medium break-words">{ing.label_text || ing.canonical_name || "Unknown"}</span>
+                    <span className="text-xs uppercase text-brand-neutral/40 sm:flex-shrink-0 font-mono sm:text-right">
+                      {ing.declared_percent ? `${ing.declared_percent}%` : `Rank #${ing.position}`}
                     </span>
                   </li>
                 ))}
