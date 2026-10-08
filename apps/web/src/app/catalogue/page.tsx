@@ -90,14 +90,14 @@ export default async function CataloguePage({ searchParams }: { searchParams: Pr
       {catalogue.items.length > 0 && (
         <div className="flex justify-between items-center border-t border-brand-border pt-6 text-sm">
           <Link 
-            href={`/catalogue/products?page=${Math.max(1, currentPage - 1)}`}
+            href={`/catalogue?page=${Math.max(1, currentPage - 1)}`}
             className={`border border-brand-border px-4 py-2 bg-white hover:bg-brand-surface ${currentPage === 1 ? 'opacity-50 pointer-events-none' : ''}`}
           >
             &lt; Previous
           </Link>
           <span className="font-mono">Page {currentPage} of {totalPages}</span>
           <Link 
-            href={`/catalogue/products?page=${Math.min(totalPages, currentPage + 1)}`}
+            href={`/catalogue?page=${Math.min(totalPages, currentPage + 1)}`}
             className={`border border-brand-border px-4 py-2 bg-white hover:bg-brand-surface ${currentPage === totalPages ? 'opacity-50 pointer-events-none' : ''}`}
           >
             Next &gt;
