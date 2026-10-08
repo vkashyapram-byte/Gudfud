@@ -31,9 +31,10 @@ The resulting `nutrition_score` is then clamped between `10` and `100`.
 The Ingredients Score analyzes the complexity and length of the raw ingredients list. The model operates on the heuristic that heavily processed foods typically contain highly extensive ingredient lists full of synthetic additives.
 
 - **Length Penalty**: Starting from 100 points, it subtracts 2 points for every discrete ingredient item detected in the list `(ingredient_count * 2)`.
+- **Toxicity Dictionary Matrix**: The model employs a comprehensive toxicity dictionary containing both plain-text chemical names (e.g. "sucralose", "carrageenan", "sodium benzoate") and International Numbering System (INS) or E-numbers (e.g. "INS 211", "INS 955", "INS 102").
+  - **Tier 1 Hazards (-20 pts)**: Severely penalizes artificial dyes (Tartrazine, Allura Red), carcinogenic preservatives (BHA, Nitrites), and inflammatory emulsifiers (Carrageenan).
+  - **Tier 2 Hazards (-5 pts)**: Moderately penalizes questionable additives (Potassium Sorbate, MSG, HFCS, Artificial Flavors).
 - The resulting `ingredient_score` is clamped between `10` and `100`.
-
-*(Note: Advanced variants of the model also rigorously search for explicitly harmful additives like synthetic colors and artificial preservatives to generate specific UI warnings).*
 
 ### 3. Context Score (20% Weight)
 The Context Score dynamically accounts for contextual health modifiers outside of standard macros and ingredient counts. This includes variables like processing level (e.g., NOVA classification - where NOVA 1 is unprocessed and NOVA 4 is ultra-processed). Currently, the pipeline assigns a baseline contextual variance which contributes 20% to the final outcome.
@@ -142,9 +143,11 @@ To populate the database with product data and generate the ML-based scores, uti
    ```
 2. **Calculate and Update Scores**: Execute the scoring script to compute the `total_score`, `nutrition_score`, and `ingredient_score` based on the 100-point heuristic model.
    ```bash
-   python update_scores3.py
+   npx supabase db query -f get_all_prod_data.sql --linked > raw_output_all.txt
+   python apply_toxicity.py
+   npx supabase db query -f update_scores_toxicity_all.sql --linked
    ```
-   *(Note: The `update_scores3.py` script leverages SQLAlchemy to fetch raw `label_version` data, processes the NLP/nutritional rules, and applies an `UPDATE` operation directly back to the database).*
+   *(Note: The `apply_toxicity.py` script leverages a Toxicity Dictionary to parse the raw ingredients, process the NLP/nutritional rules, and generates an `UPDATE` operation directly back to the database).*
 
 ### 6. Deployment Workflow (Vercel)
 This monorepo utilizes Vercel for both the frontend and the serverless python backend. They are deployed as two separate Vercel projects:
