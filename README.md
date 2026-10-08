@@ -32,8 +32,12 @@ The Ingredients Score analyzes the complexity and length of the raw ingredients 
 
 - **Length Penalty**: Starting from 100 points, it subtracts 2 points for every discrete ingredient item detected in the list `(ingredient_count * 2)`.
 - **Toxicity Dictionary Matrix**: The model employs a comprehensive toxicity dictionary containing both plain-text chemical names (e.g. "sucralose", "carrageenan", "sodium benzoate") and International Numbering System (INS) or E-numbers (e.g. "INS 211", "INS 955", "INS 102").
-  - **Tier 1 Hazards (-20 pts)**: Severely penalizes artificial dyes (Tartrazine, Allura Red), carcinogenic preservatives (BHA, Nitrites), and inflammatory emulsifiers (Carrageenan).
-  - **Tier 2 Hazards (-5 pts)**: Moderately penalizes questionable additives (Potassium Sorbate, MSG, HFCS, Artificial Flavors).
+  - **Tier 1 Hazards (-20 pts)**: Severely penalizes artificial dyes, carcinogenic preservatives, and inflammatory emulsifiers. 
+    - *Full list:* BHA, BHT, TBHQ, Propyl/Methyl/Ethyl Paraben, Propyl Gallate, Sodium/Potassium Nitrite, Sodium/Potassium Nitrate, Sodium/Potassium Benzoate, Calcium Sorbate, Sodium Sulfite, Sulfur Dioxide, Potassium/Sodium Bisulfite, Red 40, Yellow 5, Yellow 6, Red 3, Blue 1, Blue 2, Green 3, Titanium Dioxide, Caramel Color, Potassium Bromate, Azodicarbonamide, Benzoyl Peroxide, Chlorine Dioxide, Brominated Vegetable Oil (BVO), Carrageenan, Polysorbate 80/60, Aspartame, Sucralose, Saccharin, Acesulfame Potassium (Ace-K), Partially Hydrogenated/Interesterified Oils.
+    - *INS Codes:* 211, 320, 321, 319, 924, 927a, 250, 251, 407, 951, 955, 954, 102, 110, 129, 133, 171.
+  - **Tier 2 Hazards (-5 pts)**: Moderately penalizes questionable additives and heavily processed fillers.
+    - *Full list:* EDTA, DATEM, Sodium Stearoyl Lactylate (SSL), Carboxymethylcellulose, Cellulose Gum, Propylene Glycol, High Fructose Corn Syrup (HFCS), Corn Syrup Solids, Maltodextrin, Agave Nectar, MSG, Hydrolyzed Soy/Vegetable Protein, Autolyzed Yeast Extract, Artificial Flavors, Diacetyl, Fully Hydrogenated Oils, Sodium/Potassium Aluminum, Silicon Dioxide, Talc.
+    - *INS Codes:* 433, 202.
 - The resulting `ingredient_score` is clamped between `10` and `100`.
 
 ### 3. Context Score (20% Weight)
