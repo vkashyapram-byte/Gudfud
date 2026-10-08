@@ -68,9 +68,10 @@ export default async function CataloguePage({ searchParams }: { searchParams: Pr
               {product.image_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img 
-                  src={product.image_url} 
+                  src={product.image_url.replace(/^http:/, 'https:')}
                   alt={product.canonical_name} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                  referrerPolicy="no-referrer"
                 />
               ) : (
                 <span className="text-gray-400 text-sm">No Image</span>

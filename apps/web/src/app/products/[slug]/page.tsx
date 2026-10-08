@@ -77,9 +77,10 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
         <div className="flex flex-col md:flex-row gap-8 items-start">
           {product.image_url ? (
             <img 
-              src={product.image_url} 
+              src={product.image_url.replace(/^http:/, 'https:')} 
               alt={product.canonical_name} 
               className={`w-full md:w-1/3 aspect-square object-cover bg-white ${imageBorderClass}`}
+              referrerPolicy="no-referrer"
             />
           ) : (
             <div className={`w-full md:w-1/3 aspect-square bg-brand-neutral/5 flex items-center justify-center ${imageBorderClass}`}>
