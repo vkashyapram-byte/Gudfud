@@ -49,14 +49,22 @@ export default async function CataloguePage({ searchParams }: { searchParams: Pr
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
-        {catalogue.items.map((product) => (
+        {catalogue.items.map((product) => {
+          let imageBorderClass = "border-brand-border border-b";
+          if (product.rating_total !== null) {
+            if (product.rating_total >= 70) imageBorderClass = "border-b-4 border-green-500";
+            else if (product.rating_total >= 40) imageBorderClass = "border-b-4 border-yellow-500";
+            else imageBorderClass = "border-b-4 border-red-500";
+          }
+
+          return (
           <Link 
             href={`/products/${product.slug}`} 
             key={product.slug} 
             className="flex flex-col border border-brand-border bg-white hover:border-brand-neutral transition-colors overflow-hidden group"
           >
             {/* Display Product Image */}
-            <div className="w-full h-48 bg-gray-100 flex items-center justify-center border-b border-brand-border relative overflow-hidden">
+            <div className={`w-full h-48 bg-gray-100 flex items-center justify-center relative overflow-hidden ${imageBorderClass}`}>
               {product.image_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img 
@@ -84,7 +92,8 @@ export default async function CataloguePage({ searchParams }: { searchParams: Pr
             </div>
             </div>
           </Link>
-        ))}
+          );
+        })}
       </div>
 
       {catalogue.items.length > 0 && (
