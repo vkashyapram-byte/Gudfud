@@ -21,6 +21,7 @@ class ProductCard(BaseModel):
     brand: BrandBase
     category: CategoryBase
     rating_band: Optional[str] = None
+    rating_total: Optional[int] = None
     confidence_grade: Optional[str] = None
     market_code: str
     image_url: Optional[str] = None

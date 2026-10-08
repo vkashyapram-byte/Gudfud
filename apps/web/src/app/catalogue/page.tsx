@@ -6,6 +6,7 @@ interface ProductCard {
   brand: { name: string; slug: string };
   category: { name: string; slug: string };
   rating_band: string | null;
+  rating_total: number | null;
   confidence_grade: string | null;
   market_code: string;
   image_url?: string | null;
@@ -79,7 +80,7 @@ export default async function CataloguePage({ searchParams }: { searchParams: Pr
             
             <div className="mt-auto border-t border-brand-border pt-3 text-xs">
               <span className="block font-semibold">Rating: {product.rating_band || "Unrated"}</span>
-              <span className="block text-gray-600 mt-1">Confidence: {product.confidence_grade || "N/A"}</span>
+              <span className="block text-gray-600 mt-1">Score: {product.rating_total !== undefined && product.rating_total !== null ? `${product.rating_total}/100` : "N/A"}</span>
             </div>
             </div>
           </Link>

@@ -50,6 +50,7 @@ def get_catalogue(
             models.Category.name.label("category_name"),
             models.Category.slug.label("category_slug"),
             models.Rating.band.label("rating_band"),
+            models.Rating.total_score.label("rating_total"),
             models.Rating.confidence_grade,
             models.Market.country_code.label("market_code"),
             models.LabelVersion.label_image_id.label("image_url"),
