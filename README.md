@@ -14,21 +14,44 @@ GudFud aims to prioritize education and food transparency over commerce. The arc
 
 ---
 
-## 🧠 The Scoring Engine
+## 🧠 The Scoring Engine (Detailed Breakdown)
 
-At the core of GudFud is the scoring engine, which automatically evaluates packaged foods. The final score is out of **100 points** and is derived from a weighted heuristic:
+At the core of GudFud is the scoring engine (`SimpleMLScorer`), which evaluates packaged foods using a deterministic, multi-factor heuristic model. The final score is bound between **10 to 100 points** and is derived from a weighted calculation of three independent variables: Nutrition, Ingredients, and Context.
 
-1. **Nutrition (50% Weight)**: Evaluates the macroscopic health data of the product, specifically penalizing high levels of sugars, saturated fat, and sodium against recommended health limits.
-2. **Ingredients (30% Weight)**: Analyzes the raw ingredients list. Longer, highly-processed ingredient lists are penalized. It rigorously searches for harmful additives, artificial preservatives, and synthetic colors, generating comprehensive "Harmful Ingredients" alerts.
-3. **Context (20% Weight)**: Evaluates contextual modifiers such as processing level (e.g., NOVA classification).
+### 1. Nutrition Score (50% Weight)
+The Nutrition Score evaluates the macroscopic health data of the product, starting with a base of 100 points and penalizing excess amounts of harmful macronutrients. The formula actively targets leading causes of chronic illnesses:
 
-### Scoring Bands
-Based on the final 100-point score, the engine computes a safety band:
-- **Mostly favourable (Score 70 - 100)**: Excellent choice, minimal harmful additives, highly nutritious.
-- **Moderate (Score 40 - 69)**: Moderate choice, likely some processing or elevated sugars/sodium.
-- **Mostly unfavourable (Score 0 - 39)**: Poor choice, highly processed or severely unhealthy.
+- **Sugar Penalty**: Subtracts 2 points for every gram of sugar `(sugars_g * 2)`.
+- **Sodium Penalty**: Subtracts 0.05 points for every milligram of sodium `(sodium_mg * 0.05)`.
+- **Saturated Fat Penalty**: Subtracts 3 points for every gram of saturated fat `(saturated_fat_g * 3)`.
 
-This rating, alongside the final `X/100` score, is clearly surfaced on the catalogue cards and the individual product pages.
+The resulting `nutrition_score` is then clamped between `10` and `100`.
+
+### 2. Ingredients Score (30% Weight)
+The Ingredients Score analyzes the complexity and length of the raw ingredients list. The model operates on the heuristic that heavily processed foods typically contain highly extensive ingredient lists full of synthetic additives.
+
+- **Length Penalty**: Starting from 100 points, it subtracts 2 points for every discrete ingredient item detected in the list `(ingredient_count * 2)`.
+- The resulting `ingredient_score` is clamped between `10` and `100`.
+
+*(Note: Advanced variants of the model also rigorously search for explicitly harmful additives like synthetic colors and artificial preservatives to generate specific UI warnings).*
+
+### 3. Context Score (20% Weight)
+The Context Score dynamically accounts for contextual health modifiers outside of standard macros and ingredient counts. This includes variables like processing level (e.g., NOVA classification - where NOVA 1 is unprocessed and NOVA 4 is ultra-processed). Currently, the pipeline assigns a baseline contextual variance which contributes 20% to the final outcome.
+
+### Final Total Calculation
+The engine applies the predetermined weights to generate the final `total_score`:
+```python
+total_score = (nutrition_score * 0.5) + (ingredient_score * 0.3) + (context_score * 0.2)
+total_score = max(10, min(100, int(total_score)))
+```
+
+### Safety Bands / Color Status
+Based on the final 100-point score, the engine computes a strictly defined safety band which determines the UI color-coding:
+- **🟢 Mostly Favourable (Score 70 - 100)**: Excellent choice, minimal harmful additives, highly nutritious.
+- **🟡 Moderate (Score 40 - 69)**: Moderate choice, likely some processing or elevated sugars/sodium.
+- **🔴 Mostly Unfavourable (Score 10 - 39)**: Poor choice, highly processed or severely unhealthy.
+
+This `band` and the `total_score` are persisted directly into the Supabase database and served via the FastAPI backend to the Next.js frontend.
 
 ---
 
