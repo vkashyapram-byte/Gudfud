@@ -179,7 +179,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
                 <span>Fat</span>
                 <span>{product.nutrition.fat !== null ? `${product.nutrition.fat}g` : "N/A"}</span>
               </div>
-              <div className="flex justify-between border-b border-brand-border border-dashed pb-2">
+              <div className="flex justify-between border-b border-brand-border border-dashed pb-2 ml-4 text-brand-neutral/70">
                 <span>Saturated Fat</span>
                 <span>{product.nutrition.saturated_fat !== null ? `${product.nutrition.saturated_fat}g` : "N/A"}</span>
               </div>
