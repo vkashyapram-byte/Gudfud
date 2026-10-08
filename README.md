@@ -40,36 +40,101 @@ Rather than forcing users to navigate to separate pages to understand complex ch
 
 ---
 
-## 💻 Setup and Scripts
+## 💻 Setup and Scripts (Extensively Detailed)
 
-### Environment Variables
-Set up your backend `.env` based on `.env.example`. Make sure `DATABASE_URL` points to your PostgreSQL instance (e.g., your local Supabase or cloud URL). 
-For the frontend, configure `apps/web/.env` and `apps/web/.env.production` where `NEXT_PUBLIC_API_URL` points to the FastAPI server.
+### 1. Prerequisites
+Before getting started, ensure you have the following installed on your system:
+- **Python 3.10+**: For running the FastAPI backend and ML scripts.
+- **Node.js (v18+) & npm**: For running the Next.js frontend.
+- **Supabase CLI**: For local database management and querying the linked production PostgreSQL instance.
+- **Vercel CLI**: For deploying the separate API and Frontend projects.
 
-### Running the Backend
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn src.main:app --reload
+### 2. Environment Variables Configuration
+You must configure environment variables for both the backend and frontend separately.
+
+**Backend (Root Directory)**
+Create a `.env` file at the root of the project:
+```env
+DATABASE_URL="postgresql://postgres:postgrespassword@localhost:5432/gudfud" # Example local Supabase URL
 ```
 
-### Running the Frontend
+**Frontend (`apps/web/`)**
+Create an `.env.local` (and optionally `.env.production` for production builds) inside `apps/web/`:
+```env
+NEXT_PUBLIC_API_URL="http://localhost:8000" # Development API URL
+# Or for production:
+# NEXT_PUBLIC_API_URL="https://gudfud-api.vercel.app"
+```
+
+### 3. Database Initialization (Supabase & Alembic)
+The project uses PostgreSQL, managed via Supabase, with schemas defined by SQLAlchemy and migrated using Alembic.
+
+1. Initialize and start your local Supabase instance (or link to a cloud instance):
+   ```bash
+   supabase init
+   supabase start
+   ```
+2. Apply the database migrations to generate the schema:
+   ```bash
+   alembic upgrade head
+   ```
+
+### 4. Running the Local Development Environment
+The monorepo requires running two separate development servers simultaneously.
+
+**Terminal A: Start the Python FastAPI Backend**
 ```bash
+# 1. Create a virtual environment
+python3 -m venv .venv
+
+# 2. Activate the virtual environment
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Start the Uvicorn server (Accessible at http://localhost:8000)
+uvicorn src.main:app --reload --port 8000
+```
+
+**Terminal B: Start the Next.js Frontend**
+```bash
+# 1. Navigate to the web app directory
 cd apps/web
+
+# 2. Install Node dependencies
 npm install
+
+# 3. Start the Next.js development server (Accessible at http://localhost:3000)
 npm run dev
 ```
 
-### Database Migrations
-Modifications to the schema require running Alembic migrations:
-```bash
-alembic revision --autogenerate -m "description"
-alembic upgrade head
-```
+### 5. Data Ingestion & ML Scoring Pipeline
+To populate the database with product data and generate the ML-based scores, utilize the provided data pipeline scripts.
 
-### ML Scoring Population
-To re-evaluate products and update scores in bulk, use the scoring scripts (e.g., `update_scores3.py`) which recalculate nutrition, ingredient, and total scores and apply them directly to the database.
+1. **Populate Base Data**: Run the population scripts to ingest ingredient catalogs and safe limits.
+   ```bash
+   python scripts/populate_safe_limits.py
+   python populate_supa.py
+   ```
+2. **Calculate and Update Scores**: Execute the scoring script to compute the `total_score`, `nutrition_score`, and `ingredient_score` based on the 100-point heuristic model.
+   ```bash
+   python update_scores3.py
+   ```
+   *(Note: The `update_scores3.py` script leverages SQLAlchemy to fetch raw `label_version` data, processes the NLP/nutritional rules, and applies an `UPDATE` operation directly back to the database).*
+
+### 6. Deployment Workflow (Vercel)
+This monorepo utilizes Vercel for both the frontend and the serverless python backend. They are deployed as two separate Vercel projects:
+
+- **Frontend Deployment**: Deploys the `apps/web/` directory. Vercel automatically detects Next.js.
+- **Backend Deployment**: Uses the `vercel.json` and `api/index.py` at the repository root to deploy the FastAPI server via Serverless Functions.
+
+To deploy manually via CLI:
 ```bash
-python update_scores3.py
+# Deploy the API
+vercel --prod
+
+# Deploy the Web App
+cd apps/web
+vercel --prod
 ```
