@@ -95,6 +95,7 @@ def get_catalogue(
                 "slug": row.category_slug
             },
             "rating_band": row.rating_band,
+            "rating_total": row.rating_total,
             "confidence_grade": row.confidence_grade,
             "market_code": row.market_code,
             "image_url": row.image_url,
